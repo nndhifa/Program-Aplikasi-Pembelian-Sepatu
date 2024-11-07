@@ -1,2 +1,2 @@
-# Program-Aplikasi-Belanja-Pakaian
+# Program-Aplikasi-Pembelian-Sepatu
 Aplikasi ini akan membantu pengguna mencari produk dan ukuran sepatu sesuai dengan tipe kaki mereka. Dengan memilih sesuai jenis kaki mereka, pengguna akan diberi saran produk sepatu sesuai dengan tipe kaki mereka dengan pilihan harga yang bervariasi. Namun, jika pengguna tidak ingin membeli sepatu yang direkomendasikan, maka list sepatu yang ada di toko sepatu tersebut akan ditampilkan sehingga pengguna bisa memilih sesuai dengan keinginannya.
