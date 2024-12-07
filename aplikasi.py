@@ -1,9 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 
-# Simpan data pengguna untuk login dan sign-up (sementara disimpan dalam dictionary)
-users = {}
-
 # Data sepatu dan produk lainnya
 sepatu_data = {
     "Sepatu Normal": [
@@ -146,11 +143,11 @@ def tampilkan_rekomendasi():
         frame_produk.pack(fill="x", padx=5, pady=5)
 
         # Nama produk
-        label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Arial", 12, "bold"))
+        label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Segoe UI Semibold", 12, "bold"))
         label_nama.pack(anchor="w")
 
         # Harga produk
-        label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Arial", 10))
+        label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Segoe UI Semibold", 10))
         label_harga.pack(anchor="w")
 
         # Tombol tambah ke keranjang
@@ -183,11 +180,11 @@ def tambah_produk_lain():
         frame_produk.pack(fill="x", padx=5, pady=5)
 
         # Nama produk
-        label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Arial", 12, "bold"))
+        label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Segoe UI Semibold", 12, "bold"))
         label_nama.pack(anchor="w")
 
         # Harga produk
-        label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Arial", 10))
+        label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Segoe UI Semibold", 10))
         label_harga.pack(anchor="w")
 
         # Tombol tambah ke keranjang
@@ -226,8 +223,12 @@ root.geometry("800x600")
 # Ganti warna background aplikasi
 root.configure(bg="#323774")
 
+# Atur style untuk tombol
+style = ttk.Style()
+style.configure("Custom.TButton", background="#ccf73b", font=("Segoe UI Semibold", 10))
+
 # Nama aplikasi di bagian atas
-nama_aplikasi = tk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 16, "bold"), bg="#323774", fg="white")
+nama_aplikasi = tk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 22, "bold",), bg="#323774", fg="#ccf73b")
 nama_aplikasi.pack(pady=10)
 
 # Variabel
@@ -237,10 +238,10 @@ ukuran_var = tk.StringVar()
 tipe_jarak_var = tk.StringVar()
 
 # Panduan tipe kaki
-ttk.Button(root, text="Panduan Tipe Kaki", command=tampilkan_panduan_kaki).pack(pady=5)
+ttk.Button(root, text="Panduan Tipe Kaki", style="Custom.TButton", command=tampilkan_panduan_kaki).pack(pady=5)
 
 # Panduan tipe jarak
-ttk.Button(root, text="Panduan Jarak Lari", command=tampilkan_panduan_jarak).pack(pady=5)
+ttk.Button(root, text="Panduan Jarak Lari", style="Custom.TButton", command=tampilkan_panduan_jarak).pack(pady=5)
 
 # Pilih tipe kaki, ukuran, dan jarak lari
 frame_pilihan = ttk.LabelFrame(root, text="Pilih Tipe, Ukuran Kaki, dan Jarak Lari")
@@ -262,7 +263,7 @@ for jarak in ["Pendek", "Menengah", "Jauh"]:
     ttk.Radiobutton(frame_pilihan, text=jarak, variable=tipe_jarak_var, value=jarak).pack(side="left")
 
 # Tombol tampilkan rekomendasi
-ttk.Button(frame_pilihan, text="Tampilkan Sepatu", command=tampilkan_rekomendasi).pack(side="left", padx=5)
+ttk.Button(frame_pilihan, text="Tampilkan Sepatu", style="Custom.TButton", command=tampilkan_rekomendasi).pack(side="left", padx=5)
 
 # Katalog produk
 frame_katalog = ttk.LabelFrame(root, text="Katalog Produk")
@@ -340,7 +341,8 @@ def checkout():
     keranjang_listbox.delete(0, tk.END)
 
 # Menambahkan tombol checkout ke GUI
-ttk.Button(root, text="Checkout", command=checkout).pack(pady=10)
+checkout_button = tk.Button(root, text="Checkout", command=checkout, bg="#ccf73b", fg="black", font=("Segoe UI Semibold", 12))
+checkout_button.pack(pady=10)
 
 # Jalankan aplikasi
 root.mainloop()
