@@ -1,13 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox, simpledialog, StringVar, Frame
-
-# Inisialisasi root
-root = tk.Tk()
-root.title("Aplikasi Pembelian Sepatu")
-root.geometry("800x600")  
-
-# Data pengguna
-users = {}
+from tkinter import ttk, messagebox, simpledialog
 
 # Data sepatu dan produk lainnya
 sepatu_data = {
@@ -102,97 +94,43 @@ produk_lain = [
     {"nama": "Botol Minum Nalgene Wide", "harga": 210000},
 ]
 
-# Variabel global
-current_user = None
-keranjang = []
-tipe_kaki_var = StringVar()
-ukuran_var = StringVar()
-
-# Fungsi untuk membersihkan layar
-def clear_screen():
-    for widget in root.winfo_children():
-        if isinstance(widget, ttk.Frame):
-            widget.pack_forget()
-
-def tampilkan_sign_up_form():
-    clear_screen()
-    sign_up_form_frame.pack(fill="both", expand=True)
-
-def tampilkan_home():
-    clear_screen()
-    home_frame.pack(fill="both", expand=True)
-
-def tampilkan_login_form():
-    login_email_label.pack(pady=5)
-    login_email_entry.pack(pady=5)
-    login_password_label.pack(pady=5)
-    login_password_entry.pack(pady=5)
-    submit_login_button.pack(pady=5)
-
-def sign_up():
-    clear_screen()
-    nama_lengkap = nama_entry.get()
-    email = email_entry.get()
-    password = password_entry.get()
-
-    if not nama_lengkap or not email or not password:
-        messagebox.showwarning("Peringatan", "Semua kolom harus diisi!")
-        return
-
-    if email in users:
-        messagebox.showwarning("Peringatan", "Email sudah terdaftar!")
-        return
-
-    users[email] = {"nama": nama_lengkap, "password": password}
-    messagebox.showinfo("Sukses", "Pendaftaran berhasil! Silakan login.")
-    tampilkan_home()
-
-def login():
-    clear_screen()
-    global current_user
-    email = login_email_entry.get()
-    password = login_password_entry.get()
-
-    if email not in users or users[email]["password"] != password:
-        messagebox.showwarning("Gagal Login", "Email atau password salah!")
-        return
-
-    current_user = email
-    messagebox.showinfo("Sukses", f"Selamat datang, {users[email]['nama']}!")
-    tampilkan_toko()  
-    
-def tampilkan_toko():
-    clear_screen()
-    toko_frame.pack(fill="both", expand=True)
-
 # Fungsi untuk menampilkan panduan tipe kaki
-def tampilkan_panduan():
+def tampilkan_panduan_kaki():
     panduan_text = (
         "1. Normal: Bentuk kaki standar.\n"
         "2. Sempit: Kaki dengan lebar kecil.\n"
         "3. Lebar: Kaki dengan lebar besar.\n"
     )
     messagebox.showinfo("Panduan Tipe Kaki", panduan_text)
+    
+# Fungsi untuk menampilkan panduan jarak lari
+def tampilkan_panduan_jarak():
+    panduan_text = (
+        "1. Pendek: Kurang dari 5 km.\n"
+        "2. Menengah: 5 km hingga 10 km.\n"
+        "3. Jauh: Lebih dari 10 km.\n"
+    )
+    messagebox.showinfo("Panduan Jarak Lari", panduan_text)
 
-# Fungsi untuk menampilkan sepatu rekomendasi berdasarkan tipe dan ukuran kaki
+# Fungsi untuk menampilkan sepatu rekomendasi berdasarkan tipe kaki, ukuran, dan jarak lari
 def tampilkan_rekomendasi():
-    clear_screen()
     tipe_kaki = tipe_kaki_var.get()
     ukuran_kaki = ukuran_var.get()
+    tipe_jarak = tipe_jarak_var.get()
 
-    if not tipe_kaki or not ukuran_kaki:
-        messagebox.showwarning("Peringatan", "Pilih tipe dan ukuran kaki terlebih dahulu!")
+    if not tipe_kaki or not ukuran_kaki or not tipe_jarak:
+        messagebox.showwarning("Peringatan", "Pilih tipe kaki, ukuran kaki, dan jarak lari terlebih dahulu!")
         return
 
     ukuran = int(ukuran_kaki)
-    daftar_sepatu = sepatu_data.get(f"Sepatu {tipe_kaki}", [])  # Mendapatkan daftar sepatu berdasarkan tipe kaki
+    daftar_sepatu = sepatu_data.get(f"Sepatu {tipe_kaki}", [])
 
-    # Filter sepatu berdasarkan ukuran
+    # Filter sepatu berdasarkan ukuran (dapat ditambahkan logika terkait jarak lari jika ada data tambahan)
     rekomendasi = [sepatu for sepatu in daftar_sepatu if ukuran in sepatu["ukuran"]]
 
     # Tampilkan pesan jika tidak ada rekomendasi
     if not rekomendasi:
-        messagebox.showinfo("Informasi", f"Tidak ada sepatu yang tersedia untuk ukuran {ukuran} pada tipe kaki {tipe_kaki}.")
+        messagebox.showinfo("Informasi", f"Tidak ada sepatu yang sesuai untuk ukuran {ukuran} pada tipe kaki {tipe_kaki}.")
         return
 
     # Bersihkan frame katalog sebelum menampilkan rekomendasi baru
@@ -219,16 +157,9 @@ def tampilkan_rekomendasi():
             command=lambda p=produk: tambah_ke_keranjang(p)
         )
         tombol_tambah.pack(anchor="e")
-    
-def tampilkan_katalog():
-    clear_screen()
-    global katalog_frame
-    katalog_frame = Frame(root)
-    katalog_frame.pack(fill="both", expand=True)
 
 # Fungsi untuk menambahkan sepatu atau produk lain ke keranjang
 def tambah_ke_keranjang(produk):
-    clear_screen()
     keranjang.append(produk)
     keranjang_listbox.insert(tk.END, f"{produk['nama']} - Rp {produk['harga']:,}")
     if produk in produk_lain:
@@ -239,158 +170,122 @@ def tambah_ke_keranjang(produk):
     if tambah_lagi:
         tambah_produk_lain()
 
-# Halaman utama aplikasi
-def main_page():
-    clear_screen()
-    for widget in root.winfo_children():
+# Fungsi untuk menambahkan produk lain
+def tambah_produk_lain():
+    for widget in katalog_frame.winfo_children():
         widget.destroy()
 
-    nama_aplikasi = ttk.Label(root, text="Shoes Center", font=("Rockwell Extra Bold", 16, "bold"), anchor="center")
-    nama_aplikasi.pack(pady=10)
+    for produk in produk_lain:
+        frame_produk = ttk.Frame(katalog_frame, relief="ridge", padding=10)
+        frame_produk.pack(fill="x", padx=5, pady=5)
 
-    ttk.Button(root, text="Panduan Tipe Kaki", command=tampilkan_panduan).pack(pady=5)
+        # Nama produk
+        label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Arial", 12, "bold"))
+        label_nama.pack(anchor="w")
 
-    frame_pilihan = ttk.LabelFrame(root, text="Pilih Tipe dan Ukuran Kaki")
-    frame_pilihan.pack(fill="x", padx=10, pady=10)
+        # Harga produk
+        label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Arial", 10))
+        label_harga.pack(anchor="w")
 
-    ttk.Label(frame_pilihan, text="Pilih Tipe Kaki:").pack(side="left", padx=5)
-    for tipe in ["Normal", "Sempit", "Lebar"]:
-        ttk.Radiobutton(frame_pilihan, text=tipe, variable=tipe_kaki_var, value=tipe).pack(side="left")
+        # Tombol tambah ke keranjang
+        tombol_tambah = ttk.Button(
+            frame_produk,
+            text="Tambah ke Keranjang",
+            command=lambda p=produk: tambah_ke_keranjang(p)
+        )
+        tombol_tambah.pack(anchor="e")
 
-    ttk.Label(frame_pilihan, text="Pilih Ukuran Kaki:").pack(side="left", padx=5)
-    ukuran_dropdown = ttk.Combobox(frame_pilihan, textvariable=ukuran_var, values=list(range(36, 46)), state="readonly")
-    ukuran_dropdown.pack(side="left", padx=5)
-
-    ttk.Button(frame_pilihan, text="Tampilkan Sepatu", command=tampilkan_rekomendasi).pack(side="left", padx=5)
-
-    frame_katalog = ttk.LabelFrame(root, text="Katalog Produk")
-    frame_katalog.pack(fill="both", expand=True, padx=10, pady=10)
-
-    canvas = tk.Canvas(frame_katalog)
-    canvas.pack(side="left", fill="both", expand=True)
-
-    scrollbar = ttk.Scrollbar(frame_katalog, orient="vertical", command=canvas.yview)
-    scrollbar.pack(side="right", fill="y")
-
-    canvas.configure(yscrollcommand=scrollbar.set)
-    global katalog_frame
-    katalog_frame = ttk.Frame(canvas)
-    canvas.create_window((0, 0), window=katalog_frame, anchor="nw")
-
-    frame_keranjang = ttk.LabelFrame(root, text="Keranjang Belanja")
-    frame_keranjang.pack(fill="x", padx=10, pady=10)
-
-    global keranjang_listbox
-    keranjang_listbox = tk.Listbox(frame_keranjang, height=8)
-    keranjang_listbox.pack(fill="x", padx=5, pady=5)
-
-    frame_aksi = tk.Frame(root)
-    frame_aksi.pack(fill="x", padx=40, pady=40)
-
+# Fungsi untuk checkout
 def checkout():
-    clear_screen()
     if not keranjang:
         messagebox.showwarning("Peringatan", "Keranjang belanja Anda kosong!")
-        return
-
-    alamat_pengiriman = simpledialog.askstring("Checkout", "Masukkan alamat pengiriman Anda:")
-    if not alamat_pengiriman:
-        messagebox.showwarning("Peringatan", "Alamat pengiriman tidak boleh kosong!")
         return
 
     total_harga = sum(item["harga"] for item in keranjang)
     uang_bayar = simpledialog.askinteger("Checkout", f"Total belanja Anda Rp {total_harga:,}\nMasukkan jumlah uang Anda:")
 
-    if uang_bayar is None or uang_bayar < total_harga:
-        messagebox.showwarning("Peringatan", "Uang Anda tidak mencukupi!")
+    if uang_bayar is None:
         return
 
-    kembalian = uang_bayar - total_harga
-    messagebox.showinfo(
-        "Terima Kasih",
-        f"Terima kasih telah berbelanja, {users[current_user]['nama']}!\nKembalian Anda: Rp {kembalian:,}\nAlamat Pengiriman: {alamat_pengiriman}"
-    )
-    keranjang.clear()
-    keranjang_listbox.delete(0, tk.END)
-    logout()
-
-def logout():
-    clear_screen()
-    global current_user
-    current_user = None
-    keranjang.clear()
-    keranjang_listbox.delete(0, tk.END)
-    tampilkan_home()
-
-
-def clear_screen():
-    for widget in root.winfo_children():
-        if isinstance(widget, ttk.Frame):
-            widget.pack_forget()
+    if uang_bayar < total_harga:
+        messagebox.showwarning("Peringatan", "Uang Anda tidak mencukupi!")
+    else:
+        kembalian = uang_bayar - total_harga
+        messagebox.showinfo("Terima Kasih", f"Terima kasih telah berbelanja!\nKembalian Anda: Rp {kembalian:,}")
+        keranjang.clear()
+        keranjang_listbox.delete(0, tk.END)
 
 # Setup aplikasi
 root = tk.Tk()
 root.title("Aplikasi Pembelian Produk")
 root.geometry("800x600")
 
-# Frame untuk Home
-home_frame = ttk.Frame(root)
-home_frame.pack(fill="both", expand=True)
+# Nama aplikasi di bagian atas
+nama_aplikasi = ttk.Label(root, text="Shoes Center", font=("Rockwell Extra Bold", 16, "bold"), anchor="center")
+nama_aplikasi.pack(pady=10)
 
-welcome_label = ttk.Label(home_frame, text="Selamat Datang di Aplikasi Kami!")
-welcome_label.pack(pady=10)
+# Variabel
+keranjang = []
+tipe_kaki_var = tk.StringVar()
+ukuran_var = tk.StringVar()
+tipe_jarak_var = tk.StringVar()
 
-signup_button = ttk.Button(home_frame, text="Sign Up", command=tampilkan_sign_up_form)
-signup_button.pack(pady=5)
+# Panduan tipe kaki
+ttk.Button(root, text="Panduan Tipe Kaki", command=tampilkan_panduan_kaki).pack(pady=5)
 
-login_button = ttk.Button(home_frame, text="Login", command=tampilkan_login_form)
-login_button.pack(pady=5)
+# Panduan tipe jarak
+ttk.Button(root, text="Panduan Jarak Lari", command=tampilkan_panduan_jarak).pack(pady=5)
 
-# Input login (disembunyikan awalnya)
-login_email_label = ttk.Label(home_frame, text="Email:")
-login_email_entry = ttk.Entry(home_frame)
-login_password_label = ttk.Label(home_frame, text="Password:")
-login_password_entry = ttk.Entry(home_frame, show="*")
-submit_login_button = ttk.Button(home_frame, text="Submit Login", command=login)
+# Pilih tipe kaki, ukuran, dan jarak lari
+frame_pilihan = ttk.LabelFrame(root, text="Pilih Tipe, Ukuran Kaki, dan Jarak Lari")
+frame_pilihan.pack(fill="x", padx=10, pady=10)
 
-# Frame untuk Form Sign Up
-sign_up_form_frame = ttk.Frame(root)
+# Pilihan tipe kaki
+ttk.Label(frame_pilihan, text="Pilih Tipe Kaki:").pack(side="left", padx=5)
+for tipe in ["Normal", "Sempit", "Lebar"]:
+    ttk.Radiobutton(frame_pilihan, text=tipe, variable=tipe_kaki_var, value=tipe).pack(side="left")
 
-nama_label = ttk.Label(sign_up_form_frame, text="Nama Lengkap:")
-nama_label.pack()
-nama_entry = ttk.Entry(sign_up_form_frame)
-nama_entry.pack()
+# Pilihan ukuran kaki
+ttk.Label(frame_pilihan, text="Pilih Ukuran Kaki:").pack(side="left", padx=5)
+ukuran_dropdown = ttk.Combobox(frame_pilihan, textvariable=ukuran_var, values=list(range(36, 46)), state="readonly")
+ukuran_dropdown.pack(side="left", padx=5)
 
-email_label = ttk.Label(sign_up_form_frame, text="Email:")
-email_label.pack()
-email_entry = ttk.Entry(sign_up_form_frame)
-email_entry.pack()
+# Pilihan jarak lari
+ttk.Label(frame_pilihan, text="Pilih Jarak Lari:").pack(side="left", padx=5)
+for jarak in ["Pendek", "Menengah", "Jauh"]:
+    ttk.Radiobutton(frame_pilihan, text=jarak, variable=tipe_jarak_var, value=jarak).pack(side="left")
 
-password_label = ttk.Label(sign_up_form_frame, text="Password:")
-password_label.pack()
-password_entry = ttk.Entry(sign_up_form_frame, show="*")
-password_entry.pack()
+# Tombol tampilkan rekomendasi
+ttk.Button(frame_pilihan, text="Tampilkan Sepatu", command=tampilkan_rekomendasi).pack(side="left", padx=5)
 
-submit_signup_button = ttk.Button(sign_up_form_frame, text="Submit Sign Up", command=sign_up)
-submit_signup_button.pack(pady=5)
+# Katalog produk
+frame_katalog = ttk.LabelFrame(root, text="Katalog Produk")
+frame_katalog.pack(fill="both", expand=True, padx=10, pady=10)
 
-# Frame untuk Toko
-toko_frame = ttk.Frame(root)
+canvas = tk.Canvas(frame_katalog)
+canvas.pack(side="left", fill="both", expand=True)
 
-keranjang_frame = ttk.LabelFrame(toko_frame, text="Keranjang Belanja")
-keranjang_frame.pack(fill="x", padx=10, pady=10)
+scrollbar = ttk.Scrollbar(frame_katalog, orient="vertical", command=canvas.yview)
+scrollbar.pack(side="right", fill="y")
 
-keranjang_listbox = tk.Listbox(keranjang_frame, height=8)
+canvas.configure(yscrollcommand=scrollbar.set)
+
+# Frame untuk katalog
+katalog_frame = ttk.Frame(canvas)
+canvas.create_window((0, 0), window=katalog_frame, anchor="nw")
+
+# Keranjang belanja
+frame_keranjang = ttk.LabelFrame(root, text="Keranjang Belanja")
+frame_keranjang.pack(fill="x", padx=10, pady=10)
+
+keranjang_listbox = tk.Listbox(frame_keranjang, height=8)
 keranjang_listbox.pack(fill="x", padx=5, pady=5)
 
-checkout_button = ttk.Button(toko_frame, text="Checkout", command=checkout)
-checkout_button.pack(pady=10)
+# Tombol checkout
+frame_aksi = tk.Frame(root)
+frame_aksi.pack(fill="x", padx=40, pady=40)
 
-logout_button = ttk.Button(toko_frame, text="Logout", command=logout)
-logout_button.pack(pady=10)
-
-# Tampilkan frame awal
-tampilkan_home()
+ttk.Button(frame_aksi, text="Checkout", command=checkout).pack(anchor="center", pady=5)
 
 # Jalankan aplikasi
 root.mainloop()
