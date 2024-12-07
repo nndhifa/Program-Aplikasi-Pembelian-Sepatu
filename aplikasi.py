@@ -94,6 +94,97 @@ produk_lain = [
     {"nama": "Botol Minum Nalgene Wide", "harga": 210000},
 ]
 
+# Data dummy akun pengguna
+users_db = {}
+
+# Fungsi untuk menampilkan halaman login
+def show_login():
+    clear_window()
+
+    # Form login
+    ttk.Label(root, text="Email:").pack(pady=5)
+    email_entry = ttk.Entry(root, width=30)
+    email_entry.pack(pady=5)
+    
+    ttk.Label(root, text="Password:").pack(pady=5)
+    password_entry = ttk.Entry(root, width=30, show="*")
+    password_entry.pack(pady=5)
+    
+    # Tombol Login
+    def login():
+        email = email_entry.get()
+        password = password_entry.get()
+        if email in users_db and users_db[email]["password"] == password:
+            messagebox.showinfo("Login Success", "Login berhasil!")
+            show_main_app()  # Tampilkan aplikasi utama
+        else:
+            messagebox.showerror("Login Failed", "Email atau password salah!")
+
+    ttk.Button(root, text="Login", command=login).pack(pady=10)
+
+    # Tombol ke Sign Up
+    def go_to_signup():
+        show_signup()
+
+    ttk.Button(root, text="Belum punya akun? Daftar di sini", command=go_to_signup).pack(pady=10)
+
+# Fungsi untuk menampilkan halaman sign up
+def show_signup():
+    clear_window()
+
+    # Judul
+    ttk.Label(root, text="Sign Up", font=("Arial", 14, "bold")).pack(pady=20)
+
+    # Form sign up
+    ttk.Label(root, text="Nama Lengkap:").pack(pady=5)
+    name_entry = ttk.Entry(root, width=30)
+    name_entry.pack(pady=5)
+    
+    ttk.Label(root, text="Email:").pack(pady=5)
+    email_entry = ttk.Entry(root, width=30)
+    email_entry.pack(pady=5)
+
+    ttk.Label(root, text="Password:").pack(pady=5)
+    password_entry = ttk.Entry(root, width=30, show="*")
+    password_entry.pack(pady=5)
+    
+    # Tombol Sign Up
+    def signup():
+        name = name_entry.get()
+        email = email_entry.get()
+        password = password_entry.get()
+        
+        if email in users_db:
+            messagebox.showerror("Sign Up Failed", "Email sudah terdaftar!")
+        else:
+            users_db[email] = {"name": name, "password": password}
+            messagebox.showinfo("Sign Up Success", "Akun berhasil dibuat!")
+            show_login()  # Kembali ke halaman login setelah sign up sukses
+
+    ttk.Button(root, text="Sign Up", command=signup).pack(pady=10)
+
+    # Tombol ke Login
+    def go_to_login():
+        show_login()
+
+    ttk.Button(root, text="Sudah punya akun? Login di sini", command=go_to_login).pack(pady=10)
+
+# Fungsi untuk membersihkan window sebelum menampilkan tampilan baru
+def clear_window():
+    for widget in root.winfo_children():
+        widget.destroy()
+
+# Fungsi untuk menampilkan aplikasi utama
+def show_main_app():
+    clear_window()
+    
+    # Nama aplikasi di bagian atas
+    ttk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 16, "bold"), anchor="center").pack(pady=10)
+
+    # Pilih tipe kaki, ukuran, dan jarak lari
+    frame_pilihan = ttk.LabelFrame(root, text="Pilih Tipe, Ukuran Kaki, dan Jarak Lari")
+    frame_pilihan.pack(fill="x", padx=10, pady=10)
+
 # Fungsi untuk menampilkan panduan tipe kaki
 def tampilkan_panduan_kaki():
     panduan_text = (
@@ -295,9 +386,13 @@ def checkout():
         return
 
     def pembayaran_cod():
+        # Menampilkan total harga sebelum konfirmasi COD
+        messagebox.showinfo("Total Belanja", f"Total belanja Anda: Rp {total_harga:,}\nMohon siapkan nominal sebesar total dan berikan kepada kurir saat paket sampai.")
+        
+        # Konfirmasi pembayaran COD
         konfirmasi_cod = messagebox.askyesno("Konfirmasi Pembayaran COD", "Apakah Anda ingin melanjutkan dengan metode pembayaran COD?")
         if konfirmasi_cod:
-            messagebox.showinfo("Transaksi Sukses", "Terima kasih telah berbelanja, mohon siapkan nominal sebesar Rp {total_harga:,} dan berikan kepada kurir saat paket sampai.")
+            messagebox.showinfo("Transaksi Sukses", "Terima kasih telah berbelanja, paket Anda akan segera dikirimkan.")
         else:
             pilih_metode_pembayaran()
 
@@ -331,6 +426,14 @@ def checkout():
 
 # Menambahkan tombol checkout ke GUI
 ttk.Button(root, text="Checkout", command=checkout).pack(pady=10)
+
+# Setup aplikasi
+root = tk.Tk()
+root.title("Aplikasi Pembelian Produk")
+root.geometry("800x600")
+
+# Mulai dengan tampilan login
+show_login()
 
 # Jalankan aplikasi
 root.mainloop()
