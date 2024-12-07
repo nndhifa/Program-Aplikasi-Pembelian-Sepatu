@@ -115,6 +115,7 @@ class TokoSepatuApp:
     def show_rekomendasi(self, tipe_kaki):
         jarak = self.jarak_var.get()
         rekomendasi = self.sepatu_lari[tipe_kaki].get(jarak, [])
+        print("Rekomendasi:", rekomendasi)  # Tambahkan untuk debugging
         self.clear_screen()
 
         tk.Label(self.root, text=f"Rekomendasi Sepatu ({tipe_kaki} - {jarak})", font=("Arial", 16)).pack(pady=10)
