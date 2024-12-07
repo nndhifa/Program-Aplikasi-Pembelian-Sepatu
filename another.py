@@ -1,5 +1,126 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
+import json
+import os
+
+# Lokasi file JSON
+file_akun = "akun.json"
+
+# Fungsi untuk memuat data dari file JSON
+def muat_data_akun():
+    if os.path.exists(file_akun):
+        with open(file_akun, "r") as file:
+            return json.load(file)
+    return {}
+
+# Fungsi untuk menyimpan data ke file JSON
+def simpan_data_akun(data):
+    with open(file_akun, "w") as file:
+        json.dump(data, file, indent=4)
+
+# Memuat data awal
+data_akun = muat_data_akun()
+
+# Fungsi untuk Sign Up
+def proses_sign_up(entry_nama, entry_email, entry_password):
+    nama = entry_nama.get().strip()
+    email = entry_email.get().strip()
+    password = entry_password.get().strip()
+
+    if not nama or not email or not password:
+        messagebox.showwarning("Peringatan", "Semua kolom harus diisi!")
+        return
+
+    if email in data_akun:
+        messagebox.showwarning("Peringatan", "Email sudah terdaftar!")
+        return
+
+    data_akun[email] = {"nama": nama, "password": password}
+    simpan_data_akun(data_akun)  # Simpan ke file
+    messagebox.showinfo("Sukses", "Akun berhasil didaftarkan! Silakan login.")
+    # Reset form setelah berhasil
+    entry_nama.delete(0, tk.END)
+    entry_email.delete(0, tk.END)
+    entry_password.delete(0, tk.END)
+
+# Fungsi untuk Login
+def proses_login(entry_email, entry_password):
+    email = entry_email.get().strip()
+    password = entry_password.get().strip()
+
+    if not email or not password:
+        messagebox.showwarning("Peringatan", "Email dan password harus diisi!")
+        return
+
+    if email not in data_akun or data_akun[email]["password"] != password:
+        messagebox.showerror("Error", "Email atau password salah!")
+        return
+
+    messagebox.showinfo("Sukses", f"Selamat datang, {data_akun[email]['nama']}!")
+    # Reset form setelah login berhasil
+    entry_email.delete(0, tk.END)
+    entry_password.delete(0, tk.END)
+    
+# Setup aplikasi utama
+root = tk.Tk()
+root.title("Sign Up dan Login")
+root.geometry("400x350")
+
+# Membuat tab untuk Sign Up dan Login
+tab_control = ttk.Notebook(root)
+
+# Tab Sign Up
+tab_sign_up = ttk.Frame(tab_control)
+tab_control.add(tab_sign_up, text="Sign Up")
+
+ttk.Label(tab_sign_up, text="Sign Up", font=("Arial", 16, "bold")).pack(pady=10)
+
+frame_sign_up = ttk.Frame(tab_sign_up)
+frame_sign_up.pack(pady=10, padx=20)
+
+ttk.Label(frame_sign_up, text="Nama Lengkap:").grid(row=0, column=0, sticky="w", pady=5)
+entry_nama_sign_up = ttk.Entry(frame_sign_up)
+entry_nama_sign_up.grid(row=0, column=1, pady=5)
+
+ttk.Label(frame_sign_up, text="Email:").grid(row=1, column=0, sticky="w", pady=5)
+entry_email_sign_up = ttk.Entry(frame_sign_up)
+entry_email_sign_up.grid(row=1, column=1, pady=5)
+
+ttk.Label(frame_sign_up, text="Password:").grid(row=2, column=0, sticky="w", pady=5)
+entry_password_sign_up = ttk.Entry(frame_sign_up, show="*")
+entry_password_sign_up.grid(row=2, column=1, pady=5)
+
+ttk.Button(
+    tab_sign_up,
+    text="Daftar",
+    command=lambda: proses_sign_up(entry_nama_sign_up, entry_email_sign_up, entry_password_sign_up)
+).pack(pady=20)
+
+# Tab Login
+tab_login = ttk.Frame(tab_control)
+tab_control.add(tab_login, text="Login")
+
+ttk.Label(tab_login, text="Login", font=("Arial", 16, "bold")).pack(pady=10)
+
+frame_login = ttk.Frame(tab_login)
+frame_login.pack(pady=10, padx=20)
+
+ttk.Label(frame_login, text="Email:").grid(row=0, column=0, sticky="w", pady=5)
+entry_email_login = ttk.Entry(frame_login)
+entry_email_login.grid(row=0, column=1, pady=5)
+
+ttk.Label(frame_login, text="Password:").grid(row=1, column=0, sticky="w", pady=5)
+entry_password_login = ttk.Entry(frame_login, show="*")
+entry_password_login.grid(row=1, column=1, pady=5)
+
+ttk.Button(
+    tab_login,
+    text="Masuk",
+    command=lambda: proses_login(entry_email_login, entry_password_login)
+).pack(pady=20)
+
+# Menambahkan tab ke root
+tab_control.pack(expand=1, fill="both")
 
 # Data sepatu dan produk lainnya
 sepatu_data = {
