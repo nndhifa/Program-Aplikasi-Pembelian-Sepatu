@@ -1,119 +1,5 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
-import json
-import os
-
-# Lokasi file JSON
-file_akun = "akun.json"
-
-# Fungsi untuk memuat data dari file JSON
-def muat_data_akun():
-    if os.path.exists(file_akun):
-        with open(file_akun, "r") as file:
-            return json.load(file)
-    return {}
-
-# Fungsi untuk menyimpan data ke file JSON
-def simpan_data_akun(data):
-    with open(file_akun, "w") as file:
-        json.dump(data, file, indent=4)
-
-# Memuat data awal
-data_akun = muat_data_akun()
-
-# Fungsi untuk mengganti frame yang aktif
-def ganti_frame(frame_baru):
-    frame_aktif.pack_forget()
-    frame_baru.pack(fill="both", expand=True)
-
-# Fungsi untuk Sign Up
-def proses_sign_up():
-    nama = entry_nama_signup.get().strip()
-    email = entry_email_signup.get().strip()
-    password = entry_password_signup.get().strip()
-
-    if not nama or not email or not password:
-        messagebox.showwarning("Peringatan", "Semua kolom harus diisi!")
-        return
-
-    if email in data_akun:
-        messagebox.showwarning("Peringatan", "Email sudah terdaftar!")
-        return
-
-    data_akun[email] = {"nama": nama, "password": password}
-    simpan_data_akun(data_akun)
-    messagebox.showinfo("Sukses", "Akun berhasil didaftarkan! Silakan login.")
-    ganti_frame(frame_login)
-
-# Fungsi untuk Login
-def proses_login():
-    email = entry_email_login.get().strip()
-    password = entry_password_login.get().strip()
-
-    if not email or not password:
-        messagebox.showwarning("Peringatan", "Email dan password harus diisi!")
-        return
-
-    if email not in data_akun or data_akun[email]["password"] != password:
-        messagebox.showerror("Error", "Email atau password salah!")
-        return
-
-    messagebox.showinfo("Sukses", f"Selamat datang, {data_akun[email]['nama']}!")
-    ganti_frame(frame_belanja)
-
-# Fungsi untuk keluar aplikasi
-def keluar_aplikasi():
-    root.destroy()
-
-# Setup aplikasi utama
-root = tk.Tk()
-root.title("Aplikasi Belanja")
-root.geometry("400x400")
-
-# Frame Sign Up
-frame_signup = tk.Frame(root)
-tk.Label(frame_signup, text="Sign Up", font=("Arial", 16, "bold")).pack(pady=10)
-
-tk.Label(frame_signup, text="Nama Lengkap:").pack(anchor="w", padx=20)
-entry_nama_signup = tk.Entry(frame_signup)
-entry_nama_signup.pack(fill="x", padx=20, pady=5)
-
-tk.Label(frame_signup, text="Email:").pack(anchor="w", padx=20)
-entry_email_signup = tk.Entry(frame_signup)
-entry_email_signup.pack(fill="x", padx=20, pady=5)
-
-tk.Label(frame_signup, text="Password:").pack(anchor="w", padx=20)
-entry_password_signup = tk.Entry(frame_signup, show="*")
-entry_password_signup.pack(fill="x", padx=20, pady=5)
-
-tk.Button(frame_signup, text="Daftar", command=proses_sign_up).pack(pady=10)
-tk.Button(frame_signup, text="Sudah punya akun? Login", command=lambda: ganti_frame(frame_login)).pack()
-
-# Frame Login
-frame_login = tk.Frame(root)
-tk.Label(frame_login, text="Login", font=("Arial", 16, "bold")).pack(pady=10)
-
-tk.Label(frame_login, text="Email:").pack(anchor="w", padx=20)
-entry_email_login = tk.Entry(frame_login)
-entry_email_login.pack(fill="x", padx=20, pady=5)
-
-tk.Label(frame_login, text="Password:").pack(anchor="w", padx=20)
-entry_password_login = tk.Entry(frame_login, show="*")
-entry_password_login.pack(fill="x", padx=20, pady=5)
-
-tk.Button(frame_login, text="Masuk", command=proses_login).pack(pady=10)
-tk.Button(frame_login, text="Belum punya akun? Sign Up", command=lambda: ganti_frame(frame_signup)).pack()
-
-# Frame Belanja
-frame_belanja = tk.Frame(root)
-tk.Label(frame_belanja, text="Halaman Belanja", font=("Arial", 16, "bold")).pack(pady=10)
-
-tk.Label(frame_belanja, text="Selamat datang di aplikasi belanja!").pack(pady=20)
-tk.Button(frame_belanja, text="Keluar", command=keluar_aplikasi).pack()
-
-# Tampilkan frame Login sebagai default
-frame_aktif = frame_login
-frame_aktif.pack(fill="both", expand=True)
 
 # Data sepatu dan produk lainnya
 sepatu_data = {
@@ -395,11 +281,56 @@ frame_keranjang.pack(fill="x", padx=10, pady=10)
 keranjang_listbox = tk.Listbox(frame_keranjang, height=8)
 keranjang_listbox.pack(fill="x", padx=5, pady=5)
 
-# Tombol checkout
-frame_aksi = tk.Frame(root)
-frame_aksi.pack(fill="x", padx=40, pady=40)
+# Fungsi untuk checkout
+def checkout():
+    if not keranjang:
+        messagebox.showwarning("Peringatan", "Keranjang belanja Anda kosong!")
+        return
 
-ttk.Button(frame_aksi, text="Checkout", command=checkout).pack(anchor="center", pady=5)
+    total_harga = sum(item["harga"] for item in keranjang)
+    alamat = simpledialog.askstring("Checkout", "Masukkan alamat pengiriman:")
+    
+    if not alamat:
+        messagebox.showwarning("Peringatan", "Alamat harus diisi!")
+        return
+
+    def pembayaran_cod():
+        konfirmasi_cod = messagebox.askyesno("Konfirmasi Pembayaran COD", "Apakah Anda ingin melanjutkan dengan metode pembayaran COD?")
+        if konfirmasi_cod:
+            messagebox.showinfo("Pembayaran Sukses", "Pembayaran sukses, terima kasih telah berbelanja, mohon tunggu paketnya.")
+        else:
+            pilih_metode_pembayaran()
+
+    def pembayaran_virtual_account():
+        bank = simpledialog.askstring("Pilih Bank", "Masukkan nama bank (Mandiri/BNI/BRI/BCA):")
+        if bank and bank.upper() in ["MANDIRI", "BNI", "BRI", "BCA"]:
+            rekening = f"VA Bank {bank.upper()} - 123456789"
+            messagebox.showinfo("Virtual Account", f"Silakan transfer ke rekening berikut:\n{rekening}\nTotal: Rp {total_harga:,}")
+            konfirmasi = messagebox.askyesno("Konfirmasi Pembayaran", "Apakah Anda sudah melakukan pembayaran?")
+            if konfirmasi:
+                messagebox.showinfo("Pembayaran Sukses", "Pembayaran sukses, terima kasih telah berbelanja, mohon tunggu paketnya.")
+            else:
+                pilih_metode_pembayaran()
+        else:
+            messagebox.showwarning("Peringatan", "Bank tidak valid!")
+            pembayaran_virtual_account()
+
+    def pilih_metode_pembayaran():
+        metode = simpledialog.askstring("Metode Pembayaran", "Pilih metode pembayaran (COD/Virtual Account):")
+        if metode and metode.upper() == "COD":
+            pembayaran_cod()
+        elif metode and metode.upper() == "VIRTUAL ACCOUNT":
+            pembayaran_virtual_account()
+        else:
+            messagebox.showwarning("Peringatan", "Metode pembayaran tidak valid!")
+            pilih_metode_pembayaran()
+
+    pilih_metode_pembayaran()
+    keranjang.clear()
+    keranjang_listbox.delete(0, tk.END)
+
+# Menambahkan tombol checkout ke GUI
+ttk.Button(root, text="Checkout", command=checkout).pack(pady=10)
 
 # Jalankan aplikasi
 root.mainloop()
