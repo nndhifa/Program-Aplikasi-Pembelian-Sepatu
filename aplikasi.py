@@ -297,7 +297,7 @@ def checkout():
     def pembayaran_cod():
         konfirmasi_cod = messagebox.askyesno("Konfirmasi Pembayaran COD", "Apakah Anda ingin melanjutkan dengan metode pembayaran COD?")
         if konfirmasi_cod:
-            messagebox.showinfo("Pembayaran Sukses", "Pembayaran sukses, terima kasih telah berbelanja, mohon tunggu paketnya.")
+            messagebox.showinfo("Transaksi Sukses", "Terima kasih telah berbelanja, mohon siapkan nominal sebesar Rp {total_harga:,} dan berikan kepada kurir saat paket sampai.")
         else:
             pilih_metode_pembayaran()
 
@@ -308,7 +308,7 @@ def checkout():
             messagebox.showinfo("Virtual Account", f"Silakan transfer ke rekening berikut:\n{rekening}\nTotal: Rp {total_harga:,}")
             konfirmasi = messagebox.askyesno("Konfirmasi Pembayaran", "Apakah Anda sudah melakukan pembayaran?")
             if konfirmasi:
-                messagebox.showinfo("Pembayaran Sukses", "Pembayaran sukses, terima kasih telah berbelanja, mohon tunggu paketnya.")
+                messagebox.showinfo("Pembayaran akan Diperiksa", "Pembayaran akan diperika, terima kasih telah berbelanja.")
             else:
                 pilih_metode_pembayaran()
         else:
