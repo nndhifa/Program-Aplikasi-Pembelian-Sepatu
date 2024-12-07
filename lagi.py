@@ -97,7 +97,102 @@ produk_lain = [
     {"nama": "Botol Minum Nalgene Wide", "harga": 210000},
 ]
 
-# Fungsi untuk menampilkan panduan tipe kaki
+# Fungsi untuk halaman sign up
+def show_sign_up():
+    # Clear window
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    # Judul Halaman Sign Up
+    ttk.Label(root, text="Sign Up", font=("Arial", 16, "bold")).pack(pady=20)
+
+    # Form Sign Up
+    ttk.Label(root, text="Nama Lengkap:").pack(pady=5)
+    nama_entry = ttk.Entry(root)
+    nama_entry.pack(pady=5)
+
+    ttk.Label(root, text="Email:").pack(pady=5)
+    email_entry = ttk.Entry(root)
+    email_entry.pack(pady=5)
+
+    ttk.Label(root, text="Password:").pack(pady=5)
+    password_entry = ttk.Entry(root, show="*")
+    password_entry.pack(pady=5)
+
+    def sign_up():
+        nama = nama_entry.get()
+        email = email_entry.get()
+        password = password_entry.get()
+
+        if not nama or not email or not password:
+            messagebox.showwarning("Peringatan", "Semua kolom harus diisi!")
+            return
+
+        # Simpan data pengguna
+        if email in users:
+            messagebox.showwarning("Peringatan", "Email sudah terdaftar!")
+            return
+
+        users[email] = {"nama": nama, "password": password}
+        messagebox.showinfo("Berhasil", "Akun berhasil dibuat!")
+        
+        # Kembali ke halaman login setelah sign up
+        show_login()
+
+    # Tombol untuk Sign Up
+    ttk.Button(root, text="Sign Up", command=sign_up).pack(pady=10)
+
+    # Tombol untuk kembali ke halaman login
+    ttk.Button(root, text="Sudah punya akun? Login", command=show_login).pack(pady=5)
+
+# Fungsi untuk halaman login
+def show_login():
+    # Clear window
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    # Form Login
+    ttk.Label(root, text="Email:").pack(pady=5)
+    email_entry = ttk.Entry(root)
+    email_entry.pack(pady=5)
+
+    ttk.Label(root, text="Password:").pack(pady=5)
+    password_entry = ttk.Entry(root, show="*")
+    password_entry.pack(pady=5)
+
+    def login():
+        email = email_entry.get()
+        password = password_entry.get()
+
+        if not email or not password:
+            messagebox.showwarning("Peringatan", "Email dan password harus diisi!")
+            return
+
+        if email not in users or users[email]["password"] != password:
+            messagebox.showwarning("Peringatan", "Email atau password salah!")
+            return
+
+        messagebox.showinfo("Selamat datang", f"Selamat datang {users[email]['nama']}!")
+        
+        # Masuk ke halaman belanja setelah login berhasil
+        show_main_page()
+
+    # Tombol untuk login
+    ttk.Button(root, text="Login", command=login).pack(pady=10)
+
+    # Tombol untuk pergi ke halaman sign up
+    ttk.Button(root, text="Belum punya akun? Sign Up", command=show_sign_up).pack(pady=5)
+
+# Fungsi untuk halaman belanja
+def show_main_page():
+    # Clear window
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    # Nama aplikasi di bagian atas
+    ttk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 16, "bold")).pack(pady=10)
+    
+    # Fungsi untuk menampilkan panduan tipe kaki
 def tampilkan_panduan_kaki():
     panduan_text = (
         "1. Normal: Bentuk kaki standar.\n"
@@ -106,7 +201,7 @@ def tampilkan_panduan_kaki():
     )
     messagebox.showinfo("Panduan Tipe Kaki", panduan_text)
     
-# Fungsi untuk menampilkan panduan jarak lari
+    # Fungsi untuk menampilkan panduan jarak lari
 def tampilkan_panduan_jarak():
     panduan_text = (
         "1. Pendek: Kurang dari 5 km.\n"
@@ -227,6 +322,127 @@ root.geometry("800x600")
 nama_aplikasi = ttk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 16, "bold"), anchor="center")
 nama_aplikasi.pack(pady=10)
 
+    # Fungsi untuk menampilkan panduan tipe kaki
+def tampilkan_panduan_kaki():
+    panduan_text = (
+        "1. Normal: Bentuk kaki standar.\n"
+        "2. Sempit: Kaki dengan lebar kecil.\n"
+        "3. Lebar: Kaki dengan lebar besar.\n"
+    )
+    messagebox.showinfo("Panduan Tipe Kaki", panduan_text)
+    
+    # Fungsi untuk menampilkan panduan jarak lari
+def tampilkan_panduan_jarak():
+    panduan_text = (
+        "1. Pendek: Kurang dari 5 km.\n"
+        "2. Menengah: 5 km hingga 10 km.\n"
+        "3. Jauh: Lebih dari 10 km.\n"
+    )
+    messagebox.showinfo("Panduan Jarak Lari", panduan_text)
+
+# Fungsi untuk menampilkan sepatu rekomendasi berdasarkan tipe kaki, ukuran, dan jarak lari
+def tampilkan_rekomendasi():
+    tipe_kaki = tipe_kaki_var.get()
+    ukuran_kaki = ukuran_var.get()
+    tipe_jarak = tipe_jarak_var.get()
+
+    if not tipe_kaki or not ukuran_kaki or not tipe_jarak:
+        messagebox.showwarning("Peringatan", "Pilih tipe kaki, ukuran kaki, dan jarak lari terlebih dahulu!")
+        return
+
+    ukuran = int(ukuran_kaki)
+    daftar_sepatu = sepatu_data.get(f"Sepatu {tipe_kaki}", [])
+
+    # Filter sepatu berdasarkan ukuran (dapat ditambahkan logika terkait jarak lari jika ada data tambahan)
+    rekomendasi = [sepatu for sepatu in daftar_sepatu if ukuran in sepatu["ukuran"]]
+
+    # Tampilkan pesan jika tidak ada rekomendasi
+    if not rekomendasi:
+        messagebox.showinfo("Informasi", f"Tidak ada sepatu yang sesuai untuk ukuran {ukuran} pada tipe kaki {tipe_kaki}.")
+        return
+
+    # Bersihkan frame katalog sebelum menampilkan rekomendasi baru
+    for widget in katalog_frame.winfo_children():
+        widget.destroy()
+
+    # Tampilkan produk yang sesuai
+    for produk in rekomendasi:
+        frame_produk = ttk.Frame(katalog_frame, relief="ridge", padding=10)
+        frame_produk.pack(fill="x", padx=5, pady=5)
+
+        # Nama produk
+        label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Arial", 12, "bold"))
+        label_nama.pack(anchor="w")
+
+        # Harga produk
+        label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Arial", 10))
+        label_harga.pack(anchor="w")
+
+        # Tombol tambah ke keranjang
+        tombol_tambah = ttk.Button(
+            frame_produk,
+            text="Pilih Sepatu Ini",
+            command=lambda p=produk: tambah_ke_keranjang(p)
+        )
+        tombol_tambah.pack(anchor="e")
+
+# Fungsi untuk menambahkan sepatu atau produk lain ke keranjang
+def tambah_ke_keranjang(produk):
+    keranjang.append(produk)
+    keranjang_listbox.insert(tk.END, f"{produk['nama']} - Rp {produk['harga']:,}")
+    if produk in produk_lain:
+        return
+
+    # Tanyakan apakah ingin menambah barang lain
+    tambah_lagi = messagebox.askyesno("Konfirmasi", "Apakah Anda ingin menambah barang lain?")
+    if tambah_lagi:
+        tambah_produk_lain()
+
+# Fungsi untuk menambahkan produk lain
+def tambah_produk_lain():
+    for widget in katalog_frame.winfo_children():
+        widget.destroy()
+
+    for produk in produk_lain:
+        frame_produk = ttk.Frame(katalog_frame, relief="ridge", padding=10)
+        frame_produk.pack(fill="x", padx=5, pady=5)
+
+        # Nama produk
+        label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Arial", 12, "bold"))
+        label_nama.pack(anchor="w")
+
+        # Harga produk
+        label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Arial", 10))
+        label_harga.pack(anchor="w")
+
+        # Tombol tambah ke keranjang
+        tombol_tambah = ttk.Button(
+            frame_produk,
+            text="Tambah ke Keranjang",
+            command=lambda p=produk: tambah_ke_keranjang(p)
+        )
+        tombol_tambah.pack(anchor="e")
+
+# Fungsi untuk checkout
+def checkout():
+    if not keranjang:
+        messagebox.showwarning("Peringatan", "Keranjang belanja Anda kosong!")
+        return
+
+    total_harga = sum(item["harga"] for item in keranjang)
+    uang_bayar = simpledialog.askinteger("Checkout", f"Total belanja Anda Rp {total_harga:,}\nMasukkan jumlah uang Anda:")
+
+    if uang_bayar is None:
+        return
+
+    if uang_bayar < total_harga:
+        messagebox.showwarning("Peringatan", "Uang Anda tidak mencukupi!")
+    else:
+        kembalian = uang_bayar - total_harga
+        messagebox.showinfo("Terima Kasih", f"Terima kasih telah berbelanja!\nKembalian Anda: Rp {kembalian:,}")
+        keranjang.clear()
+        keranjang_listbox.delete(0, tk.END)
+        
 # Variabel
 keranjang = []
 tipe_kaki_var = tk.StringVar()
@@ -338,6 +554,14 @@ def checkout():
 
 # Menambahkan tombol checkout ke GUI
 ttk.Button(root, text="Checkout", command=checkout).pack(pady=10)
+
+# Setup aplikasi
+root = tk.Tk()
+root.title("Aplikasi Pembelian Produk")
+root.geometry("800x600")
+
+# Menampilkan halaman login pertama kali
+show_login()
 
 # Jalankan aplikasi
 root.mainloop()
