@@ -223,8 +223,11 @@ root = tk.Tk()
 root.title("Aplikasi Pembelian Produk")
 root.geometry("800x600")
 
+# Ganti warna background aplikasi
+root.configure(bg="#323774")
+
 # Nama aplikasi di bagian atas
-nama_aplikasi = ttk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 16, "bold"), anchor="center")
+nama_aplikasi = tk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 16, "bold"), bg="#323774", fg="white")
 nama_aplikasi.pack(pady=10)
 
 # Variabel

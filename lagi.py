@@ -1,9 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 
-# Simpan data pengguna untuk login dan sign-up (sementara disimpan dalam dictionary)
-users = {}
-
 # Data sepatu dan produk lainnya
 sepatu_data = {
     "Sepatu Normal": [
@@ -559,9 +556,6 @@ ttk.Button(root, text="Checkout", command=checkout).pack(pady=10)
 root = tk.Tk()
 root.title("Aplikasi Pembelian Produk")
 root.geometry("800x600")
-
-# Menampilkan halaman login pertama kali
-show_login()
 
 # Jalankan aplikasi
 root.mainloop()
