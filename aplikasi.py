@@ -3,117 +3,116 @@ from tkinter import ttk, messagebox, simpledialog
 import json
 import os
 
-# Lokasi file JSON
+# Lokasi file JSON untuk menyimpan akun
 file_akun = "akun.json"
 
-# Fungsi untuk memuat data dari file JSON
+# Fungsi untuk memuat data akun dari file JSON
 def muat_data_akun():
     if os.path.exists(file_akun):
         with open(file_akun, "r") as file:
             return json.load(file)
     return {}
 
-# Fungsi untuk menyimpan data ke file JSON
+# Fungsi untuk menyimpan data akun ke file JSON
 def simpan_data_akun(data):
     with open(file_akun, "w") as file:
         json.dump(data, file, indent=4)
 
-# Memuat data awal
+# Memuat data akun awal
 data_akun = muat_data_akun()
 
-# Fungsi untuk mengganti frame yang aktif
-def ganti_frame(frame_baru):
-    frame_aktif.pack_forget()
-    frame_baru.pack(fill="both", expand=True)
+# Fungsi untuk mengganti konten tampilan
+def ganti_tampilan(frame):
+    for widget in root.winfo_children():
+        widget.destroy()
+    frame()
 
-# Fungsi untuk Sign Up
-def proses_sign_up():
-    nama = entry_nama_signup.get().strip()
-    email = entry_email_signup.get().strip()
-    password = entry_password_signup.get().strip()
+# Tampilan Sign Up
+def tampilan_signup():
+    tk.Label(root, text="Sign Up", font=("Arial", 16, "bold")).pack(pady=10)
 
-    if not nama or not email or not password:
-        messagebox.showwarning("Peringatan", "Semua kolom harus diisi!")
-        return
+    tk.Label(root, text="Nama Lengkap:").pack(anchor="w", padx=20)
+    entry_nama = tk.Entry(root)
+    entry_nama.pack(fill="x", padx=20, pady=5)
 
-    if email in data_akun:
-        messagebox.showwarning("Peringatan", "Email sudah terdaftar!")
-        return
+    tk.Label(root, text="Email:").pack(anchor="w", padx=20)
+    entry_email = tk.Entry(root)
+    entry_email.pack(fill="x", padx=20, pady=5)
 
-    data_akun[email] = {"nama": nama, "password": password}
-    simpan_data_akun(data_akun)
-    messagebox.showinfo("Sukses", "Akun berhasil didaftarkan! Silakan login.")
-    ganti_frame(frame_login)
+    tk.Label(root, text="Password:").pack(anchor="w", padx=20)
+    entry_password = tk.Entry(root, show="*")
+    entry_password.pack(fill="x", padx=20, pady=5)
 
-# Fungsi untuk Login
-def proses_login():
-    email = entry_email_login.get().strip()
-    password = entry_password_login.get().strip()
+    def proses_signup():
+        nama = entry_nama.get().strip()
+        email = entry_email.get().strip()
+        password = entry_password.get().strip()
 
-    if not email or not password:
-        messagebox.showwarning("Peringatan", "Email dan password harus diisi!")
-        return
+        if not nama or not email or not password:
+            messagebox.showwarning("Peringatan", "Semua kolom harus diisi!")
+            return
 
-    if email not in data_akun or data_akun[email]["password"] != password:
-        messagebox.showerror("Error", "Email atau password salah!")
-        return
+        if email in data_akun:
+            messagebox.showwarning("Peringatan", "Email sudah terdaftar!")
+            return
 
-    messagebox.showinfo("Sukses", f"Selamat datang, {data_akun[email]['nama']}!")
-    ganti_frame(frame_belanja)
+        data_akun[email] = {"nama": nama, "password": password}
+        simpan_data_akun(data_akun)
+        messagebox.showinfo("Sukses", "Akun berhasil didaftarkan! Silakan login.")
+        ganti_tampilan(tampilan_login)
 
-# Fungsi untuk keluar aplikasi
-def keluar_aplikasi():
-    root.destroy()
+    tk.Button(root, text="Daftar", command=proses_signup).pack(pady=10)
+    tk.Button(root, text="Sudah punya akun? Login", command=lambda: ganti_tampilan(tampilan_login)).pack()
 
-# Setup aplikasi utama
+# Tampilan Login
+def tampilan_login():
+    tk.Label(root, text="Login", font=("Arial", 16, "bold")).pack(pady=10)
+
+    tk.Label(root, text="Email:").pack(anchor="w", padx=20)
+    entry_email = tk.Entry(root)
+    entry_email.pack(fill="x", padx=20, pady=5)
+
+    tk.Label(root, text="Password:").pack(anchor="w", padx=20)
+    entry_password = tk.Entry(root, show="*")
+    entry_password.pack(fill="x", padx=20, pady=5)
+
+    def proses_login():
+        email = entry_email.get().strip()
+        password = entry_password.get().strip()
+
+        if not email or not password:
+            messagebox.showwarning("Peringatan", "Email dan password harus diisi!")
+            return
+
+        if email not in data_akun or data_akun[email]["password"] != password:
+            messagebox.showerror("Error", "Email atau password salah!")
+            return
+
+        messagebox.showinfo("Sukses", f"Selamat datang, {data_akun[email]['nama']}!")
+        ganti_tampilan(tampilan_belanja)
+
+    tk.Button(root, text="Masuk", command=proses_login).pack(pady=10)
+    tk.Button(root, text="Belum punya akun? Sign Up", command=lambda: ganti_tampilan(tampilan_signup)).pack()
+
+# Tampilan Belanja
+def tampilan_belanja():
+    tk.Label(root, text="Halaman Belanja", font=("Arial", 16, "bold")).pack(pady=10)
+    tk.Label(root, text="Selamat datang di aplikasi belanja!").pack(pady=20)
+
+    # Tambahkan tombol-tombol produk (contoh)
+    produk = ["Produk 1", "Produk 2", "Produk 3"]
+    for item in produk:
+        tk.Button(root, text=item).pack(pady=5)
+
+    tk.Button(root, text="Keluar", command=root.destroy).pack(pady=20)
+
+# Inisialisasi aplikasi
 root = tk.Tk()
 root.title("Aplikasi Belanja")
 root.geometry("400x400")
 
-# Frame Sign Up
-frame_signup = tk.Frame(root)
-tk.Label(frame_signup, text="Sign Up", font=("Arial", 16, "bold")).pack(pady=10)
-
-tk.Label(frame_signup, text="Nama Lengkap:").pack(anchor="w", padx=20)
-entry_nama_signup = tk.Entry(frame_signup)
-entry_nama_signup.pack(fill="x", padx=20, pady=5)
-
-tk.Label(frame_signup, text="Email:").pack(anchor="w", padx=20)
-entry_email_signup = tk.Entry(frame_signup)
-entry_email_signup.pack(fill="x", padx=20, pady=5)
-
-tk.Label(frame_signup, text="Password:").pack(anchor="w", padx=20)
-entry_password_signup = tk.Entry(frame_signup, show="*")
-entry_password_signup.pack(fill="x", padx=20, pady=5)
-
-tk.Button(frame_signup, text="Daftar", command=proses_sign_up).pack(pady=10)
-tk.Button(frame_signup, text="Sudah punya akun? Login", command=lambda: ganti_frame(frame_login)).pack()
-
-# Frame Login
-frame_login = tk.Frame(root)
-tk.Label(frame_login, text="Login", font=("Arial", 16, "bold")).pack(pady=10)
-
-tk.Label(frame_login, text="Email:").pack(anchor="w", padx=20)
-entry_email_login = tk.Entry(frame_login)
-entry_email_login.pack(fill="x", padx=20, pady=5)
-
-tk.Label(frame_login, text="Password:").pack(anchor="w", padx=20)
-entry_password_login = tk.Entry(frame_login, show="*")
-entry_password_login.pack(fill="x", padx=20, pady=5)
-
-tk.Button(frame_login, text="Masuk", command=proses_login).pack(pady=10)
-tk.Button(frame_login, text="Belum punya akun? Sign Up", command=lambda: ganti_frame(frame_signup)).pack()
-
-# Frame Belanja
-frame_belanja = tk.Frame(root)
-tk.Label(frame_belanja, text="Halaman Belanja", font=("Arial", 16, "bold")).pack(pady=10)
-
-tk.Label(frame_belanja, text="Selamat datang di aplikasi belanja!").pack(pady=20)
-tk.Button(frame_belanja, text="Keluar", command=keluar_aplikasi).pack()
-
-# Tampilkan frame Login sebagai default
-frame_aktif = frame_login
-frame_aktif.pack(fill="both", expand=True)
+# Tampilkan halaman login sebagai tampilan awal
+ganti_tampilan(tampilan_login)
 
 # Data sepatu dan produk lainnya
 sepatu_data = {
