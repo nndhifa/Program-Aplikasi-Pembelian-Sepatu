@@ -103,7 +103,7 @@ def tampilkan_panduan_kaki():
     )
     messagebox.showinfo("Panduan Tipe Kaki", panduan_text)
     
-# Fungsi untuk menampilkan panduan jarak lari
+    # Fungsi untuk menampilkan panduan jarak lari
 def tampilkan_panduan_jarak():
     panduan_text = (
         "1. Pendek: Kurang dari 5 km.\n"
@@ -111,7 +111,7 @@ def tampilkan_panduan_jarak():
         "3. Jauh: Lebih dari 10 km.\n"
     )
     messagebox.showinfo("Panduan Jarak Lari", panduan_text)
-
+    
 # Fungsi untuk menampilkan sepatu rekomendasi berdasarkan tipe kaki, ukuran, dan jarak lari
 def tampilkan_rekomendasi():
     tipe_kaki = tipe_kaki_var.get()
@@ -139,7 +139,7 @@ def tampilkan_rekomendasi():
 
     # Tampilkan produk yang sesuai
     for produk in rekomendasi:
-        frame_produk = ttk.Frame(katalog_frame, relief="ridge", padding=10)
+        frame_produk = Frame(root, bg="#ccf73b", relief="ridge", padx=10, pady=10)
         frame_produk.pack(fill="x", padx=5, pady=5)
 
         # Nama produk
@@ -225,7 +225,9 @@ root.configure(bg="#323774")
 
 # Atur style untuk tombol
 style = ttk.Style()
-style.configure("Custom.TButton", background="#ccf73b", font=("Segoe UI Semibold", 10))
+style.configure("Custom.TButton", background="#ccf73b", foreground="#ccf73b", font=("Segoe UI Semibold", 10))
+style.configure("Custom.TFrame", background="#ccf73b")
+
 
 # Nama aplikasi di bagian atas
 nama_aplikasi = tk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 22, "bold",), bg="#323774", fg="#ccf73b")
