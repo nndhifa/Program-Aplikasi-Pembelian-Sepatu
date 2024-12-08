@@ -3,6 +3,9 @@ from tkinter import messagebox
 import json
 from PIL import Image, ImageTk
 import os
+from data_loader import load_data
+from payment_module import konfirmasi_pembayaran
+
 
 class TokoSepatuApp:
     def __init__(self, root):
@@ -13,8 +16,8 @@ class TokoSepatuApp:
         self.akun = {}
 
         # Contoh:
-        self.sepatu_lari = self.load_data("sepatu_lari_daniel.json")
-        self.barang_tambahan = self.load_data("barang_tambahan_daniel.json")
+        self.sepatu_lari = load_data("sepatu_lari_daniel.json")
+        self.barang_tambahan = load_data("barang_tambahan_daniel.json")
 
 
         self.keranjang = []
@@ -22,22 +25,6 @@ class TokoSepatuApp:
 
         # Tampilkan halaman login awal
         self.show_login_screen()
-
-    def load_data(self, file_name):
-        """Memuat data dari file JSON di direktori skrip."""
-        try:
-            # Pastikan path relatif ke lokasi file Python
-            base_dir = os.path.dirname(os.path.abspath(__file__))
-            full_path = os.path.join(base_dir, file_name)
-
-            with open(full_path, "r", encoding="utf-8") as file:
-                return json.load(file)
-        except FileNotFoundError:
-            messagebox.showerror("Error", f"File {file_name} tidak ditemukan.")
-            return {}
-        except json.JSONDecodeError:
-            messagebox.showerror("Error", f"Format file {file_name} tidak valid.")
-            return {}
         
     from PIL import Image, ImageTk
 
@@ -365,54 +352,14 @@ class TokoSepatuApp:
 
     def konfirmasi_pembayaran(self):
         metode = self.metode_var.get()
-        if metode == "COD":
-            messagebox.showinfo(
-                "Konfirmasi COD",
-                    f"Terima kasih telah berbelanja.\n"
-            f"Harap siapkan uang tunai sebesar Rp {self.total_harga:,} saat paket sampai."
-            )
-            self.keranjang.clear()
-            self.total_harga = 0
-            self.show_main_menu()
-        else:
-            self.show_virtual_account()
+        self.total_harga = konfirmasi_pembayaran(
+            total_harga=self.total_harga,
+            metode=metode,
+            keranjang=self.keranjang,
+            show_main_menu_callback=self.show_main_menu
+    )
 
-    def show_virtual_account(self):
-        self.clear_screen()
-        tk.Label(self.root, text="Pilih Bank untuk Virtual Account", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
-
-        self.bank_var = tk.StringVar(value="Mandiri")
-        daftar_bank = ["Mandiri", "BNI", "BCA", "BRI"]
-        for bank in daftar_bank:
-            tk.Radiobutton(
-                self.root,
-                    text=bank,
-                variable=self.bank_var,
-                value=bank,
-                font=("Segoe UI Semibold", 14),  
-                width=20,
-                bg="#ccf73b", 
-                fg="#323774",  
-                anchor="center" 
-            ).pack(pady=5)  
-
-        tk.Button(self.root, text="Lanjutkan", bg="#ccf73b", fg="#323774",command=self.show_va_rekening).pack(pady=10)
-
-    def show_va_rekening(self):
-        bank = self.bank_var.get()
-        rekening = {
-            "Mandiri": "1234567890",
-            "BNI": "0987654321",
-            "BCA": "1122334455",
-            "BRI": "5566778899"
-        }
-        nomor_rekening = rekening.get(bank, "Tidak tersedia")
-        messagebox.showinfo(
-            "Konfirmasi Virtual Account",
-            f"Bank: {bank}\n"
-            f"Silakan lakukan pembayaran ke nomor rekening berikut:\n{nomor_rekening}\n\n"
-            "Pembayaran akan diperiksa sistem. Jika transaksi sukses, paket akan segera dikirimkan."
-        )
+        
         self.keranjang.clear()
         self.total_harga = 0
         self.show_main_menu()
@@ -447,3 +394,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = TokoSepatuApp(root)
     root.mainloop()
+
