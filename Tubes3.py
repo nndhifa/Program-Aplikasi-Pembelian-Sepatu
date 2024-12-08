@@ -97,7 +97,7 @@ class TokoSepatuApp:
         tk.Label(
             self.root,
             text="Pace&Stride",
-            font=("Segoe UI Variable Display Semib", 24, "bold", "italic"),
+            font=("Segoe UI Variable Display Semib", 30, "bold", "italic"),
             bg="#282c66", 
             fg="#ccf73b",
         ).pack(pady=10)
