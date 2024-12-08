@@ -172,19 +172,45 @@ class TokoSepatuApp:
         if metode == "COD":
             messagebox.showinfo(
                 "Konfirmasi COD",
-                f"Terima kasih telah berbelanja.\n"
-                f"Harap siapkan uang tunai sebesar Rp {self.total_harga:,} saat paket sampai."
+                    f"Terima kasih telah berbelanja.\n"
+            f"Harap siapkan uang tunai sebesar Rp {self.total_harga:,} saat paket sampai."
             )
+            self.keranjang.clear()
+            self.total_harga = 0
+            self.show_main_menu()
         else:
-            rekening = "123456789 (Bank Mandiri)"
-            messagebox.showinfo(
-                "Konfirmasi Virtual Account",
-                f"Silakan lakukan pembayaran ke rekening berikut:\n{rekening}\n"
-                "Pembayaran akan diperiksa sistem. Jika transaksi sukses, paket akan segera dikirimkan."
-            )
+            self.show_virtual_account()
+
+    def show_virtual_account(self):
+        self.clear_screen()
+        tk.Label(self.root, text="Pilih Bank untuk Virtual Account", font=("Arial", 20, "bold")).pack(pady=10)
+
+        self.bank_var = tk.StringVar(value="Mandiri")
+        daftar_bank = ["Mandiri", "BNI", "BCA", "BRI"]
+        for bank in daftar_bank:
+            tk.Radiobutton(self.root, text=bank, variable=self.bank_var, value=bank).pack(anchor="w")
+
+        tk.Button(self.root, text="Lanjutkan", command=self.show_va_rekening).pack(pady=10)
+
+    def show_va_rekening(self):
+        bank = self.bank_var.get()
+        rekening = {
+            "Mandiri": "1234567890",
+            "BNI": "0987654321",
+            "BCA": "1122334455",
+            "BRI": "5566778899"
+        }
+        nomor_rekening = rekening.get(bank, "Tidak tersedia")
+        messagebox.showinfo(
+            "Konfirmasi Virtual Account",
+            f"Bank: {bank}\n"
+            f"Silakan lakukan pembayaran ke nomor rekening berikut:\n{nomor_rekening}\n\n"
+            "Pembayaran akan diperiksa sistem. Jika transaksi sukses, paket akan segera dikirimkan."
+        )
         self.keranjang.clear()
         self.total_harga = 0
         self.show_main_menu()
+
 
     def login(self):
         username = self.username_entry.get()
