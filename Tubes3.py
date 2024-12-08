@@ -98,7 +98,8 @@ class TokoSepatuApp:
             self.root,
             text="Pace&Stride",
             font=("Segoe UI Variable Display Semib", 24, "bold", "italic"),
-            fg="#282c66" 
+            bg="#282c66" 
+            fg="#ccf73b"
         ).pack(pady=10)
         
         tk.Button(
