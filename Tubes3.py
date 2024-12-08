@@ -67,24 +67,40 @@ class TokoSepatuApp:
     def show_signup_screen(self):
         self.clear_screen()
 
-        tk.Label(self.root, text="Sign Up", font=("Segoe UI Semibold", 15, "bold")).pack(pady=10)
+        # Tambahkan background untuk halaman Sign Up
+        bg_image = Image.open("background_signup.jpg")  # Ubah nama file dengan gambar yang sesuai
+        bg_image = bg_image.resize((self.root.winfo_screenwidth(), self.root.winfo_screenheight()), Image.Resampling.LANCZOS)
+        self.bg_photo_signup = ImageTk.PhotoImage(bg_image)
 
-        tk.Label(self.root, text="Username:").pack()
+        # Tampilkan sebagai Label
+        bg_label = tk.Label(self.root, image=self.bg_photo_signup)
+        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+        # Tambahkan komponen Sign Up di atas background
+        tk.Label(self.root, text="Sign Up", font=("Segoe UI Semibold", 15, "bold"), bg="#ffffff", fg="#000000").pack(pady=10)
+
+        tk.Label(self.root, text="Username:", bg="#ffffff").pack()
         self.new_username_entry = tk.Entry(self.root)
-        self.new_username_entry.pack()
+        self.new_username_entry.pack(pady=5)
 
-        tk.Label(self.root, text="Password:").pack()
+        tk.Label(self.root, text="Password:", bg="#ffffff").pack()
         self.new_password_entry = tk.Entry(self.root, show="*")
-        self.new_password_entry.pack()
+        self.new_password_entry.pack(pady=5)
 
-        tk.Button(self.root, text="Register", command=self.register).pack(pady=5)
+        tk.Button(self.root, text="Register", command=self.register).pack(pady=10)
         tk.Button(self.root, text="Back to Login", command=self.show_login_screen).pack(pady=5)
 
     def show_main_menu(self):
         self.clear_screen()
 
-        tk.Label(self.root, text="Pace and Stride", font=("Arial", 24, "bold")).pack(pady=10)
-
+        self.root.config(bg="#282c66")
+        tk.Label(
+            self.root,
+            text="Pace&Stride",
+            font=("Segoe UI Variable Display Semib", 24, "bold", "italic"),
+            fg="#282c66" 
+        ).pack(pady=10)
+        
         tk.Button(
             self.root,
             text="Panduan Tipe Kaki",
@@ -92,7 +108,9 @@ class TokoSepatuApp:
             font=("Segoe UI Semibold", 14),
             width=20,
             padx=7,
-            pady=5
+            pady=5,
+            bg="#ccf73b",
+            fg="#323774",
         ).pack(pady=5, anchor="center")
 
         tk.Button(
@@ -102,7 +120,9 @@ class TokoSepatuApp:
             font=("Segoe UI Semibold", 14),
             width=20,
             padx=7,
-            pady=5
+            pady=5,
+            bg="#ccf73b",
+            fg="#323774",
         ).pack(pady=5, anchor="center")
 
         tk.Button(
@@ -112,7 +132,9 @@ class TokoSepatuApp:
             font=("Segoe UI Semibold", 14),
             width=20,
             padx=7,
-            pady=5
+            pady=5,
+            bg="#ccf73b",
+            fg="#323774",
         ).pack(pady=5, anchor="center")
 
         tk.Button(
@@ -122,7 +144,9 @@ class TokoSepatuApp:
                 font=("Segoe UI Semibold", 14),
             width=20,
             padx=7,
-            pady=5
+            pady=5,
+            bg="#ccf73b",
+            fg="#323774",
         ).pack(pady=5, anchor="center")
 
     def show_panduan(self):
