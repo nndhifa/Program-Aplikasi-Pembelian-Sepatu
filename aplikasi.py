@@ -195,26 +195,6 @@ def tambah_produk_lain():
         )
         tombol_tambah.pack(anchor="e")
 
-# Fungsi untuk checkout
-def checkout():
-    if not keranjang:
-        messagebox.showwarning("Peringatan", "Keranjang belanja Anda kosong!")
-        return
-
-    total_harga = sum(item["harga"] for item in keranjang)
-    uang_bayar = simpledialog.askinteger("Checkout", f"Total belanja Anda Rp {total_harga:,}\nMasukkan jumlah uang Anda:")
-
-    if uang_bayar is None:
-        return
-
-    if uang_bayar < total_harga:
-        messagebox.showwarning("Peringatan", "Uang Anda tidak mencukupi!")
-    else:
-        kembalian = uang_bayar - total_harga
-        messagebox.showinfo("Terima Kasih", f"Terima kasih telah berbelanja!\nKembalian Anda: Rp {kembalian:,}")
-        keranjang.clear()
-        keranjang_listbox.delete(0, tk.END)
-
 # Setup aplikasi
 root = tk.Tk()
 root.title("Aplikasi Pembelian Produk")

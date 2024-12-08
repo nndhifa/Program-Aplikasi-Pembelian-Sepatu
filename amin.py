@@ -1,204 +1,150 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
-import json
 
-# Inisialisasi data pengguna
-users_data = {}
+# Data for shoes and other products
+sepatu_data = {
+    "Sepatu Normal": [
+        {"nama": "Nike Speed Racer", "harga": 1200000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Adidas Dash Pro", "harga": 1350000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Puma Velocity Nitro", "harga": 1250000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Reebok Floatride Energy", "harga": 1400000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Hoka Clifton 8", "harga": 1500000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Under Armour Sonic", "harga": 1450000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Saucony Endurance", "harga": 1300000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "New Balance Fresh Foam", "harga": 1400000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Brooks Marathon Master", "harga": 1600000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Altra Torin 5", "harga": 1500000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+    ],
+    "Sepatu Sempit": [
+        {"nama": "Puma Slim Runner", "harga": 1100000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Under Armour Narrow", "harga": 1250000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Nike Slim Racer", "harga": 1200000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "ASICS Fit", "harga": 1300000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Adidas Narrow Glide", "harga": 1350000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Brooks Slim Line", "harga": 1400000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Hoka Thin Glide", "harga": 1500000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Mizuno Light Sempit", "harga": 1450000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "New Balance Sempit Max", "harga": 1400000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Altra Slim Focus", "harga": 1350000, "ukuran" : [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+    ],
+    "Sepatu Lebar": [
+        {"nama": "Hoka Wide Glide", "harga": 1500000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "New Balance Extra Wide", "harga": 1450000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Brooks Wide Fit", "harga": 1600000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Nike Wide Marathon", "harga": 1550000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Adidas Wide Boost", "harga": 1650000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Under Armour Wide Runner", "harga": 1500000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Mizuno Wave Wide", "harga": 1550000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Saucony Wide Stream", "harga": 1400000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "Puma Large Fit", "harga": 1450000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+        {"nama": "ASICS Wide Comfort", "harga": 1600000, "ukuran": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]},
+    ],
+}
 
-# Fungsi untuk menyimpan data ke file JSON
-def save_users_to_json():
-    with open("users.json", "w") as file:
-        json.dump(users_data, file)
+produk_lain = [
+    {"nama": "Baju Nike Dri-Fit", "harga": 350000},
+    {"nama": "Baju Adidas Coolmax", "harga": 400000},
+    {"nama": "Baju Puma Active", "harga": 380000},
+    {"nama": "Baju Under Armour Tech", "harga": 420000},
+    {"nama": "Baju Reebok Training", "harga": 360000},
+    {"nama": "Baju Mizuno Sport", "harga": 390000},
+    {"nama": "Baju Hoka Motion", "harga": 410000},
+    {"nama": "Baju Saucony Swift", "harga": 400000},
+    {"nama": "Baju ASICS ProFit", "harga": 430000},
+    {"nama": "Baju Altra Cool", "harga": 370000},
+    {"nama": "Celana Nike Flex", "harga": 300000},
+    {"nama": "Celana Adidas Run", "harga": 350000},
+    {"nama": "Celana Hoka Freedom", "harga": 320000},
+    {"nama": "Celana Reebok Endurance", "harga": 330000},
+    {"nama": "Celana ASICS Comfort", "harga": 340000},
+    {"nama": "Celana Mizuno Sprint", "harga": 360000},
+    {"nama": "Celana Saucony Aero", "harga": 370000},
+    {"nama": "Celana Brooks Swift", "harga": 390000},
+    {"nama": "Celana Under Armour Glide", "harga": 400000},
+    {"nama": "Celana Puma Velocity", "harga": 380000},
+    {"nama": "Kaos Kaki Compression", "harga": 50000},
+    {"nama": "Kaos Kaki Sport", "harga": 75000},
+    {"nama": "Kaos Kaki Anti-Bakteri", "harga": 60000},
+    {"nama": "Kaos Kaki Running Pro", "harga": 80000},
+    {"nama": "Kaos Kaki Breathable", "harga": 70000},
+    {"nama": "Kaos Kaki Soft Comfort", "harga": 55000},
+    {"nama": "Kaos Kaki Ultra Thin", "harga": 65000},
+    {"nama": "Kaos Kaki No-Slip Grip", "harga": 75000},
+    {"nama": "Kaos Kaki Thermal Fit", "harga": 85000},
+    {"nama": "Kaos Kaki Shock Absorb", "harga": 90000},
+    {"nama": "Garmin Forerunner", "harga": 2000000},
+    {"nama": "Polar Vantage", "harga": 1800000},
+    {"nama": "Coros Pace 2", "harga": 1700000},
+    {"nama": "Suunto 9 Peak", "harga": 2500000},
+    {"nama": "Fitbit Charge 5", "harga": 1600000},
+    {"nama": "Amazfit T-Rex", "harga": 1900000},
+    {"nama": "Samsung Galaxy Watch", "harga": 2100000},
+    {"nama": "Apple Watch SE", "harga": 2300000},
+    {"nama": "Garmin Fenix 6", "harga": 3000000},
+    {"nama": "Suunto Spartan Trainer", "harga": 2200000},
+    {"nama": "Botol Minum Hydro Flask", "harga": 250000},
+    {"nama": "Botol Minum CamelBak", "harga": 200000},
+    {"nama": "Botol Minum Nike Squeeze", "harga": 180000},
+    {"nama": "Botol Minum Adidas Runner", "harga": 210000},
+    {"nama": "Botol Minum Decathlon Sport", "harga": 190000},
+    {"nama": "Botol Minum Thermos Active", "harga": 240000},
+    {"nama": "Botol Minum Sigg Sport", "harga": 230000},
+    {"nama": "Botol Minum Klean Kanteen", "harga": 260000},
+    {"nama": "Botol Minum Zojirushi Slim", "harga": 220000},
+    {"nama": "Botol Minum Nalgene Wide", "harga": 210000},
+] 
 
-# Fungsi untuk memuat data dari file JSON
-def load_users_from_json():
-    global users_data
-    try:
-        with open("users.json", "r") as file:
-            users_data = json.load(file)
-    except FileNotFoundError:
-        users_data = {}
+# User credentials database
+user_credentials = {}
 
-# Fungsi untuk halaman belanja
-def open_shopping_page():
-    for widget in root.winfo_children():
-        widget.destroy()
-    setup_shopping_page()
+# Functions for SignUp and Login
+def sign_up():
+    username = simpledialog.askstring("Sign Up", "Enter username:")
+    if username in user_credentials:
+        messagebox.showwarning("Warning", "Username already exists.")
+        return
+    password = simpledialog.askstring("Sign Up", "Enter password:", show="*")
+    user_credentials[username] = password
+    messagebox.showinfo("Success", "Account created successfully! You can now log in.")
 
-# Fungsi untuk Sign Up
-def signup():
-    def submit_signup():
-        username = username_entry.get()
-        email = email_entry.get()
-        password = password_entry.get()
-        if username and email and password:
-            if email in users_data:
-                messagebox.showerror("Error", "Email sudah terdaftar!")
-            else:
-                users_data[email] = {"username": username, "password": password}
-                save_users_to_json()
-                messagebox.showinfo("Berhasil", "Akun berhasil dibuat! Silakan login.")
-                signup_window.destroy()
-        else:
-            messagebox.showwarning("Peringatan", "Harap isi semua kolom!")
-
-    signup_window = tk.Toplevel(root)
-    signup_window.title("Sign Up")
-    tk.Label(signup_window, text="Username").pack()
-    username_entry = ttk.Entry(signup_window)
-    username_entry.pack()
-    tk.Label(signup_window, text="Email").pack()
-    email_entry = ttk.Entry(signup_window)
-    email_entry.pack()
-    tk.Label(signup_window, text="Password").pack()
-    password_entry = ttk.Entry(signup_window, show="*")
-    password_entry.pack()
-    ttk.Button(signup_window, text="Sign Up", command=submit_signup).pack()
-
-# Fungsi untuk Login
 def login():
-    def submit_login():
-        email = email_entry.get()
-        password = password_entry.get()
-        if email in users_data and users_data[email]["password"] == password:
-            messagebox.showinfo("Berhasil", f"Selamat datang, {users_data[email]['username']}!")
-            login_window.destroy()
-            open_shopping_page()
-        else:
-            messagebox.showerror("Error", "Email atau password salah!")
-
-    login_window = tk.Toplevel(root)
-    login_window.title("Login")
-    tk.Label(login_window, text="Email").pack()
-    email_entry = ttk.Entry(login_window)
-    email_entry.pack()
-    tk.Label(login_window, text="Password").pack()
-    password_entry = ttk.Entry(login_window, show="*")
-    password_entry.pack()
-    ttk.Button(login_window, text="Login", command=submit_login).pack()
-
-# Halaman awal aplikasi
-def setup_home_page():
-    tk.Label(root, text="Selamat Datang di Pace&Stride", font=("Arial", 18, "bold")).pack(pady=20)
-    ttk.Button(root, text="Sign Up", command=signup).pack(pady=5)
-    ttk.Button(root, text="Login", command=login).pack(pady=5)
-
-# Fungsi untuk halaman belanja
-def setup_shopping_page():
-    tk.Label(root, text="Halaman Belanja", font=("Arial", 18, "bold")).pack(pady=20)
-
-    # Frame untuk katalog produk
-    katalog_frame = ttk.Frame(root)
-    katalog_frame.pack(fill="both", expand=True)
-
-    # Katalog sepatu
-    for category, sepatu_list in sepatu_data.items():
-        for produk in sepatu_list:
-            frame_produk = ttk.Frame(katalog_frame, relief="ridge", padding=10)
-            frame_produk.pack(fill="x", padx=5, pady=5)
-
-            # Nama produk
-            label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Segoe UI Semibold", 12, "bold"))
-            label_nama.pack(anchor="w")
-
-            # Harga produk
-            label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Segoe UI Semibold", 10))
-            label_harga.pack(anchor="w")
-
-            # Tombol tambah ke keranjang
-            tombol_tambah = ttk.Button(
-                frame_produk,
-                text="Pilih Sepatu Ini",
-                command=lambda p=produk: tambah_ke_keranjang(p)
-            )
-            tombol_tambah.pack(anchor="e")
-
-# Fungsi untuk menambahkan sepatu atau produk lain ke keranjang
-def tambah_ke_keranjang(produk):
-    keranjang.append(produk)
-    keranjang_listbox.insert(tk.END, f"{produk['nama']} - Rp {produk['harga']:,}")
-
-    # Tanyakan apakah ingin menambah barang lain
-    tambah_lagi = messagebox.askyesno("Konfirmasi", "Apakah Anda ingin menambah barang lain?")
-    if tambah_lagi:
-        tambah_produk_lain()
-
-# Fungsi untuk menambahkan produk lain
-def tambah_produk_lain():
-    for widget in katalog_frame.winfo_children():
-        widget.destroy()
-
-    for produk in produk_lain:
-        frame_produk = ttk.Frame(katalog_frame, relief="ridge", padding=10)
-        frame_produk.pack(fill="x", padx=5, pady=5)
-
-        # Nama produk
-        label_nama = ttk.Label(frame_produk, text=produk["nama"], font=("Segoe UI Semibold", 12, "bold"))
-        label_nama.pack(anchor="w")
-
-        # Harga produk
-        label_harga = ttk.Label(frame_produk, text=f"Rp {produk['harga']:,}", font=("Segoe UI Semibold", 10))
-        label_harga.pack(anchor="w")
-
-        # Tombol tambah ke keranjang
-        tombol_tambah = ttk.Button(
-            frame_produk,
-            text="Tambah ke Keranjang",
-            command=lambda p=produk: tambah_ke_keranjang(p)
-        )
-        tombol_tambah.pack(anchor="e")
-
-# Fungsi untuk checkout
-def checkout():
-    if not keranjang:
-        messagebox.showwarning("Peringatan", "Keranjang belanja Anda kosong!")
-        return
-
-    total_harga = sum(item["harga"] for item in keranjang)
-    uang_bayar = simpledialog.askinteger("Checkout", f"Total belanja Anda Rp {total_harga:,}\nMasukkan jumlah uang Anda:")
-
-    if uang_bayar is None:
-        return
-
-    if uang_bayar < total_harga:
-        messagebox.showwarning("Peringatan", "Uang Anda tidak mencukupi!")
+    username = simpledialog.askstring("Login", "Enter username:")
+    password = simpledialog.askstring("Login", "Enter password:", show="*")
+    if username in user_credentials and user_credentials[username] == password:
+        messagebox.showinfo("Success", "Login successful!")
+        root.withdraw()  # Hide the login window
+        show_main_page()  # Show the main page
     else:
-        kembalian = uang_bayar - total_harga
-        messagebox.showinfo("Terima Kasih", f"Terima kasih telah berbelanja!\nKembalian Anda: Rp {kembalian:,}")
-        keranjang.clear()
-        keranjang_listbox.delete(0, tk.END)
+        messagebox.showwarning("Login Failed", "Invalid username or password.")
 
-# Setup aplikasi
+# Main page after login
+def show_main_page():
+    main_window = tk.Toplevel(root)
+    main_window.title("Main Shopping Page")
+    main_window.geometry("800x600")
+
+    # Main shopping page UI components here (as shown in your provided code)
+    # Example:
+    main_label = tk.Label(main_window, text="Welcome to the Shopping App", font=("Arial", 16))
+    main_label.pack(pady=20)
+
+    # Add further shopping-related components (product display, cart, etc.)
+
+    # Option to logout and go back to login
+    logout_button = ttk.Button(main_window, text="Logout", command=main_window.destroy)
+    logout_button.pack(pady=10)
+
+# Setup initial root window for login/signup
 root = tk.Tk()
-root.title("Aplikasi Pembelian Produk")
-root.geometry("800x600")
+root.title("User Login / Signup")
+root.geometry("400x300")
 
-# Ganti warna background aplikasi
-root.configure(bg="#323774")
+# Buttons for Sign Up and Login
+sign_up_button = ttk.Button(root, text="Sign Up", command=sign_up)
+sign_up_button.pack(pady=10)
 
-# Atur style untuk tombol
-style = ttk.Style()
-style.configure("Custom.TButton", background="#ccf73b", foreground="#ccf73b", font=("Segoe UI Semibold", 10))
-style.configure("Custom.TFrame", background="#ccf73b")
+login_button = ttk.Button(root, text="Login", command=login)
+login_button.pack(pady=10)
 
-# Nama aplikasi di bagian atas
-nama_aplikasi = tk.Label(root, text="Pace&Stride", font=("Rockwell Extra Bold", 22, "bold"), bg="#323774", fg="#ccf73b")
-nama_aplikasi.pack(pady=10)
-
-# Variabel
-keranjang = []
-tipe_kaki_var = tk.StringVar()
-ukuran_var = tk.StringVar()
-tipe_jarak_var = tk.StringVar()
-
-# Panduan tipe kaki
-ttk.Button(root, text="Panduan Tipe Kaki", style="Custom.TButton", command=tampilkan_panduan_kaki).pack(pady=5)
-
-# Panduan tipe jarak
-ttk.Button(root, text="Panduan Tipe Jarak", style="Custom.TButton", command=tampilkan_panduan_jarak).pack(pady=5)
-
-# Atur tampilan awal halaman login/signup
-setup_home_page()
-
-# Mulai aplikasi
+# Start the application with login/signup screen
 root.mainloop()
