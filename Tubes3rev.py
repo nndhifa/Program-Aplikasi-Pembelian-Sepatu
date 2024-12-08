@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from login_signup_module import LoginSignupModule
 import json
 import checkout_module # Import the checkout module
 
@@ -8,74 +9,45 @@ class TokoSepatuApp:
         self.root = root
         self.root.title("Pace and Stride")
 
-        # Database sementara untuk akun
-        self.akun = {}
+        self.login_signup = LoginSignupModule()
 
-        # Memuat data sepatu lari dan barang tambahan dari file JSON
-        file_path = r"D:\projectA\TUBES\sepatu_lari.json"
-        self.sepatu_lari = self.load_data(file_path)
-        file_path = r"D:\projectA\TUBES\barang_tambahan.json"
-        self.barang_tambahan = self.load_data(file_path)
+        # Memuat data sepatu dan barang tambahan
+        self.sepatu_lari = self.load_data(r"D:\\projectA\\TUBES\\sepatu_lari.json")
+        self.barang_tambahan = self.load_data(r"D:\\projectA\\TUBES\\barang_tambahan.json")
 
         self.keranjang = []
         self.total_harga = 0
 
-        # Tampilkan halaman login awal
-        self.show_login_screen()
+        self.login_signup.show_login_screen(
+            self.root,
+            on_login_success=self.show_main_menu,
+            on_show_signup=self.show_signup_screen
+        )
 
     def load_data(self, file_name):
-        """Memuat data dari file JSON."""
         try:
             with open(file_name, "r", encoding="utf-8") as file:
                 return json.load(file)
-        except FileNotFoundError:
-            messagebox.showerror("Error", f"File {file_name} tidak ditemukan.")
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            messagebox.showerror("Error", str(e))
             return {}
-        except json.JSONDecodeError:
-            messagebox.showerror("Error", f"Format file {file_name} tidak valid.")
-            return {}
-
-    def show_login_screen(self):
-        self.clear_screen()
-
-        tk.Label(self.root, text="Login", font=("Arial", 20, "bold")).pack(pady=10)
-
-        tk.Label(self.root, text="Username:").pack()
-        self.username_entry = tk.Entry(self.root)
-        self.username_entry.pack()
-
-        tk.Label(self.root, text="Password:").pack()
-        self.password_entry = tk.Entry(self.root, show="*")
-        self.password_entry.pack()
-
-        tk.Button(self.root, text="Login", command=self.login).pack(pady=5)
-        tk.Button(self.root, text="Sign Up", command=self.show_signup_screen).pack(pady=5)
-
-    def show_signup_screen(self):
-        self.clear_screen()
-
-        tk.Label(self.root, text="Sign Up", font=("Arial", 20, "bold")).pack(pady=10)
-
-        tk.Label(self.root, text="Username:").pack()
-        self.new_username_entry = tk.Entry(self.root)
-        self.new_username_entry.pack()
-
-        tk.Label(self.root, text="Password:").pack()
-        self.new_password_entry = tk.Entry(self.root, show="*")
-        self.new_password_entry.pack()
-
-        tk.Button(self.root, text="Register", command=self.register).pack(pady=5)
-        tk.Button(self.root, text="Back to Login", command=self.show_login_screen).pack(pady=5)
 
     def show_main_menu(self):
-        self.clear_screen()
-
+        self.login_signup.clear_screen(self.root)
         tk.Label(self.root, text="Pace and Stride", font=("Arial", 24, "bold")).pack(pady=10)
-
         tk.Button(self.root, text="Panduan Tipe Kaki", command=self.show_panduan).pack(fill="x", pady=5)
         tk.Button(self.root, text="Cari Sepatu", command=self.show_cari_sepatu_menu).pack(fill="x", pady=5)
         tk.Button(self.root, text="Lihat Keranjang", command=self.show_keranjang).pack(fill="x", pady=5)
         tk.Button(self.root, text="Keluar", command=self.root.quit).pack(fill="x", pady=5)
+
+    def show_signup_screen(self):
+        self.login_signup.show_signup_screen(self.root, on_back_to_login=lambda: self.login_signup.show_login_screen(
+            self.root,
+            on_login_success=self.show_main_menu,
+            on_show_signup=self.show_signup_screen
+        ))
+
+
 
     def show_panduan(self):
         messagebox.showinfo(
