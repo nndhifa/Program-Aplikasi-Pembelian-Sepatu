@@ -60,8 +60,8 @@ class TokoSepatuApp:
         self.password_entry = tk.Entry(self.root, show="*")
         self.password_entry.pack(pady=5)
 
-        tk.Button(self.root, text="Login", command=self.login).pack(pady=10)
-        tk.Button(self.root, text="Sign Up", command=self.show_signup_screen).pack(pady=5)
+        tk.Button(self.root, text="Login", bg="#ccf73b", fg="#323774", command=self.login).pack(pady=10)
+        tk.Button(self.root, text="Sign Up", bg="#ccf73b", fg="#323774", command=self.show_signup_screen).pack(pady=5)
 
 
     def show_signup_screen(self):
@@ -77,13 +77,13 @@ class TokoSepatuApp:
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Tambahkan komponen Sign Up di atas background
-        tk.Label(self.root, text="Sign Up", font=("Segoe UI Semibold", 15, "bold"), bg="#ffffff", fg="#000000").pack(pady=10)
+        tk.Label(self.root, text="Sign Up", font=("Segoe UI Semibold", 15, "bold"), bg="#ccf73b", fg="#323774").pack(pady=10)
 
-        tk.Label(self.root, text="Username:", bg="#ffffff").pack()
+        tk.Label(self.root, text="Username:", bg="#ccf73b", fg="#323774").pack()
         self.new_username_entry = tk.Entry(self.root)
         self.new_username_entry.pack(pady=5)
 
-        tk.Label(self.root, text="Password:", bg="#ffffff").pack()
+        tk.Label(self.root, text="Password:", bg="#ccf73b", fg="#323774").pack()
         self.new_password_entry = tk.Entry(self.root, show="*")
         self.new_password_entry.pack(pady=5)
 

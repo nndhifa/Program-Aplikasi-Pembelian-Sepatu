@@ -1,71 +1,296 @@
 {
     "Normal": {
         "Jarak Pendek": [
-            {"nama": "Nike Speed Racer", "harga": 1200000, "deskripsi": "Ringan untuk lari sprint"},
-            {"nama": "Adidas Dash Pro", "harga": 1350000, "deskripsi": "Responsif untuk lari cepat"},
-            {"nama": "Puma Swift Edge", "harga": 1100000, "deskripsi": "Desain aerodinamis untuk kecepatan"},
-            {"nama": "Reebok Speed Shot", "harga": 1050000, "deskripsi": "Cocok untuk latihan interval"},
-            {"nama": "Under Armour Velocity", "harga": 1400000, "deskripsi": "Stabil untuk kecepatan tinggi"}
+            {
+                "nama": "Nike Speed Racer",
+                "harga": 1200000,
+                "deskripsi": "Ringan untuk lari sprint",
+                "ukuran": [37, 38, 39, 40, 41]
+            },
+            {
+                "nama": "Adidas Dash Pro",
+                "harga": 1350000,
+                "deskripsi": "Responsif untuk lari cepat",
+                "ukuran": [38, 39, 40, 42]
+            },
+            {
+                "nama": "Puma Swift Edge",
+                "harga": 1100000,
+                "deskripsi": "Desain aerodinamis untuk kecepatan",
+                "ukuran": [37, 39, 40, 41]
+            },
+            {
+                "nama": "Reebok Speed Shot",
+                "harga": 1050000,
+                "deskripsi": "Cocok untuk latihan interval",
+                "ukuran": [38, 39, 40]
+            },
+            {
+                "nama": "Under Armour Velocity",
+                "harga": 1400000,
+                "deskripsi": "Stabil untuk kecepatan tinggi",
+                "ukuran": [39, 40, 41, 42]
+            }
         ],
         "Jarak Menengah": [
-            {"nama": "ASICS Midrun Comfort", "harga": 1500000, "deskripsi": "Nyaman untuk lari jarak menengah"},
-            {"nama": "Saucony Endurance", "harga": 1300000, "deskripsi": "Dukungan optimal untuk lari stabil"},
-            {"nama": "Under Armour Stride", "harga": 1450000, "deskripsi": "Fleksibel dan nyaman untuk mid-distance"},
-            {"nama": "Brooks Tempo Boost", "harga": 1550000, "deskripsi": "Cocok untuk latihan jarak menengah"},
-            {"nama": "Hoka Smooth Transition", "harga": 1600000, "deskripsi": "Pijakan lembut untuk kenyamanan ekstra"}
+            {
+                "nama": "ASICS Midrun Comfort",
+                "harga": 1500000,
+                "deskripsi": "Nyaman untuk lari jarak menengah",
+                "ukuran": [38, 39, 40, 41, 42]
+            },
+            {
+                "nama": "Saucony Endurance",
+                "harga": 1300000,
+                "deskripsi": "Dukungan optimal untuk lari stabil",
+                "ukuran": [37, 38, 39, 40]
+            },
+            {
+                "nama": "Under Armour Stride",
+                "harga": 1450000,
+                "deskripsi": "Fleksibel dan nyaman untuk mid-distance",
+                "ukuran": [39, 40, 41]
+            },
+            {
+                "nama": "Brooks Tempo Boost",
+                "harga": 1550000,
+                "deskripsi": "Cocok untuk latihan jarak menengah",
+                "ukuran": [38, 39, 40]
+            },
+            {
+                "nama": "Hoka Smooth Transition",
+                "harga": 1600000,
+                "deskripsi": "Pijakan lembut untuk kenyamanan ekstra",
+                "ukuran": [37, 38, 39, 40]
+            }
         ],
         "Jarak Jauh": [
-            {"nama": "Brooks Marathon Master", "harga": 1800000, "deskripsi": "Desain khusus untuk marathon"},
-            {"nama": "Hoka Long Distance", "harga": 2000000, "deskripsi": "Maksimal peredam kejut untuk ultra run"},
-            {"nama": "Reebok Marathon Pro", "harga": 1750000, "deskripsi": "Performa tinggi untuk jarak jauh"},
-            {"nama": "Nike Endurance Max", "harga": 2100000, "deskripsi": "Desain ringan dan tahan lama"},
-            {"nama": "Adidas Ultraboost X", "harga": 2300000, "deskripsi": "Teknologi boost untuk kenyamanan optimal"}
+            {
+                "nama": "Brooks Marathon Master",
+                "harga": 1800000,
+                "deskripsi": "Desain khusus untuk marathon",
+                "ukuran": [40, 41, 42]
+            },
+            {
+                "nama": "Hoka Long Distance",
+                "harga": 2000000,
+                "deskripsi": "Maksimal peredam kejut untuk ultra run",
+                "ukuran": [39, 40, 41, 42]
+            },
+            {
+                "nama": "Reebok Marathon Pro",
+                "harga": 1750000,
+                "deskripsi": "Performa tinggi untuk jarak jauh",
+                "ukuran": [40, 41, 42]
+            },
+            {
+                "nama": "Nike Endurance Max",
+                "harga": 2100000,
+                "deskripsi": "Desain ringan dan tahan lama",
+                "ukuran": [41, 42]
+            },
+            {
+                "nama": "Adidas Ultraboost X",
+                "harga": 2300000,
+                "deskripsi": "Teknologi boost untuk kenyamanan optimal",
+                "ukuran": [39, 40, 41]
+            }
         ]
     },
     "Sempit": {
         "Jarak Pendek": [
-            {"nama": "Nike Slim Race", "harga": 1100000, "deskripsi": "Desain khusus untuk kaki sempit"},
-            {"nama": "Mizuno Narrow Fit", "harga": 1250000, "deskripsi": "Pas untuk kaki langsing"},
-            {"nama": "Adidas Edge Narrow", "harga": 1300000, "deskripsi": "Dirancang untuk kelincahan maksimal"},
-            {"nama": "New Balance Sprint Lite", "harga": 1150000, "deskripsi": "Nyaman untuk kaki sempit"},
-            {"nama": "ASICS Quick Pace", "harga": 1200000, "deskripsi": "Responsif untuk lari sprint"}
+            {
+                "nama": "Nike Slim Race",
+                "harga": 1100000,
+                "deskripsi": "Desain khusus untuk kaki sempit",
+                "ukuran": [37, 38, 39]
+            },
+            {
+                "nama": "Mizuno Narrow Fit",
+                "harga": 1250000,
+                "deskripsi": "Pas untuk kaki langsing",
+                "ukuran": [38, 39]
+            },
+            {
+                "nama": "Adidas Edge Narrow",
+                "harga": 1300000,
+                "deskripsi": "Dirancang untuk kelincahan maksimal",
+                "ukuran": [38, 39, 40]
+            },
+            {
+                "nama": "New Balance Sprint Lite",
+                "harga": 1150000,
+                "deskripsi": "Nyaman untuk kaki sempit",
+                "ukuran": [37, 38, 39]
+            },
+            {
+                "nama": "ASICS Quick Pace",
+                "harga": 1200000,
+                "deskripsi": "Responsif untuk lari sprint",
+                "ukuran": [38, 39]
+            }
         ],
         "Jarak Menengah": [
-            {"nama": "New Balance Slim Runner", "harga": 1400000, "deskripsi": "Dukungan optimal untuk kaki sempit"},
-            {"nama": "Skechers Narrow Path", "harga": 1150000, "deskripsi": "Ringan dan pas"},
-            {"nama": "Puma Glide Slim", "harga": 1350000, "deskripsi": "Nyaman untuk jarak menengah"},
-            {"nama": "Reebok Midstride", "harga": 1300000, "deskripsi": "Ergonomis untuk kaki sempit"},
-            {"nama": "Hoka Lite Transition", "harga": 1500000, "deskripsi": "Perpaduan ringan dan stabil"}
+            {
+                "nama": "New Balance Slim Runner",
+                "harga": 1400000,
+                "deskripsi": "Dukungan optimal untuk kaki sempit",
+                "ukuran": [38, 39, 40]
+            },
+            {
+                "nama": "Skechers Narrow Path",
+                "harga": 1150000,
+                "deskripsi": "Ringan dan pas",
+                "ukuran": [37, 38, 39]
+            },
+            {
+                "nama": "Puma Glide Slim",
+                "harga": 1350000,
+                "deskripsi": "Nyaman untuk jarak menengah",
+                "ukuran": [38, 39, 40]
+            },
+            {
+                "nama": "Reebok Midstride",
+                "harga": 1300000,
+                "deskripsi": "Ergonomis untuk kaki sempit",
+                "ukuran": [39, 40]
+            },
+            {
+                "nama": "Hoka Lite Transition",
+                "harga": 1500000,
+                "deskripsi": "Perpaduan ringan dan stabil",
+                "ukuran": [38, 39]
+            }
         ],
         "Jarak Jauh": [
-            {"nama": "ASICS Precision Long", "harga": 1700000, "deskripsi": "Ultra marathon untuk kaki sempit"},
-            {"nama": "Altra Slim Distance", "harga": 1900000, "deskripsi": "Teknologi zero drop untuk kaki sempit"},
-            {"nama": "Hoka Precision Slim", "harga": 1850000, "deskripsi": "Dukungan ekstra untuk jarak jauh"},
-            {"nama": "Saucony Narrow Ultra", "harga": 1750000, "deskripsi": "Stabilitas dan kenyamanan optimal"},
-            {"nama": "Brooks Endurance Slim", "harga": 1650000, "deskripsi": "Desain ringan untuk ultra run"}
+            {
+                "nama": "ASICS Precision Long",
+                "harga": 1700000,
+                "deskripsi": "Ultra marathon untuk kaki sempit",
+                "ukuran": [39, 40]
+            },
+            {
+                "nama": "Altra Slim Distance",
+                "harga": 1900000,
+                "deskripsi": "Teknologi zero drop untuk kaki sempit",
+                "ukuran": [39, 40]
+            },
+            {
+                "nama": "Hoka Precision Slim",
+                "harga": 1850000,
+                "deskripsi": "Dukungan ekstra untuk jarak jauh",
+                "ukuran": [40, 41]
+            },
+            {
+                "nama": "Saucony Narrow Ultra",
+                "harga": 1750000,
+                "deskripsi": "Stabilitas dan kenyamanan optimal",
+                "ukuran": [39, 40]
+            },
+            {
+                "nama": "Brooks Endurance Slim",
+                "harga": 1650000,
+                "deskripsi": "Desain ringan untuk ultra run",
+                "ukuran": [39, 40]
+            }
         ]
     },
     "Lebar": {
         "Jarak Pendek": [
-            {"nama": "Nike Wide Sprint", "harga": 1250000, "deskripsi": "Desain khusus untuk kaki lebar"},
-            {"nama": "Adidas Comfort Wide", "harga": 1300000, "deskripsi": "Ruang ekstra untuk jari kaki"},
-            {"nama": "Reebok Wide Stride", "harga": 1150000, "deskripsi": "Lari lebih nyaman untuk kaki lebar"},
-            {"nama": "Puma Wide Runner", "harga": 1200000, "deskripsi": "Dukungan optimal untuk kecepatan"},
-            {"nama": "Brooks Wide Fit Sprint", "harga": 1350000, "deskripsi": "Didesain untuk kenyamanan maksimal"}
+            {
+                "nama": "Nike Wide Sprint",
+                "harga": 1250000,
+                "deskripsi": "Desain khusus untuk kaki lebar",
+                "ukuran": [40, 41, 42]
+            },
+            {
+                "nama": "Adidas Comfort Wide",
+                "harga": 1300000,
+                "deskripsi": "Ruang ekstra untuk jari kaki",
+                "ukuran": [41, 42]
+            },
+            {
+                "nama": "Reebok Wide Stride",
+                "harga": 1150000,
+                "deskripsi": "Lari lebih nyaman untuk kaki lebar",
+                "ukuran": [40, 41]
+            },
+            {
+                "nama": "Puma Wide Runner",
+                "harga": 1200000,
+                "deskripsi": "Dukungan optimal untuk kecepatan",
+                "ukuran": [41, 42]
+            },
+            {
+                "nama": "Brooks Wide Fit Sprint",
+                "harga": 1350000,
+                "deskripsi": "Didesain untuk kenyamanan maksimal",
+                "ukuran": [40, 41, 42]
+            }
         ],
         "Jarak Menengah": [
-            {"nama": "ASICS Wide Support", "harga": 1550000, "deskripsi": "Stabilitas maksimal untuk kaki lebar"},
-            {"nama": "Brooks Extra Room", "harga": 1450000, "deskripsi": "Desain ergonomis untuk kaki lebar"},
-            {"nama": "Under Armour Wide Fit", "harga": 1500000, "deskripsi": "Keseimbangan dan kenyamanan untuk kaki lebar"},
-            {"nama": "New Balance Wide Flex", "harga": 1400000, "deskripsi": "Fleksibilitas tinggi untuk kaki lebar"},
-            {"nama": "Saucony Smooth Wide", "harga": 1600000, "deskripsi": "Kenyamanan sepanjang lari"}
+            {
+                "nama": "ASICS Wide Support",
+                "harga": 1550000,
+                "deskripsi": "Stabilitas maksimal untuk kaki lebar",
+                "ukuran": [40, 41, 42]
+            },
+            {
+                "nama": "Brooks Extra Room",
+                "harga": 1450000,
+                "deskripsi": "Desain ergonomis untuk kaki lebar",
+                "ukuran": [41, 42]
+            },
+            {
+                "nama": "Under Armour Wide Fit",
+                "harga": 1500000,
+                "deskripsi": "Keseimbangan dan kenyamanan untuk kaki lebar",
+                "ukuran": [40, 41]
+            },
+            {
+                "nama": "New Balance Wide Flex",
+                "harga": 1400000,
+                "deskripsi": "Fleksibilitas tinggi untuk kaki lebar",
+                "ukuran": [41, 42]
+            },
+            {
+                "nama": "Saucony Smooth Wide",
+                "harga": 1600000,
+                "deskripsi": "Kenyamanan sepanjang lari",
+                "ukuran": [40, 41]
+            }
         ],
         "Jarak Jauh": [
-            {"nama": "Hoka Wide Marathon", "harga": 2100000, "deskripsi": "Ultra support untuk kaki lebar"},
-            {"nama": "Saucony Comfort Extreme", "harga": 1950000, "deskripsi": "Maksimal kenyamanan untuk kaki lebar"},
-            {"nama": "New Balance Wide Distance", "harga": 1850000, "deskripsi": "Desain premium untuk kaki lebar"},
-            {"nama": "ASICS Long Distance Wide", "harga": 2000000, "deskripsi": "Dukungan ekstra untuk ultra run"},
-            {"nama": "Brooks Marathon Wide", "harga": 2150000, "deskripsi": "Keseimbangan dan stabilitas maksimal"}
+            {
+                "nama": "Hoka Wide Marathon",
+                "harga": 2100000,
+                "deskripsi": "Ultra support untuk kaki lebar",
+                "ukuran": [42, 43]
+            },
+            {
+                "nama": "Saucony Comfort Extreme",
+                "harga": 1950000,
+                "deskripsi": "Maksimal kenyamanan untuk kaki lebar",
+                "ukuran": [42, 43]
+            },
+            {
+                "nama": "New Balance Wide Distance",
+                "harga": 1850000,
+                "deskripsi": "Desain premium untuk kaki lebar",
+                "ukuran": [41, 42]
+            },
+            {
+                "nama": "ASICS Long Distance Wide",
+                "harga": 2000000,
+                "deskripsi": "Dukungan ekstra untuk ultra run",
+                "ukuran": [42, 43]
+            },
+            {
+                "nama": "Brooks Marathon Wide",
+                "harga": 2150000,
+                "deskripsi": "Keseimbangan dan stabilitas maksimal",
+                "ukuran": [42, 43]
+            }
         ]
     }
 }
