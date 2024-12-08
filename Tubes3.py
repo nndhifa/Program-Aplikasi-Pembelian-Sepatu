@@ -50,7 +50,7 @@ class TokoSepatuApp:
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Tambahkan komponen login di atas background
-        tk.Label(self.root, text="Login", font=("Segoe UI Semibold", 15, "bold"), bg="#ccf73b", fg="#323774",).pack(pady=10)
+        tk.Label(self.root, text="Login", font=("Segoe UI Semibold", 15, "bold"), bg="#282c66", fg="#ccf73b").pack(pady=10)
 
         tk.Label(self.root, text="Username:", bg="#ccf73b", fg="#323774").pack()
         self.username_entry = tk.Entry(self.root)
@@ -77,7 +77,7 @@ class TokoSepatuApp:
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Tambahkan komponen Sign Up di atas background
-        tk.Label(self.root, text="Sign Up", font=("Segoe UI Semibold", 15, "bold"), bg="#ccf73b", fg="#323774").pack(pady=10)
+        tk.Label(self.root, text="Sign Up", font=("Segoe UI Semibold", 15, "bold"), bg="#282c66", fg="#ccf73b").pack(pady=10)
 
         tk.Label(self.root, text="Username:", bg="#ccf73b", fg="#323774").pack()
         self.new_username_entry = tk.Entry(self.root)
@@ -192,7 +192,7 @@ class TokoSepatuApp:
         tipe_kaki = self.tipe_kaki_var.get()
         self.clear_screen()
 
-        tk.Label(self.root, text=f"Pilih Jarak Lari untuk Kaki {tipe_kaki}", bg="#323774", fg="#ccf73b", font=("Segoe UI Semibold", 16)).pack(pady=10)
+        tk.Label(self.root, text=f"Pilih Jarak Lari untuk Kaki {tipe_kaki}", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 16)).pack(pady=10)
 
         self.jarak_var = tk.StringVar(value="Jarak Pendek")
         for jarak in self.sepatu_lari[tipe_kaki].keys():
@@ -259,9 +259,9 @@ class TokoSepatuApp:
         tk.Label(self.root, text="Keranjang Belanja", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
 
         for item in self.keranjang:
-            tk.Label(self.root, text=f"{item['nama']} - Rp {item['harga']:,}", bg="#ccf73b", fg="#323774", font=("Segoe UI Semibold", 14)).pack()
+            tk.Label(self.root, text=f"{item['nama']} - Rp {item['harga']:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 14)).pack()
 
-        tk.Label(self.root, text=f"\nTotal Harga: Rp {self.total_harga:,}", bg="#ccf73b", fg="#323774", font=("Segoe UI Semibold", 12)).pack(pady=10)
+        tk.Label(self.root, text=f"\nTotal Harga: Rp {self.total_harga:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 12)).pack(pady=10)
 
         tk.Button(
             self.root,
@@ -306,7 +306,14 @@ class TokoSepatuApp:
         self.alamat_entry = tk.Entry(self.root, width=50)
         self.alamat_entry.pack(pady=5)
 
-        tk.Label(self.root, text="Pilih Metode Pembayaran:", font=("Segoe UI Semibold", 12)).pack(pady=10)
+        tk.Label(
+            self.root, 
+            text="Pilih Metode Pembayaran:", 
+            font=("Segoe UI Semibold", 12), 
+            bg="#282c66", 
+            fg="#ccf73b"
+        ).pack(pady=10)
+
         self.metode_var = tk.StringVar(value="COD")
         metode_pembayaran = ["COD", "Virtual Account"]
         for metode in metode_pembayaran:
@@ -316,11 +323,13 @@ class TokoSepatuApp:
                 variable=self.metode_var,
                 value=metode,
                 font=("Segoe UI Semibold", 14),  
-                width=20,  
+                width=20,
+                bg="#ccf73b", 
+                fg="#323774",  
                 anchor="center"  
             ).pack(pady=5)  
 
-        tk.Button(self.root, text="Konfirmasi Pembayaran", command=self.konfirmasi_pembayaran).pack(pady=10)
+        tk.Button(self.root, text="Konfirmasi Pembayaran", bg="#ccf73b", fg="#323774", command=self.konfirmasi_pembayaran).pack(pady=10)
 
 
     def konfirmasi_pembayaran(self):
@@ -339,7 +348,7 @@ class TokoSepatuApp:
 
     def show_virtual_account(self):
         self.clear_screen()
-        tk.Label(self.root, text="Pilih Bank untuk Virtual Account", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
+        tk.Label(self.root, text="Pilih Bank untuk Virtual Account", bg="#ccf73b", fg="#323774", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
 
         self.bank_var = tk.StringVar(value="Mandiri")
         daftar_bank = ["Mandiri", "BNI", "BCA", "BRI"]
@@ -350,11 +359,13 @@ class TokoSepatuApp:
                 variable=self.bank_var,
                 value=bank,
                 font=("Segoe UI Semibold", 14),  
-                width=20,  
+                width=20,
+                bg="#ccf73b", 
+                fg="#323774",  
                 anchor="center" 
             ).pack(pady=5)  
 
-        tk.Button(self.root, text="Lanjutkan", command=self.show_va_rekening).pack(pady=10)
+        tk.Button(self.root, text="Lanjutkan", bg="#ccf73b", fg="#323774",command=self.show_va_rekening).pack(pady=10)
 
     def show_va_rekening(self):
         bank = self.bank_var.get()
@@ -399,7 +410,6 @@ class TokoSepatuApp:
     def clear_screen(self):
         for widget in self.root.winfo_children():
             widget.destroy()
-
 
 # Jalankan aplikasi
 if __name__ == "__main__":
