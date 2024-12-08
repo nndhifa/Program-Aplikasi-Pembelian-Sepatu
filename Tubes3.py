@@ -141,7 +141,6 @@ class TokoSepatuApp:
             self.root,
             text="Lanjut",
             command=self.show_jarak_lari_menu,
-            font=("Segoe UI Semibold", 14),  
             padx=10,  
             pady=5    
         ).pack(pady=10)
@@ -171,7 +170,7 @@ class TokoSepatuApp:
         rekomendasi = self.sepatu_lari[tipe_kaki].get(jarak, [])
         self.clear_screen()
 
-        tk.Label(self.root, text=f"Rekomendasi Sepatu ({tipe_kaki} - {jarak})", font=("Segoe UI Semibold", 16)).pack(pady=10)
+        tk.Label(self.root, text=f"Rekomendasi Sepatu ({tipe_kaki} - {jarak})", font=("Segoe UI Semibold", 14)).pack(pady=10)
 
         for sepatu in rekomendasi:
             tk.Button(
@@ -197,7 +196,8 @@ class TokoSepatuApp:
             tk.Button(
                 self.root,
                 text=f"{barang['nama']} - Rp {barang['harga']:,}",
-                command=lambda b=barang: self.add_to_cart(b)
+                font=("Segoe UI Semibold", 12),  
+                command=lambda b=barang: self.add_to_cart(b) 
             ).pack(pady=5)
 
         tk.Button(self.root, text="Lihat Keranjang", command=self.show_keranjang).pack(pady=10)
@@ -208,15 +208,14 @@ class TokoSepatuApp:
         tk.Label(self.root, text="Keranjang Belanja", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
 
         for item in self.keranjang:
-            tk.Label(self.root, text=f"{item['nama']} - Rp {item['harga']:,}", font=("Arial", 12)).pack()
+            tk.Label(self.root, text=f"{item['nama']} - Rp {item['harga']:,}", font=("Segoe UI Semibold", 14)).pack()
 
-        tk.Label(self.root, text=f"\nTotal Harga: Rp {self.total_harga:,}", font=("Arial", 16)).pack(pady=10)
+        tk.Label(self.root, text=f"\nTotal Harga: Rp {self.total_harga:,}", font=("Segoe UI Semibold", 12)).pack(pady=10)
 
         tk.Button(
             self.root,
             text="Checkout",
             command=self.checkout,
-            font=("Segoe UI Semibold", 14),
             padx=10,
             pady=5
         ).pack(pady=5)
@@ -225,7 +224,6 @@ class TokoSepatuApp:
             self.root,
             text="Kembali ke Menu Utama",
             command=self.show_main_menu,
-            font=("Segoe UI Semibold", 14),
             padx=10,
             pady=5
         ).pack(pady=5)
@@ -234,13 +232,22 @@ class TokoSepatuApp:
     def checkout(self):
         self.clear_screen()
         tk.Label(self.root, text="Checkout", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
-        tk.Label(self.root, text=f"Total Harga: Rp {self.total_harga:,}").pack(pady=10)
-
-        tk.Label(self.root, text="Masukkan Alamat Pengiriman:").pack()
+        tk.Label(
+            self.root,
+            text=f"Total Harga: Rp {self.total_harga:,}",
+            font=("Segoe UI Semibold", 12)
+        ).pack(pady=10)
+        
+        tk.Label(
+            self.root,
+            text="Masukkan Alamat Pengiriman:",
+            font=("Segoe UI Semibold", 12)
+        ).pack()
+        
         self.alamat_entry = tk.Entry(self.root, width=50)
         self.alamat_entry.pack(pady=5)
 
-        tk.Label(self.root, text="Pilih Metode Pembayaran:", font=("Segoe UI Semibold", 14)).pack(pady=10)
+        tk.Label(self.root, text="Pilih Metode Pembayaran:", font=("Segoe UI Semibold", 12)).pack(pady=10)
         self.metode_var = tk.StringVar(value="COD")
         metode_pembayaran = ["COD", "Virtual Account"]
         for metode in metode_pembayaran:
