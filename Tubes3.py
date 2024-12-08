@@ -91,7 +91,16 @@ class TokoSepatuApp:
 
         self.tipe_kaki_var = tk.StringVar(value="Normal")
         for tipe in self.sepatu_lari.keys():
-            tk.Radiobutton(self.root, text=tipe, variable=self.tipe_kaki_var, value=tipe).pack(anchor="w")
+            tk.Radiobutton(
+                self.root, 
+                text=tipe, 
+                variable=self.tipe_kaki_var, 
+                value=tipe, 
+                font=("Arial", 14),  # Membuat teks lebih besar
+                indicatoron=1,  # Menampilkan tombol radio
+                width=20,  # Lebar tombol
+                anchor="center"  # Menengahkan teks dalam tombol
+            ).pack(pady=5)  # Memberikan ruang antar tombol
 
         tk.Button(self.root, text="Lanjut", command=self.show_jarak_lari_menu).pack(pady=10)
 
@@ -103,7 +112,15 @@ class TokoSepatuApp:
 
         self.jarak_var = tk.StringVar(value="Jarak Pendek")
         for jarak in self.sepatu_lari[tipe_kaki].keys():
-            tk.Radiobutton(self.root, text=jarak, variable=self.jarak_var, value=jarak).pack(anchor="w")
+            tk.Radiobutton(
+                self.root, 
+                text=jarak, 
+                variable=self.jarak_var, 
+                value=jarak, 
+                font=("Arial", 14),  # Membuat teks lebih besar
+                width=20,  # Lebar tombol
+                anchor="center"  # Menengahkan teks dalam tombol
+            ).pack(pady=5)  # Memberikan ruang antar tombol
 
         tk.Button(self.root, text="Lihat Rekomendasi", command=lambda: self.show_rekomendasi(tipe_kaki)).pack(pady=10)
 
@@ -157,15 +174,27 @@ class TokoSepatuApp:
         self.clear_screen()
         tk.Label(self.root, text="Checkout", font=("Arial", 20, "bold")).pack(pady=10)
         tk.Label(self.root, text=f"Total Harga: Rp {self.total_harga:,}").pack(pady=10)
+
         tk.Label(self.root, text="Masukkan Alamat Pengiriman:").pack()
         self.alamat_entry = tk.Entry(self.root, width=50)
         self.alamat_entry.pack(pady=5)
-        tk.Label(self.root, text="Pilih Metode Pembayaran:").pack()
+
+        tk.Label(self.root, text="Pilih Metode Pembayaran:", font=("Arial", 14)).pack(pady=10)
         self.metode_var = tk.StringVar(value="COD")
         metode_pembayaran = ["COD", "Virtual Account"]
         for metode in metode_pembayaran:
-            tk.Radiobutton(self.root, text=metode, variable=self.metode_var, value=metode).pack(anchor="w")
+            tk.Radiobutton(
+                self.root,
+                text=metode,
+                variable=self.metode_var,
+                value=metode,
+                font=("Arial", 14),  # Membuat teks lebih besar
+                width=20,  # Lebar tombol
+                anchor="center"  # Menengahkan teks dalam tombol
+            ).pack(pady=5)  # Memberikan jarak antar tombol
+
         tk.Button(self.root, text="Konfirmasi Pembayaran", command=self.konfirmasi_pembayaran).pack(pady=10)
+
 
     def konfirmasi_pembayaran(self):
         metode = self.metode_var.get()
@@ -188,7 +217,15 @@ class TokoSepatuApp:
         self.bank_var = tk.StringVar(value="Mandiri")
         daftar_bank = ["Mandiri", "BNI", "BCA", "BRI"]
         for bank in daftar_bank:
-            tk.Radiobutton(self.root, text=bank, variable=self.bank_var, value=bank).pack(anchor="w")
+            tk.Radiobutton(
+                self.root,
+                    text=bank,
+                variable=self.bank_var,
+                value=bank,
+                font=("Arial", 14),  
+                width=20,  
+                anchor="center" 
+            ).pack(pady=5)  
 
         tk.Button(self.root, text="Lanjutkan", command=self.show_va_rekening).pack(pady=10)
 
