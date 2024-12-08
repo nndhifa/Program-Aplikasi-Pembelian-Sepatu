@@ -13,8 +13,8 @@ class TokoSepatuApp:
         self.akun = {}
 
         # Contoh:
-        self.sepatu_lari = self.load_data("sepatu_lari.json")
-        self.barang_tambahan = self.load_data("barang_tambahan.json")
+        self.sepatu_lari = self.load_data("sepatu_lari_daniel.json")
+        self.barang_tambahan = self.load_data("barang_tambahan_daniel.json")
 
 
         self.keranjang = []
@@ -27,7 +27,7 @@ class TokoSepatuApp:
         """Memuat data dari file JSON di direktori skrip."""
         try:
             # Pastikan path relatif ke lokasi file Python
-            base_dir = os.path.dirname(os.path.abspath(_file_))
+            base_dir = os.path.dirname(os.path.abspath(__file__))
             full_path = os.path.join(base_dir, file_name)
 
             with open(full_path, "r", encoding="utf-8") as file:
@@ -222,22 +222,46 @@ class TokoSepatuApp:
         tk.Label(self.root, text=f"Rekomendasi Sepatu ({tipe_kaki} - {jarak})", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 14)).pack(pady=10)
 
         for sepatu in rekomendasi:
-            tk.Button(
+        # Menampilkan tombol untuk memilih sepatu
+            button = tk.Button(
                 self.root,
                 text=f"{sepatu['nama']} - Rp {sepatu['harga']:,}", 
                 font=("Segoe UI Semibold", 16),
                 bg="#ccf73b", 
                 fg="#323774",
-                command=lambda s=sepatu: self.add_to_cart(s),
-                width=30
+               command=lambda s=sepatu: self.show_ukuran_menu(s)
+        )
+            button.pack (pady=5)
+
+        tk.Button(self.root, text="Kembali ke Menu Utama", bg="#ccf73b", fg="#323774",command=self.show_main_menu).pack(pady=10)
+        
+    def show_ukuran_menu(self, sepatu):
+        self.clear_screen()
+
+        tk.Label(self.root, text=f"Pilih Ukuran untuk {sepatu['nama']}", font=("Arial", 16)).pack(pady=10)
+
+    # Menampilkan ukuran sepatu yang tersedia
+        for ukuran in sepatu['ukuran']:
+            tk.Button(
+                self.root,
+                text=f"Ukuran {ukuran}",
+                command=lambda u=ukuran, s=sepatu: self.add_to_cart_with_size(s, u)
             ).pack(pady=5)
 
-        tk.Button(self.root, text="Kembali ke Menu Utama", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
+        tk.Button(self.root, text="Kembali", command=self.show_rekomendasi).pack(pady=10)
 
-    def add_to_cart(self, sepatu):
-        self.keranjang.append(sepatu)
+    def add_to_cart_with_size(self, sepatu, ukuran):
+        sepatu_terpilih = sepatu.copy()
+        sepatu_terpilih['ukuran'] = ukuran  # Menambahkan ukuran sepatu yang dipilih
+        self.keranjang.append(sepatu_terpilih)
         self.total_harga += sepatu['harga']
-        messagebox.showinfo("Keranjang", f"{sepatu['nama']} berhasil ditambahkan ke keranjang.")
+        
+        messagebox.showinfo(
+            "Keranjang", 
+            f"{sepatu_terpilih['nama']} (Ukuran {ukuran}) berhasil ditambahkan ke keranjang.",
+            bg="#282c66",  
+            fg="#ccf73b",  
+        )
         self.show_tambah_barang()
 
     def show_tambah_barang(self):
@@ -248,14 +272,21 @@ class TokoSepatuApp:
             tk.Button(
                 self.root,
                 text=f"{barang['nama']} - Rp {barang['harga']:,}",
-                font=("Segoe UI Semibold", 12), 
-                bg="#ccf73b", 
-                fg="#323774", 
-                command=lambda b=barang: self.add_to_cart(b), 
+                font=("Segoe UI Semibold", 12),
+                bg="#ccf73b",
+                fg="#323774",
+                command=lambda b=barang: self.add_to_cart(b),  # Make sure the correct 'barang' is passed
                 width=40
             ).pack(pady=5)
 
+
         tk.Button(self.root, text="Lihat Keranjang", bg="#ccf73b", fg="#323774", command=self.show_keranjang).pack(pady=10)
+        
+    def add_to_cart(self, barang):
+        print(f"Barang ditambahkan ke keranjang: {barang}")
+        self.keranjang.append(barang)
+        self.total_harga += barang['harga']
+        messagebox.showinfo("Keranjang", f"{barang['nama']} berhasil ditambahkan ke keranjang.")
 
     def show_keranjang(self):
         self.clear_screen()
