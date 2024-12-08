@@ -161,7 +161,7 @@ class TokoSepatuApp:
     def show_cari_sepatu_menu(self):
         self.clear_screen()
 
-        tk.Label(self.root, text="Pilih Tipe Kaki", bg="#ccf73b", fg="#323774", font=("Segoe UI Semibold", 16)).pack(pady=10)
+        tk.Label(self.root, text="Pilih Tipe Kaki", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 16)).pack(pady=10)
 
         self.tipe_kaki_var = tk.StringVar(value="Normal")
         for tipe in self.sepatu_lari.keys():
@@ -192,7 +192,7 @@ class TokoSepatuApp:
         tipe_kaki = self.tipe_kaki_var.get()
         self.clear_screen()
 
-        tk.Label(self.root, text=f"Pilih Jarak Lari untuk Kaki {tipe_kaki}", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 16)).pack(pady=10)
+        tk.Label(self.root, text=f"Pilih Jarak Lari untuk Kaki {tipe_kaki}", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 16)).pack(pady=10)
 
         self.jarak_var = tk.StringVar(value="Jarak Pendek")
         for jarak in self.sepatu_lari[tipe_kaki].keys():
@@ -215,7 +215,7 @@ class TokoSepatuApp:
         rekomendasi = self.sepatu_lari[tipe_kaki].get(jarak, [])
         self.clear_screen()
 
-        tk.Label(self.root, text=f"Rekomendasi Sepatu ({tipe_kaki} - {jarak})", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 14)).pack(pady=10)
+        tk.Label(self.root, text=f"Rekomendasi Sepatu ({tipe_kaki} - {jarak})", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 14)).pack(pady=10)
 
         for sepatu in rekomendasi:
             tk.Button(
@@ -239,7 +239,7 @@ class TokoSepatuApp:
     def show_tambah_barang(self):
         self.clear_screen()
 
-        tk.Label(self.root, text="Tambahkan Barang Lain?", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 16)).pack(pady=10)
+        tk.Label(self.root, text="Tambahkan Barang Lain?", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 16)).pack(pady=10)
         for barang in self.barang_tambahan:
             tk.Button(
                 self.root,
@@ -256,7 +256,7 @@ class TokoSepatuApp:
     def show_keranjang(self):
         self.clear_screen()
 
-        tk.Label(self.root, text="Keranjang Belanja", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
+        tk.Label(self.root, text="Keranjang Belanja", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 20, "bold")).pack(pady=10)
 
         for item in self.keranjang:
             tk.Label(self.root, text=f"{item['nama']} - Rp {item['harga']:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 14)).pack()
@@ -286,7 +286,7 @@ class TokoSepatuApp:
 
     def checkout(self):
         self.clear_screen()
-        tk.Label(self.root, text="Checkout", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
+        tk.Label(self.root, text="Checkout", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 20, "bold")).pack(pady=10)
         tk.Label(
             self.root,
             text=f"Total Harga: Rp {self.total_harga:,}",
@@ -348,7 +348,7 @@ class TokoSepatuApp:
 
     def show_virtual_account(self):
         self.clear_screen()
-        tk.Label(self.root, text="Pilih Bank untuk Virtual Account", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
+        tk.Label(self.root, text="Pilih Bank untuk Virtual Account", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 20, "bold")).pack(pady=10)
 
         self.bank_var = tk.StringVar(value="Mandiri")
         daftar_bank = ["Mandiri", "BNI", "BCA", "BRI"]
