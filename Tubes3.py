@@ -245,10 +245,20 @@ class TokoSepatuApp:
             tk.Button(
                 self.root,
                 text=f"Ukuran {ukuran}",
-                command=lambda u=ukuran, s=sepatu: self.add_to_cart_with_size(s, u)
+                command=lambda u=ukuran, s=sepatu: self.add_to_cart_with_size(s, u),
+                bg="#ccf73b",  # Warna latar belakang
+                fg="#323774",   # Warna teks
+                width=20
             ).pack(pady=5)
 
-        tk.Button(self.root, text="Kembali", command=self.show_rekomendasi).pack(pady=10)
+        tk.Button(
+            self.root, 
+            text="Kembali", 
+            command=self.show_rekomendasi, 
+            bg="#ccf73b",  # Warna latar belakang
+            fg="#323774",   # Warna teks
+            width=20
+        ).pack(pady=10)
 
     def add_to_cart_with_size(self, sepatu, ukuran):
         sepatu_terpilih = sepatu.copy()
