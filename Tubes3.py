@@ -3,6 +3,8 @@ from tkinter import messagebox
 import json
 from PIL import Image, ImageTk
 import os
+from data_loader import load_data
+
 
 class TokoSepatuApp:
     def __init__(self, root):
@@ -13,8 +15,8 @@ class TokoSepatuApp:
         self.akun = {}
 
         # Contoh:
-        self.sepatu_lari = self.load_data("sepatu_lari_daniel.json")
-        self.barang_tambahan = self.load_data("barang_tambahan_daniel.json")
+        self.sepatu_lari = load_data("sepatu_lari_daniel.json")
+        self.barang_tambahan = load_data("barang_tambahan_daniel.json")
 
 
         self.keranjang = []
