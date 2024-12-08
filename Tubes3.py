@@ -155,29 +155,36 @@ class TokoSepatuApp:
 
     def checkout(self):
         self.clear_screen()
-
-        tk.Label(self.root, text="Pembayaran", font=("Arial", 20, "bold")).pack(pady=10)
+        tk.Label(self.root, text="Checkout", font=("Arial", 20, "bold")).pack(pady=10)
         tk.Label(self.root, text=f"Total Harga: Rp {self.total_harga:,}").pack(pady=10)
+        tk.Label(self.root, text="Masukkan Alamat Pengiriman:").pack()
+        self.alamat_entry = tk.Entry(self.root, width=50)
+        self.alamat_entry.pack(pady=5)
+        tk.Label(self.root, text="Pilih Metode Pembayaran:").pack()
+        self.metode_var = tk.StringVar(value="COD")
+        metode_pembayaran = ["COD", "Virtual Account"]
+        for metode in metode_pembayaran:
+            tk.Radiobutton(self.root, text=metode, variable=self.metode_var, value=metode).pack(anchor="w")
+        tk.Button(self.root, text="Konfirmasi Pembayaran", command=self.konfirmasi_pembayaran).pack(pady=10)
 
-        tk.Label(self.root, text="Masukkan jumlah uang pembayaran:").pack()
-        self.bayar_entry = tk.Entry(self.root)
-        self.bayar_entry.pack()
-
-        tk.Button(self.root, text="Bayar", command=self.proses_pembayaran).pack(pady=10)
-
-    def proses_pembayaran(self):
-        try:
-            bayar = int(self.bayar_entry.get())
-            if bayar >= self.total_harga:
-                kembalian = bayar - self.total_harga
-                messagebox.showinfo("Pembayaran Berhasil", f"Pembayaran berhasil!\nKembalian: Rp {kembalian:,}")
-                self.keranjang.clear()
-                self.total_harga = 0
-                self.show_main_menu()
-            else:
-                messagebox.showerror("Pembayaran Gagal", "Jumlah uang tidak cukup.")
-        except ValueError:
-            messagebox.showerror("Error", "Masukkan jumlah uang yang valid.")
+    def konfirmasi_pembayaran(self):
+        metode = self.metode_var.get()
+        if metode == "COD":
+            messagebox.showinfo(
+                "Konfirmasi COD",
+                f"Terima kasih telah berbelanja.\n"
+                f"Harap siapkan uang tunai sebesar Rp {self.total_harga:,} saat paket sampai."
+            )
+        else:
+            rekening = "123456789 (Bank Mandiri)"
+            messagebox.showinfo(
+                "Konfirmasi Virtual Account",
+                f"Silakan lakukan pembayaran ke rekening berikut:\n{rekening}\n"
+                "Pembayaran akan diperiksa sistem. Jika transaksi sukses, paket akan segera dikirimkan."
+            )
+        self.keranjang.clear()
+        self.total_harga = 0
+        self.show_main_menu()
 
     def login(self):
         username = self.username_entry.get()
