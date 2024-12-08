@@ -238,40 +238,27 @@ class TokoSepatuApp:
     def show_ukuran_menu(self, sepatu):
         self.clear_screen()
 
-        tk.Label(self.root, text=f"Pilih Ukuran untuk {sepatu['nama']}", font=("Arial", 16)).pack(pady=10)
+        tk.Label(self.root, text=f"Pilih Ukuran untuk {sepatu['nama']}", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 16)).pack(pady=10)
 
     # Menampilkan ukuran sepatu yang tersedia
         for ukuran in sepatu['ukuran']:
             tk.Button(
                 self.root,
                 text=f"Ukuran {ukuran}",
-                command=lambda u=ukuran, s=sepatu: self.add_to_cart_with_size(s, u),
-                bg="#ccf73b",  # Warna latar belakang
-                fg="#323774",   # Warna teks
-                width=20
+                font=("Segoe UI Semibold", 16),
+                bg="#ccf73b", 
+                fg="#323774",
+                command=lambda u=ukuran, s=sepatu: self.add_to_cart_with_size(s, u)
             ).pack(pady=5)
 
-        tk.Button(
-            self.root, 
-            text="Kembali", 
-            command=self.show_rekomendasi, 
-            bg="#ccf73b",  # Warna latar belakang
-            fg="#323774",   # Warna teks
-            width=20
-        ).pack(pady=10)
+        tk.Button(self.root, text="Kembali", font=("Segoe UI Semibold", 16), bg="#ccf73b", fg="#323774",command=self.show_rekomendasi).pack(pady=10)
 
     def add_to_cart_with_size(self, sepatu, ukuran):
         sepatu_terpilih = sepatu.copy()
         sepatu_terpilih['ukuran'] = ukuran  # Menambahkan ukuran sepatu yang dipilih
         self.keranjang.append(sepatu_terpilih)
         self.total_harga += sepatu['harga']
-        
-        messagebox.showinfo(
-            "Keranjang", 
-            f"{sepatu_terpilih['nama']} (Ukuran {ukuran}) berhasil ditambahkan ke keranjang.",
-            bg="#282c66",  
-            fg="#ccf73b",  
-        )
+        messagebox.showinfo("Keranjang", f"{sepatu_terpilih['nama']} (Ukuran {ukuran}) berhasil ditambahkan ke keranjang.")
         self.show_tambah_barang()
 
     def show_tambah_barang(self):
