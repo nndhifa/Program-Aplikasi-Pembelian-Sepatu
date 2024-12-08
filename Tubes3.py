@@ -11,7 +11,7 @@ class TokoSepatuApp:
         self.akun = {}
 
         # Memuat data sepatu lari dan barang tambahan dari file JSON
-        file_path = r"C:\Program-Aplikasi-Pembelian-Sepatu\sepatu_lari_jason.json"
+        file_path = r"C:\Program-Aplikasi-Pembelian-Sepatu\sepatu_lari_daniel.json"
         self.sepatu_lari = self.load_data(file_path)
         file_path = r"C:\Program-Aplikasi-Pembelian-Sepatu\barang_tambahan_daniel.json"
         self.barang_tambahan = self.load_data(file_path)
