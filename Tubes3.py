@@ -348,7 +348,7 @@ class TokoSepatuApp:
 
     def show_virtual_account(self):
         self.clear_screen()
-        tk.Label(self.root, text="Pilih Bank untuk Virtual Account", bg="#ccf73b", fg="#323774", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
+        tk.Label(self.root, text="Pilih Bank untuk Virtual Account", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
 
         self.bank_var = tk.StringVar(value="Mandiri")
         daftar_bank = ["Mandiri", "BNI", "BCA", "BRI"]
