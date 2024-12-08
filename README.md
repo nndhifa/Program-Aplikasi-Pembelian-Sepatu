@@ -1,5 +1,5 @@
 # Program-Aplikasi-Pembelian-Sepatu Running 🏃
-# Daftar Anggota Kelompok 13 👨‍👨‍👧
+# Daftar Anggota Kelompok 16 👨‍👨‍👧
 1. Robby Marentyano (I0324065)   🧑‍💻
 2. Daniel Vanhanen CS (I0324075) 🧑‍💻
 3. Nada Nadhifa (I0324091)       👩‍💻
@@ -12,4 +12,6 @@ Aplikasi ini akan membantu pengguna mencari produk dan ukuran sepatu sesuai deng
 2. Pengguna bisa mencari sepatu lari berdasarkan tipe kaki mereka dan berdasarkan jenis lari mereka
 3. Pengguna juga bisa membeli barang barang lain yang bisa menyuport larinya seperti jam tangan, kaos lari, celana lari dll
 4. Setelah barang masuk ke dalam keranjang, pengguna bisa melakukan pembayaran dengan cara COD ataupun melalui virtual account
+
+
 
