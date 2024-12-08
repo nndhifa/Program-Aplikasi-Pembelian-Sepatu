@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import json
 from PIL import Image, ImageTk
+import os
 
 class TokoSepatuApp:
     def __init__(self, root):
@@ -11,11 +12,10 @@ class TokoSepatuApp:
         # Database sementara untuk akun
         self.akun = {}
 
-        # Memuat data sepatu lari dan barang tambahan dari file JSON
-        file_path = r"C:\Program-Aplikasi-Pembelian-Sepatu\sepatu_lari_daniel.json"
-        self.sepatu_lari = self.load_data(file_path)
-        file_path = r"C:\Program-Aplikasi-Pembelian-Sepatu\barang_tambahan_daniel.json"
-        self.barang_tambahan = self.load_data(file_path)
+        # Contoh:
+        self.sepatu_lari = self.load_data("sepatu_lari.json")
+        self.barang_tambahan = self.load_data("barang_tambahan.json")
+
 
         self.keranjang = []
         self.total_harga = 0
@@ -24,9 +24,13 @@ class TokoSepatuApp:
         self.show_login_screen()
 
     def load_data(self, file_name):
-        """Memuat data dari file JSON."""
+        """Memuat data dari file JSON di direktori skrip."""
         try:
-            with open(file_name, "r", encoding="utf-8") as file:
+            # Pastikan path relatif ke lokasi file Python
+            base_dir = os.path.dirname(os.path.abspath(_file_))
+            full_path = os.path.join(base_dir, file_name)
+
+            with open(full_path, "r", encoding="utf-8") as file:
                 return json.load(file)
         except FileNotFoundError:
             messagebox.showerror("Error", f"File {file_name} tidak ditemukan.")
