@@ -177,7 +177,7 @@ class TokoSepatuApp:
                 self.root,
                 text=f"{sepatu['nama']} - Rp {sepatu['harga']:,}", 
                 font=("Segoe UI Semibold", 16),
-                command=lambda s=sepatu: self.add_to_cart(s)
+                command=lambda s=sepatu: self.add_to_cart(s),
                 width=30
             ).pack(pady=5)
 
@@ -198,8 +198,8 @@ class TokoSepatuApp:
                 self.root,
                 text=f"{barang['nama']} - Rp {barang['harga']:,}",
                 font=("Segoe UI Semibold", 12),  
-                command=lambda b=barang: self.add_to_cart(b) 
-                width=30
+                command=lambda b=barang: self.add_to_cart(b), 
+                width=40
             ).pack(pady=5)
 
         tk.Button(self.root, text="Lihat Keranjang", command=self.show_keranjang).pack(pady=10)
