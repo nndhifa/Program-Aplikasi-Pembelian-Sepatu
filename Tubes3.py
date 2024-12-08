@@ -76,6 +76,7 @@ class TokoSepatuApp:
             text="Panduan Tipe Kaki",
             command=self.show_panduan,
             font=("Segoe UI Semibold", 14),
+            width=20,
             padx=7,
             pady=5
         ).pack(fill="x", pady=5)
@@ -85,6 +86,7 @@ class TokoSepatuApp:
             text="Cari Sepatu",
             command=self.show_cari_sepatu_menu,
             font=("Segoe UI Semibold", 14),
+            width=20,
             padx=7,
             pady=5
         ).pack(fill="x", pady=5)
@@ -94,6 +96,7 @@ class TokoSepatuApp:
             text="Lihat Keranjang",
             command=self.show_keranjang,
             font=("Segoe UI Semibold", 14),
+            width=20,
             padx=7,
             pady=5
         ).pack(fill="x", pady=5)
@@ -103,6 +106,7 @@ class TokoSepatuApp:
             text="Keluar",
             command=self.root.quit,
                 font=("Segoe UI Semibold", 14),
+            width=20,
             padx=7,
             pady=5
         ).pack(fill="x", pady=5)
