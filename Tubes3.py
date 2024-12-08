@@ -290,7 +290,7 @@ class TokoSepatuApp:
         tk.Label(
             self.root,
             text=f"Total Harga: Rp {self.total_harga:,}",
-            font=("Segoe UI Semibold", 12)
+            font=("Segoe UI Semibold", 12),
             bg="#282c66", 
             fg="#ccf73b",
         ).pack(pady=10)
@@ -298,7 +298,7 @@ class TokoSepatuApp:
         tk.Label(
             self.root,
             text="Masukkan Alamat Pengiriman:",
-            font=("Segoe UI Semibold", 12)
+            font=("Segoe UI Semibold", 12),
             bg="#282c66", 
             fg="#ccf73b",
         ).pack()
