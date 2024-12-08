@@ -36,6 +36,27 @@ class TokoSepatuApp:
 
     def show_login_screen(self):
         self.clear_screen()
+        
+        # Menambahkan background
+        background_image = Image.open("background_login.jpg")
+        background_image = background_image.resize((400, 300), Image.ANTIALIAS)
+        self.bg_image = ImageTk.PhotoImage(background_image)
+        bg_label = tk.Label(self.root, image=self.bg_image)
+        bg_label.place(relwidth=1, relheight=1)
+        
+        # Menambahkan elemen login di atas background
+        tk.Label(self.root, text="Login", font=("Segoe UI Semibold", 15, "bold"), bg="#ffffff", fg="#333333").pack(pady=10)
+
+        tk.Label(self.root, text="Username:", bg="#ffffff").pack()
+        self.username_entry = tk.Entry(self.root)
+        self.username_entry.pack()
+
+        tk.Label(self.root, text="Password:", bg="#ffffff").pack()
+        self.password_entry = tk.Entry(self.root, show="*")
+        self.password_entry.pack()
+
+        tk.Button(self.root, text="Login", command=self.login).pack(pady=5)
+        tk.Button(self.root, text="Sign Up", command=self.show_signup_screen).pack(pady=5)
 
         tk.Label(self.root, text="Login", font=("Segoe UI Semibold", 15, "bold")).pack(pady=10)
 
