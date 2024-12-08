@@ -50,13 +50,13 @@ class TokoSepatuApp:
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Tambahkan komponen login di atas background
-        tk.Label(self.root, text="Login", font=("Segoe UI Semibold", 15, "bold"), bg="#ffffff", fg="#000000").pack(pady=10)
+        tk.Label(self.root, text="Login", font=("Segoe UI Semibold", 15, "bold"), bg="#ccf73b", fg="#323774",).pack(pady=10)
 
-        tk.Label(self.root, text="Username:", bg="#ffffff").pack()
+        tk.Label(self.root, text="Username:", bg="#ccf73b", fg="#323774").pack()
         self.username_entry = tk.Entry(self.root)
         self.username_entry.pack(pady=5)
 
-        tk.Label(self.root, text="Password:", bg="#ffffff").pack()
+        tk.Label(self.root, text="Password:", bg="#ccf73b", fg="#323774").pack()
         self.password_entry = tk.Entry(self.root, show="*")
         self.password_entry.pack(pady=5)
 
