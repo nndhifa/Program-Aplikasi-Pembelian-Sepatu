@@ -176,7 +176,8 @@ class TokoSepatuApp:
         for sepatu in rekomendasi:
             tk.Button(
                 self.root,
-                text=f"{sepatu['nama']} - Rp {sepatu['harga']:,}", font=("Segoe UI Semibold", 16)
+                text=f"{sepatu['nama']} - Rp {sepatu['harga']:,}", 
+                font=("Segoe UI Semibold", 16),
                 command=lambda s=sepatu: self.add_to_cart(s)
             ).pack(pady=5)
 
