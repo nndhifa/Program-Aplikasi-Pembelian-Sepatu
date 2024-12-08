@@ -79,7 +79,7 @@ class TokoSepatuApp:
             width=20,
             padx=7,
             pady=5
-        ).pack(fill="x", pady=5, anchor="center")
+        ).pack(pady=5, anchor="center")
 
         tk.Button(
             self.root,
@@ -89,7 +89,7 @@ class TokoSepatuApp:
             width=20,
             padx=7,
             pady=5
-        ).pack(fill="x", pady=5, anchor="center")
+        ).pack(pady=5, anchor="center")
 
         tk.Button(
             self.root,
@@ -99,7 +99,7 @@ class TokoSepatuApp:
             width=20,
             padx=7,
             pady=5
-        ).pack(fill="x", pady=5, anchor="center")
+        ).pack(pady=5, anchor="center")
 
         tk.Button(
             self.root,
@@ -109,7 +109,7 @@ class TokoSepatuApp:
             width=20,
             padx=7,
             pady=5
-        ).pack(fill="x", pady=5, anchor="center")
+        ).pack(pady=5, anchor="center")
 
     def show_panduan(self):
         messagebox.showinfo(
