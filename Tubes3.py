@@ -71,10 +71,41 @@ class TokoSepatuApp:
 
         tk.Label(self.root, text="Pace and Stride", font=("Arial", 24, "bold")).pack(pady=10)
 
-        tk.Button(self.root, text="Panduan Tipe Kaki", command=self.show_panduan).pack(fill="x", pady=5)
-        tk.Button(self.root, text="Cari Sepatu", command=self.show_cari_sepatu_menu).pack(fill="x", pady=5)
-        tk.Button(self.root, text="Lihat Keranjang", command=self.show_keranjang).pack(fill="x", pady=5)
-        tk.Button(self.root, text="Keluar", command=self.root.quit).pack(fill="x", pady=5)
+        tk.Button(
+            self.root,
+            text="Panduan Tipe Kaki",
+            command=self.show_panduan,
+            font=("Arial", 14),
+            padx=10,
+            pady=5
+        ).pack(fill="x", pady=5)
+
+        tk.Button(
+            self.root,
+            text="Cari Sepatu",
+            command=self.show_cari_sepatu_menu,
+            font=("Arial", 14),
+            padx=10,
+            pady=5
+        ).pack(fill="x", pady=5)
+
+        tk.Button(
+            self.root,
+            text="Lihat Keranjang",
+            command=self.show_keranjang,
+            font=("Arial", 14),
+            padx=10,
+            pady=5
+        ).pack(fill="x", pady=5)
+
+        tk.Button(
+            self.root,
+            text="Keluar",
+            command=self.root.quit,
+                font=("Arial", 14),
+            padx=10,
+            pady=5
+        ).pack(fill="x", pady=5)
 
     def show_panduan(self):
         messagebox.showinfo(
@@ -102,7 +133,14 @@ class TokoSepatuApp:
                 anchor="center"  # Menengahkan teks dalam tombol
             ).pack(pady=5)  # Memberikan ruang antar tombol
 
-        tk.Button(self.root, text="Lanjut", command=self.show_jarak_lari_menu).pack(pady=10)
+        tk.Button(
+            self.root,
+            text="Lanjut",
+            command=self.show_jarak_lari_menu,
+            font=("Arial", 14),  
+            padx=10,  
+            pady=5    
+        ).pack(pady=10)
 
     def show_jarak_lari_menu(self):
         tipe_kaki = self.tipe_kaki_var.get()
@@ -117,10 +155,10 @@ class TokoSepatuApp:
                 text=jarak, 
                 variable=self.jarak_var, 
                 value=jarak, 
-                font=("Arial", 14),  # Membuat teks lebih besar
-                width=20,  # Lebar tombol
-                anchor="center"  # Menengahkan teks dalam tombol
-            ).pack(pady=5)  # Memberikan ruang antar tombol
+                font=("Arial", 14), 
+                width=20,  
+                anchor="center"  
+            ).pack(pady=5)  
 
         tk.Button(self.root, text="Lihat Rekomendasi", command=lambda: self.show_rekomendasi(tipe_kaki)).pack(pady=10)
 
@@ -163,12 +201,30 @@ class TokoSepatuApp:
         self.clear_screen()
 
         tk.Label(self.root, text="Keranjang Belanja", font=("Arial", 20, "bold")).pack(pady=10)
+
         for item in self.keranjang:
-            tk.Label(self.root, text=f"{item['nama']} - Rp {item['harga']:,}").pack()
+            tk.Label(self.root, text=f"{item['nama']} - Rp {item['harga']:,}", font=("Arial", 12)).pack()
 
         tk.Label(self.root, text=f"\nTotal Harga: Rp {self.total_harga:,}", font=("Arial", 16)).pack(pady=10)
-        tk.Button(self.root, text="Checkout", command=self.checkout).pack(pady=5)
-        tk.Button(self.root, text="Kembali ke Menu Utama", command=self.show_main_menu).pack(pady=5)
+
+        tk.Button(
+            self.root,
+            text="Checkout",
+            command=self.checkout,
+            font=("Arial", 14),
+            padx=10,
+            pady=5
+        ).pack(pady=5)
+
+        tk.Button(
+            self.root,
+            text="Kembali ke Menu Utama",
+            command=self.show_main_menu,
+            font=("Arial", 14),
+            padx=10,
+            pady=5
+        ).pack(pady=5)
+
 
     def checkout(self):
         self.clear_screen()
@@ -188,10 +244,10 @@ class TokoSepatuApp:
                 text=metode,
                 variable=self.metode_var,
                 value=metode,
-                font=("Arial", 14),  # Membuat teks lebih besar
-                width=20,  # Lebar tombol
-                anchor="center"  # Menengahkan teks dalam tombol
-            ).pack(pady=5)  # Memberikan jarak antar tombol
+                font=("Arial", 14),  
+                width=20,  
+                anchor="center"  
+            ).pack(pady=5)  
 
         tk.Button(self.root, text="Konfirmasi Pembayaran", command=self.konfirmasi_pembayaran).pack(pady=10)
 
