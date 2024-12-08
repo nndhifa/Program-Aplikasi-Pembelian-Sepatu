@@ -236,7 +236,7 @@ class TokoSepatuApp:
         tk.Label(self.root, text="Checkout", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
         tk.Label(self.root, text=f"Total Harga: Rp {self.total_harga:,}").pack(pady=10)
 
-        tk.Label(self.root, text="Masukkan Alamat Pengiriman:", font=("Segoe UI Semibold", 16).pack()
+        tk.Label(self.root, text="Masukkan Alamat Pengiriman:", font=("Segoe UI Semibold", 16).pack())
         self.alamat_entry = tk.Entry(self.root, width=50)
         self.alamat_entry.pack(pady=5)
 
