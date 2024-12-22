@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-import json
 from PIL import Image, ImageTk
-import os
 from data_loader import load_data
 from payment_module import konfirmasi_pembayaran
 

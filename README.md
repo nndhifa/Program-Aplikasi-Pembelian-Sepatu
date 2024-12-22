@@ -13,6 +13,15 @@ Aplikasi ini akan membantu pengguna mencari produk dan ukuran sepatu sesuai deng
 3. Pengguna juga bisa membeli barang barang lain yang bisa menyuport larinya seperti jam tangan, kaos lari, celana lari dll
 4. Setelah barang masuk ke dalam keranjang, pengguna bisa melakukan pembayaran dengan cara COD ataupun melalui virtual account
 
+# Flowchart
+![Flow Chart](https://github.com/user-attachments/assets/41332015-837b-4b9a-9631-b4f6f8de286d)
+
+# SiteMap
+![site map](https://github.com/user-attachments/assets/9c9c93f3-4acf-43be-a706-0b68a3cb132e)
+
+# Library
+1. Tkinter
+2. Pillow
 
 
 
