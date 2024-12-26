@@ -74,6 +74,7 @@ class TokoSepatuApp:
         self.keranjang = []
         self.total_harga = 0
         self.show_login_screen()
+        self.riwayat_transaksi = {}  # Struktur: { "username": [{"produk": ..., "alamat": ..., "metode": ...}, ...] }
         self.riwayat_transaksi = self.load_riwayat_transaksi()
 
 
