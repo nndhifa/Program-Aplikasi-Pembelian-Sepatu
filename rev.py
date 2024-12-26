@@ -3,154 +3,127 @@ from tkinter import messagebox
 import json
 from PIL import Image, ImageTk
 import os
-from data_loader import load_data
-
 
 class TokoSepatuApp:
-    def load_akun(self):
-        """Memuat data akun dari file JSON."""
-        try:
-            with open("akun.json", "r", encoding="utf-8") as file:
-                return json.load(file)
-        except FileNotFoundError:
-            return {}
-        except json.JSONDecodeError:
-            messagebox.showerror("Error", "Format file akun.json tidak valid.")
-            return {}
-    
-    
-    def save_akun(self):
-        """Menyimpan data akun ke file JSON."""
-        try:
-            with open("akun.json", "w", encoding="utf-8") as file:
-                json.dump(self.akun, file, indent=4)
-        except Exception as e:
-            messagebox.showerror("Error", f"Gagal menyimpan akun: {e}")
-    
-            
-    def load_data(self, file_name):
-        """Memuat data dari file JSON di direktori skrip."""
-        try:
-            base_dir = os.path.dirname(os.path.abspath(__file__))
-            full_path = os.path.join(base_dir, file_name)
-
-            with open(full_path, "r", encoding="utf-8") as file:
-                return json.load(file)
-        except FileNotFoundError:
-            messagebox.showerror("Error", f"File {file_name} tidak ditemukan.")
-            return {}
-        except json.JSONDecodeError:
-            messagebox.showerror("Error", f"Format file {file_name} tidak valid.")
-            return {}
-    
-        
-    def load_riwayat_transaksi(self):
-        """Memuat riwayat transaksi dari file JSON."""
-        try:
-            with open("riwayat_transaksi.json", "r", encoding="utf-8") as file:
-                return json.load(file)
-        except FileNotFoundError:
-            return {}
-        except json.JSONDecodeError:
-            messagebox.showerror("Error", "Format file riwayat_transaksi.json tidak valid.")
-            return {}
-
-
-    def save_riwayat_transaksi(self):
-        """Menyimpan riwayat transaksi ke file JSON."""
-        try:
-            with open("riwayat_transaksi.json", "w", encoding="utf-8") as file:
-                json.dump(self.riwayat_transaksi, file, indent=4)
-        except Exception as e:
-            messagebox.showerror("Error", f"Gagal menyimpan riwayat transaksi: {e}")
-    
-        
     def __init__(self, root):
         self.root = root
         self.root.title("Pace and Stride")
-        self.akun = self.load_akun()
-        self.sepatu_lari = self.load_data("sepatu_lari_daniel.json")
-        self.barang_tambahan = self.load_data("barang_tambahan_daniel.json")
+
+        # Data akun permanen
+        self.accounts = self.load_accounts()
+
+        # Keranjang belanja
         self.keranjang = []
         self.total_harga = 0
-        self.show_login_screen()
-        self.riwayat_transaksi = {}  # Struktur: { "username": [{"produk": ..., "alamat": ..., "metode": ...}, ...] }
-        self.riwayat_transaksi = self.load_riwayat_transaksi()
 
+        # Tampilkan halaman login awal
+        self.show_login_screen()
+
+    def load_accounts(self, file_name="accounts.json"):
+        try:
+            with open(file_name, "r", encoding="utf-8") as file:
+                return json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
+
+    def save_accounts(self, accounts, file_name="accounts.json"):
+        with open(file_name, "w", encoding="utf-8") as file:
+            json.dump(accounts, file, indent=4)
 
     def show_login_screen(self):
         self.clear_screen()
 
-        bg_image = Image.open("background_login.jpg")
-        bg_image = bg_image.resize((self.root.winfo_screenwidth(), self.root.winfo_screenheight()), Image.Resampling.LANCZOS)
-        self.bg_photo = ImageTk.PhotoImage(bg_image)  
+        tk.Label(self.root, text="Login", font=("Segoe UI", 20, "bold")).pack(pady=10)
 
-        bg_label = tk.Label(self.root, image=self.bg_photo)
-        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
-
-        tk.Label(self.root, text="Login", font=("Segoe UI Semibold", 20, "bold", "italic"), bg="#282c66", fg="#ccf73b").pack(pady=10)
-
-        tk.Label(self.root, text="Username:", bg="#ccf73b", fg="#323774").pack()
+        tk.Label(self.root, text="Username:").pack()
         self.username_entry = tk.Entry(self.root)
         self.username_entry.pack(pady=5)
 
-        tk.Label(self.root, text="Password:", bg="#ccf73b", fg="#323774").pack()
+        tk.Label(self.root, text="Password:").pack()
         self.password_entry = tk.Entry(self.root, show="*")
         self.password_entry.pack(pady=5)
 
-        tk.Button(self.root, text="Login", bg="#ccf73b", fg="#323774", command=self.login).pack(pady=10)
-        tk.Button(self.root, text="Sign Up", bg="#ccf73b", fg="#323774", command=self.show_signup_screen).pack(pady=5)
-
+        tk.Button(self.root, text="Login", command=self.login).pack(pady=10)
+        tk.Button(self.root, text="Sign Up", command=self.show_signup_screen).pack(pady=5)
+        tk.Button(self.root, text="Forgot Password", command=self.show_reset_password_screen).pack(pady=5)
 
     def show_signup_screen(self):
         self.clear_screen()
 
-        bg_image = Image.open("background_signup.jpg")  # Ubah nama file dengan gambar yang sesuai
-        bg_image = bg_image.resize((self.root.winfo_screenwidth(), self.root.winfo_screenheight()), Image.Resampling.LANCZOS)
-        self.bg_photo_signup = ImageTk.PhotoImage(bg_image)
+        tk.Label(self.root, text="Sign Up", font=("Segoe UI", 20, "bold")).pack(pady=10)
 
-        bg_label = tk.Label(self.root, image=self.bg_photo_signup)
-        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+        tk.Label(self.root, text="Email:").pack()
+        self.new_email_entry = tk.Entry(self.root)
+        self.new_email_entry.pack(pady=5)
 
-        tk.Label(self.root, text="Sign Up", font=("Segoe UI Semibold", 20, "bold", "italic"), bg="#282c66", fg="#ccf73b").pack(pady=10)
-
-        tk.Label(self.root, text="Username:", bg="#ccf73b", fg="#323774").pack()
+        tk.Label(self.root, text="Username:").pack()
         self.new_username_entry = tk.Entry(self.root)
         self.new_username_entry.pack(pady=5)
 
-        tk.Label(self.root, text="Password:", bg="#ccf73b", fg="#323774").pack()
+        tk.Label(self.root, text="Password:").pack()
         self.new_password_entry = tk.Entry(self.root, show="*")
         self.new_password_entry.pack(pady=5)
 
-        tk.Button(self.root, text="Register", bg="#ccf73b", fg="#323774", command=self.register).pack(pady=10)
-        tk.Button(self.root, text="Back to Login", bg="#ccf73b", fg="#323774", command=self.show_login_screen).pack(pady=5)
-       
-        
+        tk.Button(self.root, text="Register", command=self.register).pack(pady=10)
+        tk.Button(self.root, text="Back to Login", command=self.show_login_screen).pack(pady=5)
+
+    def show_reset_password_screen(self):
+        self.clear_screen()
+
+        tk.Label(self.root, text="Reset Password", font=("Segoe UI", 20, "bold")).pack(pady=10)
+
+        tk.Label(self.root, text="Enter your registered email:").pack()
+        self.reset_email_entry = tk.Entry(self.root)
+        self.reset_email_entry.pack(pady=5)
+
+        tk.Button(self.root, text="Reset Password", command=self.reset_password).pack(pady=10)
+        tk.Button(self.root, text="Back to Login", command=self.show_login_screen).pack(pady=5)
+
     def login(self):
         username = self.username_entry.get()
         password = self.password_entry.get()
 
-        if username in self.akun and self.akun[username] == password:
+        if username in self.accounts and self.accounts[username]["password"] == password:
             self.show_main_menu()
         else:
-            messagebox.showerror("Login Gagal", "Username atau password salah.")
-
+            messagebox.showerror("Login Failed", "Incorrect username or password.")
 
     def register(self):
+        email = self.new_email_entry.get()
         username = self.new_username_entry.get()
         password = self.new_password_entry.get()
 
-        if username in self.akun:
-            messagebox.showerror("Error", "Username sudah terdaftar.")
+        if username in self.accounts:
+            messagebox.showerror("Error", "Username already exists.")
         else:
-            self.akun[username] = password
-            self.save_akun()
-            messagebox.showinfo("Sukses", "Pendaftaran berhasil!")
+            self.accounts[username] = {"password": password, "email": email}
+            self.save_accounts(self.accounts)
+            messagebox.showinfo("Success", "Registration successful!")
             self.show_login_screen()
 
+    def reset_password(self):
+        email = self.reset_email_entry.get()
+        username = next((user for user, data in self.accounts.items() if data["email"] == email), None)
+
+        if username:
+            new_password = "newpassword123"  # Generate a secure password in a real application
+            self.accounts[username]["password"] = new_password
+            self.save_accounts(self.accounts)
+            messagebox.showinfo("Success", f"Your new password is: {new_password}")
+        else:
+            messagebox.showerror("Error", "Email not found.")
+
+    def clear_screen(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
 
     def show_main_menu(self):
         self.clear_screen()
+        tk.Label(self.root, text="Main Menu", font=("Segoe UI", 20, "bold")).pack(pady=10)
+        tk.Button(self.root, text="Logout", command=self.show_login_screen).pack(pady=10)
+        
+        def show_main_menu(self):
+            self.clear_screen()
 
         self.root.config(bg="#282c66")
         tk.Label(
@@ -196,18 +169,6 @@ class TokoSepatuApp:
             bg="#ccf73b",
             fg="#323774",
         ).pack(pady=5, anchor="center")
-        
-        tk.Button(
-            self.root,
-            text="Riwayat Pembelian",
-            command=self.show_riwayat_pembelian,
-            font=("Segoe UI Semibold", 14),
-            width=20,
-            padx=7,
-            pady=5,
-            bg="#ccf73b",
-            fg="#323774"
-        ).pack(pady=5, anchor="center")
 
         tk.Button(
             self.root,
@@ -220,27 +181,6 @@ class TokoSepatuApp:
             bg="#ccf73b",
             fg="#323774",
         ).pack(pady=5, anchor="center")
-        
-    def show_riwayat_pembelian(self):
-        self.clear_screen()
-
-        tk.Label(self.root, text="Riwayat Pembelian", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 20)).pack(pady=10)
-
-        username = self.username_entry.get()
-        if username in self.riwayat_transaksi:
-            for transaksi in self.riwayat_transaksi[username]:
-                produk_list = "\n".join([f"- {p['nama']} (Rp {p['harga']:,})" for p in transaksi["produk"]])
-                detail = (
-                    f"Alamat: {transaksi['alamat']}\n"
-                    f"Metode: {transaksi['metode']}\n"
-                    f"Produk:\n{produk_list}\n\n"
-                )
-                tk.Label(self.root, text=detail, bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12), justify="left").pack(pady=5)
-        else:
-            tk.Label(self.root, text="Belum ada riwayat pembelian.", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=10)
-
-        tk.Button(self.root, text="Kembali ke Menu Utama", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
-
 
     def show_panduan(self):
         messagebox.showinfo(
@@ -379,27 +319,7 @@ class TokoSepatuApp:
         tk.Label(self.root, text="Keranjang Belanja", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 20, "bold")).pack(pady=10)
 
         for item in self.keranjang:
-            # Frame untuk setiap item agar tombol dan label sebaris
-            frame = tk.Frame(self.root, bg="#282c66")
-            frame.pack(pady=5, fill=tk.X)
-
-            # Label produk
-            tk.Label(
-                frame,
-                text=f"{item['nama']} - Rp {item['harga']:,}",
-                bg="#282c66",
-                fg="#ccf73b",
-                font=("Segoe UI Semibold", 14)
-            ).pack(side=tk.LEFT, padx=10)
-
-            # Tombol hapus
-            tk.Button(
-                frame,
-                text="Hapus",
-                bg="#ccf73b",
-                fg="#323774",
-            command=lambda i=item: self.hapus_item_dari_keranjang(i)
-            ).pack(side=tk.RIGHT, padx=10)
+            tk.Label(self.root, text=f"{item['nama']} - Rp {item['harga']:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 14)).pack()
 
         tk.Label(self.root, text=f"\nTotal Harga: Rp {self.total_harga:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 12)).pack(pady=10)
 
@@ -409,26 +329,6 @@ class TokoSepatuApp:
             bg="#ccf73b", 
             fg="#323774",
             command=self.checkout,
-            padx=10,
-            pady=5
-        ).pack(pady=5)
-        
-        tk.Button(
-            self.root,
-            text="Tambah Pilihan Sepatu",
-            bg="#ccf73b", 
-            fg="#323774",
-            command=self.show_cari_sepatu_menu,
-            padx=10,
-            pady=5
-        ).pack(pady=5)
-        
-        tk.Button(
-            self.root,
-            text="Tambah Pilihan Produk",
-            bg="#ccf73b", 
-            fg="#323774",
-            command=self.show_tambah_barang,
             padx=10,
             pady=5
         ).pack(pady=5)
@@ -442,17 +342,6 @@ class TokoSepatuApp:
             padx=10,
             pady=5
         ).pack(pady=5)
-        
-    def hapus_item_dari_keranjang(self, item):
-        """Menghapus item tertentu dari keranjang."""
-        if item in self.keranjang:
-            self.keranjang.remove(item)
-            self.total_harga -= item['harga']
-            messagebox.showinfo("Keranjang", f"{item['nama']} berhasil dihapus dari keranjang.")
-            self.show_keranjang()  # Refresh tampilan keranjang
-        else:
-            messagebox.showerror("Error", "Item tidak ditemukan di keranjang.")
-
 
 
     def checkout(self):
@@ -556,31 +445,6 @@ class TokoSepatuApp:
         self.keranjang.clear()
         self.total_harga = 0
         self.show_main_menu()
-
-
-    def login(self):
-        username = self.username_entry.get()
-        password = self.password_entry.get()
-
-        if username in self.akun and self.akun[username] == password:
-            self.show_main_menu()
-        else:
-            messagebox.showerror("Login Gagal", "Username atau password salah.")
-
-    def register(self):
-        username = self.new_username_entry.get()
-        password = self.new_password_entry.get()
-
-        if username in self.akun:
-            messagebox.showerror("Error", "Username sudah terdaftar.")
-        else:
-            self.akun[username] = password
-            messagebox.showinfo("Sukses", "Pendaftaran berhasil!")
-            self.show_login_screen()
-
-    def clear_screen(self):
-        for widget in self.root.winfo_children():
-            widget.destroy()
 
 # Jalankan aplikasi
 if __name__ == "__main__":
