@@ -44,27 +44,6 @@ class TokoSepatuApp:
             return {}
     
         
-    def load_riwayat_transaksi(self):
-        """Memuat riwayat transaksi dari file JSON."""
-        try:
-            with open("riwayat_transaksi.json", "r", encoding="utf-8") as file:
-                return json.load(file)
-        except FileNotFoundError:
-            return {}
-        except json.JSONDecodeError:
-            messagebox.showerror("Error", "Format file riwayat_transaksi.json tidak valid.")
-            return {}
-
-
-    def save_riwayat_transaksi(self):
-        """Menyimpan riwayat transaksi ke file JSON."""
-        try:
-            with open("riwayat_transaksi.json", "w", encoding="utf-8") as file:
-                json.dump(self.riwayat_transaksi, file, indent=4)
-        except Exception as e:
-            messagebox.showerror("Error", f"Gagal menyimpan riwayat transaksi: {e}")
-    
-        
     def __init__(self, root):
         self.root = root
         self.root.title("Pace and Stride")
@@ -74,7 +53,6 @@ class TokoSepatuApp:
         self.keranjang = []
         self.total_harga = 0
         self.show_login_screen()
-        self.riwayat_transaksi = self.load_riwayat_transaksi()
 
 
     def show_login_screen(self):
@@ -195,18 +173,6 @@ class TokoSepatuApp:
             bg="#ccf73b",
             fg="#323774",
         ).pack(pady=5, anchor="center")
-        
-        tk.Button(
-            self.root,
-            text="Riwayat Pembelian",
-            command=self.show_riwayat_pembelian,
-            font=("Segoe UI Semibold", 14),
-            width=20,
-            padx=7,
-            pady=5,
-            bg="#ccf73b",
-            fg="#323774"
-        ).pack(pady=5, anchor="center")
 
         tk.Button(
             self.root,
@@ -219,27 +185,7 @@ class TokoSepatuApp:
             bg="#ccf73b",
             fg="#323774",
         ).pack(pady=5, anchor="center")
-        
-    def show_riwayat_pembelian(self):
-        self.clear_screen()
-
-        tk.Label(self.root, text="Riwayat Pembelian", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 20)).pack(pady=10)
-
-        username = self.username_entry.get()
-        if username in self.riwayat_transaksi:
-            for transaksi in self.riwayat_transaksi[username]:
-                produk_list = "\n".join([f"- {p['nama']} (Rp {p['harga']:,})" for p in transaksi["produk"]])
-                detail = (
-                    f"Alamat: {transaksi['alamat']}\n"
-                    f"Metode: {transaksi['metode']}\n"
-                    f"Produk:\n{produk_list}\n\n"
-                )
-                tk.Label(self.root, text=detail, bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12), justify="left").pack(pady=5)
-        else:
-            tk.Label(self.root, text="Belum ada riwayat pembelian.", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=10)
-
-        tk.Button(self.root, text="Kembali ke Menu Utama", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
-
+    
 
     def show_panduan(self):
         messagebox.showinfo(
