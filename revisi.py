@@ -60,7 +60,7 @@ class TokoSepatuApp:
                 return json.load(file)
         except FileNotFoundError:
             with open("history.json", "w", encoding="utf-8") as file:
-                json.dump({}, file)  # Membuat file kosong jika tidak ada
+                json.dump({}, file)
             return {}
         except json.JSONDecodeError:
             messagebox.showerror("Error", "Format file history.json tidak valid.")
@@ -107,7 +107,7 @@ class TokoSepatuApp:
     def show_signup_screen(self):
         self.clear_screen()
 
-        bg_image = Image.open("background_signup.jpg")  # Ubah nama file dengan gambar yang sesuai
+        bg_image = Image.open("background_signup.jpg")  
         bg_image = bg_image.resize((self.root.winfo_screenwidth(), self.root.winfo_screenheight()), Image.Resampling.LANCZOS)
         self.bg_photo_signup = ImageTk.PhotoImage(bg_image)
 
@@ -305,7 +305,6 @@ class TokoSepatuApp:
         tk.Label(self.root, text=f"Rekomendasi Sepatu ({tipe_kaki} - {jarak})", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 14)).pack(pady=10)
 
         for sepatu in rekomendasi:
-        # Menampilkan tombol untuk memilih sepatu
             button = tk.Button(
                 self.root,
                 text=f"{sepatu['nama']} - Rp {sepatu['harga']:,}", 
@@ -325,7 +324,6 @@ class TokoSepatuApp:
 
         tk.Label(self.root, text=f"Pilih Ukuran untuk {sepatu['nama']}", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 16)).pack(pady=10)
 
-    # Menampilkan ukuran sepatu yang tersedia
         for ukuran in sepatu['ukuran']:
             tk.Button(
                 self.root,
@@ -340,7 +338,7 @@ class TokoSepatuApp:
 
     def add_to_cart_with_size(self, sepatu, ukuran):
         sepatu_terpilih = sepatu.copy()
-        sepatu_terpilih['ukuran'] = ukuran  # Menambahkan ukuran sepatu yang dipilih
+        sepatu_terpilih['ukuran'] = ukuran 
         self.keranjang.append(sepatu_terpilih)
         self.total_harga += sepatu['harga']
         messagebox.showinfo("Keranjang", f"{sepatu_terpilih['nama']} (Ukuran {ukuran}) berhasil ditambahkan ke keranjang.")
@@ -357,7 +355,7 @@ class TokoSepatuApp:
                 font=("Segoe UI Semibold", 12),
                 bg="#ccf73b",
                 fg="#323774",
-                command=lambda b=barang: self.add_to_cart(b),  # Make sure the correct 'barang' is passed
+                command=lambda b=barang: self.add_to_cart(b), 
                 width=40
             ).pack(pady=5)
 
@@ -376,11 +374,10 @@ class TokoSepatuApp:
         tk.Label(self.root, text="Keranjang Belanja", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 20, "bold")).pack(pady=10)
 
         for item in self.keranjang:
-            # Frame untuk setiap item agar tombol dan label sebaris
+           
             frame = tk.Frame(self.root, bg="#282c66")
             frame.pack(pady=5, fill=tk.X)
 
-            # Label produk
             tk.Label(
                 frame,
                 text=f"{item['nama']} - Rp {item['harga']:,}",
@@ -389,7 +386,6 @@ class TokoSepatuApp:
                 font=("Segoe UI Semibold", 14)
             ).pack(side=tk.LEFT, padx=10)
 
-            # Tombol hapus
             tk.Button(
                 frame,
                 text="Hapus",
@@ -446,7 +442,7 @@ class TokoSepatuApp:
             self.keranjang.remove(item)
             self.total_harga -= item['harga']
             messagebox.showinfo("Keranjang", f"{item['nama']} berhasil dihapus dari keranjang.")
-            self.show_keranjang()  # Refresh tampilan keranjang
+            self.show_keranjang() 
         else:
             messagebox.showerror("Error", "Item tidak ditemukan di keranjang.")
 
@@ -580,7 +576,7 @@ class TokoSepatuApp:
         self.clear_screen()
 
     
-        if not self.current_user:  # Jika tidak ada pengguna yang login
+        if not self.current_user:
             messagebox.showerror("Error", "Anda belum login.")
             self.show_login_screen()
             return
@@ -600,34 +596,12 @@ class TokoSepatuApp:
                 tk.Label(self.root, text=f"Alamat: {transaksi['alamat']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
                 
                 tk.Label(self.root, text="Produk yang dibeli:", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=5)
-                for produk in transaksi.get("produk", []):  # Ambil key 'produk' dengan default []
+                for produk in transaksi.get("produk", []): 
                     tk.Label(self.root, text=f"- {produk['nama']} (Rp {produk['harga']:,})", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
 
         tk.Button(self.root, text="Kembali", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
-
-
-    def login(self):
-        username = self.username_entry.get()
-        password = self.password_entry.get()
-
-        if username in self.akun and self.akun[username] == password:
-            self.current_user = username  # Tambahkan baris ini
-            self.show_main_menu()
-        else:
-            messagebox.showerror("Login Gagal", "Username atau password salah.")
-
-
-    def register(self):
-        username = self.new_username_entry.get()
-        password = self.new_password_entry.get()
-
-        if username in self.akun:
-            messagebox.showerror("Error", "Username sudah terdaftar.")
-        else:
-            self.akun[username] = password
-            messagebox.showinfo("Sukses", "Pendaftaran berhasil!")
-            self.show_login_screen()
-
+        
+        
     def clear_screen(self):
         for widget in self.root.winfo_children():
             widget.destroy()
