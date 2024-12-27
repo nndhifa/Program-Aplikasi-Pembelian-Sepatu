@@ -43,6 +43,22 @@ class TokoSepatuApp:
             messagebox.showerror("Error", f"Format file {file_name} tidak valid.")
             return {}
     
+    def save_history(self):
+        with open("history.json", "w", encoding="utf-8") as file:
+            json.dump(self.history, file, indent=4)
+            
+    def load_history(self):
+        try:
+            with open("history.json", "r", encoding="utf-8") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            with open("history.json", "w", encoding="utf-8") as file:
+                json.dump({}, file)  # Membuat file kosong jika tidak ada
+            return {}
+        except json.JSONDecodeError:
+            messagebox.showerror("Error", "Format file history.json tidak valid.")
+            return {}
+
         
     def __init__(self, root):
         self.root = root
@@ -52,6 +68,8 @@ class TokoSepatuApp:
         self.barang_tambahan = self.load_data("barang_tambahan_daniel.json")
         self.keranjang = []
         self.total_harga = 0
+        self.history = self.load_history()
+        self.current_user = None
         self.show_login_screen()
 
 
@@ -108,6 +126,7 @@ class TokoSepatuApp:
         password = self.password_entry.get()
 
         if username in self.akun and self.akun[username] == password:
+            self.current_user = username
             self.show_main_menu()
         else:
             messagebox.showerror("Login Gagal", "Username atau password salah.")
@@ -173,12 +192,24 @@ class TokoSepatuApp:
             bg="#ccf73b",
             fg="#323774",
         ).pack(pady=5, anchor="center")
+        
+        tk.Button(
+            self.root,
+            text="Riwayat Pembelian",
+            command=self.show_riwayat_pembelian,
+            font=("Segoe UI Semibold", 14),
+            width=20,
+            padx=7,
+            pady=5,
+            bg="#ccf73b",
+            fg="#323774",
+        ).pack(pady=5, anchor="center")
 
         tk.Button(
             self.root,
             text="Keluar",
             command=self.root.quit,
-                font=("Segoe UI Semibold", 14),
+            font=("Segoe UI Semibold", 14),
             width=20,
             padx=7,
             pady=5,
@@ -449,7 +480,29 @@ class TokoSepatuApp:
 
 
     def konfirmasi_pembayaran(self):
+        alamat = self.alamat_entry.get()
         metode = self.metode_var.get()
+        if not alamat:
+            messagebox.showerror("Error", "Alamat pengiriman tidak boleh kosong.")
+            return
+
+        riwayat_baru = {
+            "produk": self.keranjang,
+            "total_harga": self.total_harga,
+            "metode_pembayaran": metode,
+            "tanggal": "2024-12-27",  # Ganti dengan tanggal dinamis jika diperlukan
+            "alamat": alamat
+        }
+
+        username = self.current_user
+        if username not in self.history:
+            self.history[username] = []
+        self.history[username].append(riwayat_baru)
+        self.save_history()
+
+        self.keranjang.clear()
+        self.total_harga = 0
+        
         if metode == "COD":
             messagebox.showinfo(
                 "Konfirmasi COD",
@@ -501,6 +554,30 @@ class TokoSepatuApp:
         self.keranjang.clear()
         self.total_harga = 0
         self.show_main_menu()
+        
+    def show_riwayat_pembelian(self):
+        self.clear_screen()
+    
+        if not self.current_user:  # Jika tidak ada pengguna yang login
+            messagebox.showerror("Error", "Anda belum login.")
+            self.show_login_screen()
+            return
+
+        tk.Label(self.root, text="Riwayat Pembelian", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
+
+        if self.current_user not in self.history or not self.history[self.current_user]:
+            tk.Label(self.root, text="Tidak ada riwayat pembelian.", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 14)).pack(pady=10)
+        else:
+            for transaksi in self.history[self.current_user]:
+                tk.Label(self.root, text=f"Tanggal: {transaksi['tanggal']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+                tk.Label(self.root, text=f"Total Harga: Rp {transaksi['total_harga']:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+                tk.Label(self.root, text=f"Metode Pembayaran: {transaksi['metode_pembayaran']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+                tk.Label(self.root, text=f"Alamat: {transaksi['alamat']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+                tk.Label(self.root, text="Produk:", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+                for produk in transaksi["produk"]:
+                    tk.Label(self.root, text=f"- {produk['nama']} (Rp {produk['harga']:,})", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=1)
+
+        tk.Button(self.root, text="Kembali", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
 
 
     def login(self):
@@ -508,9 +585,11 @@ class TokoSepatuApp:
         password = self.password_entry.get()
 
         if username in self.akun and self.akun[username] == password:
+            self.current_user = username  # Tambahkan baris ini
             self.show_main_menu()
         else:
             messagebox.showerror("Login Gagal", "Username atau password salah.")
+
 
     def register(self):
         username = self.new_username_entry.get()

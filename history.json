@@ -1,0 +1,144 @@
+{
+    "user_aktif": [
+        {
+            "produk": [
+                {
+                    "nama": "Nike Speed Racer",
+                    "harga": 1200000,
+                    "deskripsi": "Ringan untuk lari sprint",
+                    "ukuran": 37
+                },
+                {
+                    "nama": "Kaos Kaki",
+                    "harga": 50000
+                }
+            ],
+            "total_harga": 1250000,
+            "metode_pembayaran": "Virtual Account",
+            "tanggal": "2024-12-27",
+            "alamat": "gedung 1"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 39
+                }
+            ],
+            "total_harga": 1350000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Nike Speed Racer",
+                    "harga": 1200000,
+                    "deskripsi": "Ringan untuk lari sprint",
+                    "ukuran": 39
+                },
+                {
+                    "nama": "Pelindung Lutut",
+                    "harga": 100000
+                }
+            ],
+            "total_harga": 1300000,
+            "metode_pembayaran": "Virtual Account",
+            "tanggal": "2024-12-27",
+            "alamat": "leiden"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Nike Speed Racer",
+                    "harga": 1200000,
+                    "deskripsi": "Ringan untuk lari sprint",
+                    "ukuran": 38
+                }
+            ],
+            "total_harga": 1200000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Nike Speed Racer",
+                    "harga": 1200000,
+                    "deskripsi": "Ringan untuk lari sprint",
+                    "ukuran": 37
+                },
+                {
+                    "nama": "Sabuk Lari dengan Tempat Botol",
+                    "harga": 140000
+                },
+                {
+                    "nama": "Reebok Marathon Pro",
+                    "harga": 1750000,
+                    "deskripsi": "Performa tinggi untuk jarak jauh",
+                    "ukuran": 40
+                },
+                {
+                    "nama": "Pelindung Lutut",
+                    "harga": 100000
+                }
+            ],
+            "total_harga": 3190000,
+            "metode_pembayaran": "Virtual Account",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Puma Swift Edge",
+                    "harga": 1100000,
+                    "deskripsi": "Desain aerodinamis untuk kecepatan",
+                    "ukuran": 40
+                },
+                {
+                    "nama": "Headband",
+                    "harga": 45000
+                }
+            ],
+            "total_harga": 1145000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        }
+    ],
+    "nndhifa": [
+        {
+            "produk": [
+                {
+                    "nama": "Nike Speed Racer",
+                    "harga": 1200000,
+                    "deskripsi": "Ringan untuk lari sprint",
+                    "ukuran": 37
+                }
+            ],
+            "total_harga": 1250000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Nike Speed Racer",
+                    "harga": 1200000,
+                    "deskripsi": "Ringan untuk lari sprint",
+                    "ukuran": 37
+                }
+            ],
+            "total_harga": 1200000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        }
+    ]
+}
