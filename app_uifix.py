@@ -165,7 +165,7 @@ class TokoSepatuApp:
         for ukuran in sepatu['ukuran']:
             tk.Button(self.root,text=f"Ukuran {ukuran}",font=("Segoe UI Semibold", 16),bg="#ccf73b", fg="#323774",command=lambda u=ukuran, s=sepatu: self.add_to_cart_with_size(s, u)).pack(pady=5)
 
-        tk.Button(self.root, text="Kembali", font=("Segoe UI Semibold", 16), bg="#ccf73b", fg="#323774",command=self.show_rekomendasi).pack(pady=10)
+        tk.Button(self.root, text="Kembali", font=("Segoe UI Semibold", 16), bg="#ccf73b", fg="#323774",command=self.show_main_menu).pack(pady=10)
 
 
     def add_to_cart_with_size(self, sepatu, ukuran):
