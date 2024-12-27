@@ -490,5 +490,41 @@
             "tanggal": "2024-12-27",
             "alamat": "a"
         }
+    ],
+    "dhifa": [
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 39
+                },
+                {
+                    "nama": "Tas Pinggang",
+                    "harga": 120000
+                }
+            ],
+            "total_harga": 1470000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "a"
+        }
+    ],
+    "dd": [
+        {
+            "produk": [
+                {
+                    "nama": "ASICS Quick Pace",
+                    "harga": 1200000,
+                    "deskripsi": "Responsif untuk lari sprint",
+                    "ukuran": 38
+                }
+            ],
+            "total_harga": 1200000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "dd"
+        }
     ]
 }

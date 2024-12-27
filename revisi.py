@@ -147,16 +147,21 @@ class TokoSepatuApp:
         if not username or not password:
             messagebox.showerror("Error", "Username dan password tidak boleh kosong.")
             return
-        
+
         if username in self.akun:
             messagebox.showerror("Error", "Username sudah terdaftar.")
         else:
             print(f"Menambahkan akun baru: {username}")
             self.akun[username] = password
             print(f"Isi self.akun setelah update: {self.akun}")
-            self.save_akun()
+        
+        try:
+            self.save_akun()  # Pastikan perubahan disimpan
             messagebox.showinfo("Sukses", "Pendaftaran berhasil!")
             self.show_login_screen()
+        except Exception as e:
+            print(f"Error saat menyimpan akun: {e}")
+            messagebox.showerror("Error", f"Gagal menyimpan akun: {e}")
 
 
     def show_main_menu(self):
