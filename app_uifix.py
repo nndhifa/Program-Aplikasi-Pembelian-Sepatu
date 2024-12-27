@@ -4,6 +4,8 @@ from PIL import Image, ImageTk
 from data_managementfix import load_data, save_history, load_history
 from user_authfix import load_akun, save_akun
 import os
+from data_managementfix import save_history
+
 
 class TokoSepatuApp:
     def __init__(self, root):
@@ -377,7 +379,6 @@ class TokoSepatuApp:
             messagebox.showerror("Error", "Item tidak ditemukan di keranjang.")
 
 
-
     def checkout(self):
         self.clear_screen()
         tk.Label(self.root, text="Checkout", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
@@ -445,7 +446,7 @@ class TokoSepatuApp:
         if username not in self.history:
             self.history[username] = []
         self.history[username].append(riwayat_baru)
-        self.save_history()
+        save_history(self.history)
 
         self.keranjang.clear()
         total_harga = self.total_harga

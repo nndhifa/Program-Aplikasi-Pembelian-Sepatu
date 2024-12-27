@@ -571,6 +571,34 @@
             "metode_pembayaran": "COD",
             "tanggal": "2024-12-27",
             "alamat": "dd"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 42
+                }
+            ],
+            "total_harga": 1350000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "dd"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 42
+                }
+            ],
+            "total_harga": 1350000,
+            "metode_pembayaran": "Virtual Account",
+            "tanggal": "2024-12-27",
+            "alamat": "ft"
         }
     ]
 }
