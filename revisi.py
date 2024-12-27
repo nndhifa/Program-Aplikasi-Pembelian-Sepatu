@@ -10,11 +10,14 @@ class TokoSepatuApp:
     def load_akun(self):
         """Memuat data akun dari file JSON."""
         try:
+            print("Path file akun.json:", os.path.abspath("akun.json"))
             with open("akun.json", "r", encoding="utf-8") as file:
                 return json.load(file)
         except FileNotFoundError:
+            print("File akun.json tidak ditemukan.")
             return {}
         except json.JSONDecodeError:
+            print("Format file akun.json tidak valid.")
             messagebox.showerror("Error", "Format file akun.json tidak valid.")
             return {}
     
@@ -22,9 +25,13 @@ class TokoSepatuApp:
     def save_akun(self):
         """Menyimpan data akun ke file JSON."""
         try:
+            print("Path file akun.json:", os.path.abspath("akun.json"))
+            print(f"Menyimpan data akun: {self.akun}")
             with open("akun.json", "w", encoding="utf-8") as file:
                 json.dump(self.akun, file, indent=4)
+            print("Data akun berhasil disimpan ke akun.json")
         except Exception as e:
+            print(f"Error saat menyimpan data akun: {e}")
             messagebox.showerror("Error", f"Gagal menyimpan akun: {e}")
     
             
@@ -136,10 +143,16 @@ class TokoSepatuApp:
         username = self.new_username_entry.get()
         password = self.new_password_entry.get()
 
+        if not username or not password:
+            messagebox.showerror("Error", "Username dan password tidak boleh kosong.")
+            return
+        
         if username in self.akun:
             messagebox.showerror("Error", "Username sudah terdaftar.")
         else:
+            print(f"Menambahkan akun baru: {username}")
             self.akun[username] = password
+            print(f"Isi self.akun setelah update: {self.akun}")
             self.save_akun()
             messagebox.showinfo("Sukses", "Pendaftaran berhasil!")
             self.show_login_screen()
@@ -559,6 +572,7 @@ class TokoSepatuApp:
         
     def show_riwayat_pembelian(self):
         self.clear_screen()
+
     
         if not self.current_user:  # Jika tidak ada pengguna yang login
             messagebox.showerror("Error", "Anda belum login.")
@@ -567,6 +581,9 @@ class TokoSepatuApp:
 
         tk.Label(self.root, text="Riwayat Pembelian", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
 
+        print("Riwayat untuk pengguna:", self.current_user)
+        print(self.history.get(self.current_user, "Tidak ada data"))
+    
         if self.current_user not in self.history or not self.history[self.current_user]:
             tk.Label(self.root, text="Tidak ada riwayat pembelian.", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 14)).pack(pady=10)
         else:
@@ -575,9 +592,10 @@ class TokoSepatuApp:
                 tk.Label(self.root, text=f"Total Harga: Rp {transaksi['total_harga']:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
                 tk.Label(self.root, text=f"Metode Pembayaran: {transaksi['metode_pembayaran']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
                 tk.Label(self.root, text=f"Alamat: {transaksi['alamat']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
-                tk.Label(self.root, text="Produk:", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
-                for produk in transaksi["produk"]:
-                    tk.Label(self.root, text=f"- {produk['nama']} (Rp {produk['harga']:,})", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=1)
+                
+                tk.Label(self.root, text="Produk yang dibeli:", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=5)
+                for produk in transaksi.get("produk", []):  # Ambil key 'produk' dengan default []
+                    tk.Label(self.root, text=f"- {produk['nama']} (Rp {produk['harga']:,})", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
 
         tk.Button(self.root, text="Kembali", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
 
