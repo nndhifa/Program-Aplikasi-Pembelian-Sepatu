@@ -608,6 +608,9 @@ class TokoSepatuApp:
         scrollbar.pack(side="right", fill="y")
 
         for transaksi in self.history[self.current_user]:
+            transaksi_frame = tk.Frame(scrollable_frame, bg="#282c66", bd=1, relief="solid")
+            transaksi_frame.pack(pady=10, padx=10, fill="x") 
+            
             tk.Label(scrollable_frame, text=f"Tanggal: {transaksi['tanggal']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
             tk.Label(scrollable_frame, text=f"Total Harga: Rp {transaksi['total_harga']:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
             tk.Label(scrollable_frame, text=f"Metode Pembayaran: {transaksi['metode_pembayaran']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
