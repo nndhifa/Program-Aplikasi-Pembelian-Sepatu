@@ -25,11 +25,12 @@ class TokoSepatuApp:
     def save_akun(self):
         """Menyimpan data akun ke file JSON."""
         try:
-            print("Path file akun.json:", os.path.abspath("akun.json"))
-            print(f"Menyimpan data akun: {self.akun}")
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            file_path = os.path.join(base_dir, "akun.json")
+            print(f"Menyimpan data akun ke: {file_path}")
             with open("akun.json", "w", encoding="utf-8") as file:
                 json.dump(self.akun, file, indent=4)
-            print("Data akun berhasil disimpan ke akun.json")
+            print("Data akun berhasil disimpan.")
         except Exception as e:
             print(f"Error saat menyimpan data akun: {e}")
             messagebox.showerror("Error", f"Gagal menyimpan akun: {e}")
