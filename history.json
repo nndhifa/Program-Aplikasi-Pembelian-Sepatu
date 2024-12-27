@@ -474,5 +474,21 @@
             "tanggal": "2024-12-27",
             "alamat": "ft"
         }
+    ],
+    "nndhifah": [
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 38
+                }
+            ],
+            "total_harga": 1350000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "a"
+        }
     ]
 }
