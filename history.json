@@ -467,6 +467,24 @@
             "metode_pembayaran": "COD",
             "tanggal": "2024-12-27",
             "alamat": "3"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 42
+                },
+                {
+                    "nama": "Sabuk Lari dengan Tempat Botol",
+                    "harga": 140000
+                }
+            ],
+            "total_harga": 1490000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "ft"
         }
     ],
     "gunwonbin": [

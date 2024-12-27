@@ -1,4 +1,5 @@
 from data_managementfix import load_data, save_data
+import random
 
 def load_akun():
     return load_data("akunfix.json")
