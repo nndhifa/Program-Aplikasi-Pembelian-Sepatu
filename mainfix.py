@@ -1,5 +1,5 @@
 import tkinter as tk
-from app_ui import TokoSepatuApp
+from app_uifix import TokoSepatuApp
 
 if __name__ == "__main__":
     root = tk.Tk()

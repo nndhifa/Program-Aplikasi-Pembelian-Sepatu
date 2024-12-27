@@ -1,4 +1,4 @@
-from data_management import load_data, save_data
+from data_managementfix import load_data, save_data
 
 def load_akun():
     return load_data("akunfix.json")
