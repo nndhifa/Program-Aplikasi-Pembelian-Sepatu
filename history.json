@@ -599,6 +599,24 @@
             "metode_pembayaran": "Virtual Account",
             "tanggal": "2024-12-27",
             "alamat": "ft"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Puma Swift Edge",
+                    "harga": 1100000,
+                    "deskripsi": "Desain aerodinamis untuk kecepatan",
+                    "ukuran": 41
+                },
+                {
+                    "nama": "Gelang Identitas Lari",
+                    "harga": 70000
+                }
+            ],
+            "total_harga": 1170000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "dd"
         }
     ]
 }

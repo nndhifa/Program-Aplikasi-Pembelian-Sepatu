@@ -96,75 +96,13 @@ class TokoSepatuApp:
         self.clear_screen()
 
         self.root.config(bg="#282c66")
-        tk.Label(
-            self.root,
-            text="Pace&Stride",
-            font=("Rockwell Extra Bold", 30, "bold", "italic"),
-            bg="#282c66", 
-            fg="#ccf73b",
-        ).pack(pady=10)
-        
-        tk.Button(
-            self.root,
-            text="Panduan Tipe Kaki",
-            command=self.show_panduan,
-            font=("Segoe UI Semibold", 14),
-            width=20,
-            padx=7,
-            pady=5,
-            bg="#ccf73b",
-            fg="#323774",
-        ).pack(pady=5, anchor="center")
-
-        tk.Button(
-            self.root,
-            text="Cari Sepatu",
-            command=self.show_cari_sepatu_menu,
-            font=("Segoe UI Semibold", 14),
-            width=20,
-            padx=7,
-            pady=5,
-            bg="#ccf73b",
-            fg="#323774",
-        ).pack(pady=5, anchor="center")
-
-        tk.Button(
-            self.root,
-            text="Lihat Keranjang",
-            command=self.show_keranjang,
-            font=("Segoe UI Semibold", 14),
-            width=20,
-            padx=7,
-            pady=5,
-            bg="#ccf73b",
-            fg="#323774",
-        ).pack(pady=5, anchor="center")
-        
-        tk.Button(
-            self.root,
-            text="Riwayat Pembelian",
-            command=self.show_riwayat_pembelian,
-            font=("Segoe UI Semibold", 14),
-            width=20,
-            padx=7,
-            pady=5,
-            bg="#ccf73b",
-            fg="#323774",
-        ).pack(pady=5, anchor="center")
-
-        tk.Button(
-            self.root,
-            text="Keluar",
-            command=self.root.quit,
-            font=("Segoe UI Semibold", 14),
-            width=20,
-            padx=7,
-            pady=5,
-            bg="#ccf73b",
-            fg="#323774",
-        ).pack(pady=5, anchor="center")
+        tk.Label(self.root, text="Pace&Stride", font=("Rockwell Extra Bold", 30, "bold", "italic"), bg="#282c66", fg="#ccf73b",).pack(pady=10)
+        tk.Button(self.root, text="Panduan Tipe Kaki", command=self.show_panduan, font=("Segoe UI Semibold", 14), width=20, padx=7, pady=5, bg="#ccf73b", fg="#323774",).pack(pady=5, anchor="center")
+        tk.Button(self.root, text="Cari Sepatu", command=self.show_cari_sepatu_menu, font=("Segoe UI Semibold", 14), width=20, padx=7, pady=5, bg="#ccf73b", fg="#323774",).pack(pady=5, anchor="center")
+        tk.Button(self.root, text="Lihat Keranjang", command=self.show_keranjang, font=("Segoe UI Semibold", 14), width=20, padx=7, pady=5, bg="#ccf73b", fg="#323774",).pack(pady=5, anchor="center")
+        tk.Button(self.root, text="Riwayat Pembelian", command=self.show_riwayat_pembelian, font=("Segoe UI Semibold", 14), width=20, padx=7, pady=5, bg="#ccf73b", fg="#323774",).pack(pady=5, anchor="center")
+        tk.Button(self.root, text="Keluar", command=self.root.quit, font=("Segoe UI Semibold", 14), width=20, padx=7, pady=5, bg="#ccf73b", fg="#323774",).pack(pady=5, anchor="center")
     
-
     def show_panduan(self):
         messagebox.showinfo(
             "Panduan Tipe Kaki",
@@ -180,28 +118,9 @@ class TokoSepatuApp:
 
         self.tipe_kaki_var = tk.StringVar(value="Normal")
         for tipe in self.sepatu_lari.keys():
-            tk.Radiobutton(
-                self.root, 
-                text=tipe, 
-                variable=self.tipe_kaki_var, 
-                value=tipe, 
-                font=("Segoe UI Semibold", 14),  
-                indicatoron=1,  
-                width=20, 
-                bg="#ccf73b", 
-                fg="#323774",
-                anchor="center"  
-            ).pack(pady=5)
+            tk.Radiobutton(self.root, text=tipe, variable=self.tipe_kaki_var, value=tipe, font=("Segoe UI Semibold", 14),  indicatoron=1,  width=20, bg="#ccf73b", fg="#323774",anchor="center"  ).pack(pady=5)
 
-        tk.Button(
-            self.root,
-            text="Lanjut",
-            bg="#ccf73b", 
-            fg="#323774",
-            command=self.show_jarak_lari_menu,
-            padx=10,  
-            pady=5    
-        ).pack(pady=10)
+        tk.Button(self.root,text="Lanjut",bg="#ccf73b", fg="#323774",command=self.show_jarak_lari_menu,padx=10,pady=5).pack(pady=10)
 
     def show_jarak_lari_menu(self):
         tipe_kaki = self.tipe_kaki_var.get()
@@ -211,17 +130,7 @@ class TokoSepatuApp:
 
         self.jarak_var = tk.StringVar(value="Jarak Pendek")
         for jarak in self.sepatu_lari[tipe_kaki].keys():
-            tk.Radiobutton(
-                self.root, 
-                text=jarak, 
-                variable=self.jarak_var, 
-                value=jarak, 
-                font=("Segoe UI Semibold", 14), 
-                bg="#ccf73b", 
-                fg="#323774",
-                width=20,  
-                anchor="center"  
-            ).pack(pady=5)  
+            tk.Radiobutton(self.root, text=jarak, variable=self.jarak_var, value=jarak, font=("Segoe UI Semibold", 14), bg="#ccf73b", fg="#323774",width=20,  anchor="center").pack(pady=5)  
 
         tk.Button(self.root, text="Lihat Rekomendasi", bg="#ccf73b", fg="#323774", command=lambda: self.show_rekomendasi(tipe_kaki)).pack(pady=10)
 
@@ -233,17 +142,7 @@ class TokoSepatuApp:
         tk.Label(self.root, text=f"Rekomendasi Sepatu ({tipe_kaki} - {jarak})", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 14)).pack(pady=10)
 
         for sepatu in rekomendasi:
-        # Menampilkan tombol untuk memilih sepatu
-            button = tk.Button(
-                self.root,
-                text=f"{sepatu['nama']} - Rp {sepatu['harga']:,}", 
-                font=("Segoe UI Semibold", 16),
-                bg="#ccf73b", 
-                fg="#323774",
-                anchor="center",
-                width=30,
-               command=lambda s=sepatu: self.show_ukuran_menu(s)
-        )
+            button = tk.Button(self.root,text=f"{sepatu['nama']} - Rp {sepatu['harga']:,}", font=("Segoe UI Semibold", 16),bg="#ccf73b", fg="#323774",anchor="center",width=30,command=lambda s=sepatu: self.show_ukuran_menu(s))
             button.pack (pady=5)
 
         tk.Button(self.root, text="Kembali ke Menu Utama", bg="#ccf73b", fg="#323774",command=self.show_main_menu).pack(pady=10)
@@ -253,22 +152,14 @@ class TokoSepatuApp:
 
         tk.Label(self.root, text=f"Pilih Ukuran untuk {sepatu['nama']}", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 16)).pack(pady=10)
 
-    # Menampilkan ukuran sepatu yang tersedia
         for ukuran in sepatu['ukuran']:
-            tk.Button(
-                self.root,
-                text=f"Ukuran {ukuran}",
-                font=("Segoe UI Semibold", 16),
-                bg="#ccf73b", 
-                fg="#323774",
-                command=lambda u=ukuran, s=sepatu: self.add_to_cart_with_size(s, u)
-            ).pack(pady=5)
+            tk.Button(self.root,text=f"Ukuran {ukuran}",font=("Segoe UI Semibold", 16),bg="#ccf73b", fg="#323774",command=lambda u=ukuran, s=sepatu: self.add_to_cart_with_size(s, u)).pack(pady=5)
 
         tk.Button(self.root, text="Kembali", font=("Segoe UI Semibold", 16), bg="#ccf73b", fg="#323774",command=self.show_rekomendasi).pack(pady=10)
 
     def add_to_cart_with_size(self, sepatu, ukuran):
         sepatu_terpilih = sepatu.copy()
-        sepatu_terpilih['ukuran'] = ukuran  # Menambahkan ukuran sepatu yang dipilih
+        sepatu_terpilih['ukuran'] = ukuran  
         self.keranjang.append(sepatu_terpilih)
         self.total_harga += sepatu['harga']
         messagebox.showinfo("Keranjang", f"{sepatu_terpilih['nama']} (Ukuran {ukuran}) berhasil ditambahkan ke keranjang.")
@@ -285,10 +176,9 @@ class TokoSepatuApp:
                 font=("Segoe UI Semibold", 12),
                 bg="#ccf73b",
                 fg="#323774",
-                command=lambda b=barang: self.add_to_cart(b),  # Make sure the correct 'barang' is passed
+                command=lambda b=barang: self.add_to_cart(b),  
                 width=40
             ).pack(pady=5)
-
 
         tk.Button(self.root, text="Lihat Keranjang", bg="#ccf73b", fg="#323774", command=self.show_keranjang).pack(pady=10)
         
@@ -304,69 +194,20 @@ class TokoSepatuApp:
         tk.Label(self.root, text="Keranjang Belanja", bg="#282c66", fg="#ccf73b", font=("Rockwell Extra Bold", 20, "bold")).pack(pady=10)
 
         for item in self.keranjang:
-            # Frame untuk setiap item agar tombol dan label sebaris
+    
             frame = tk.Frame(self.root, bg="#282c66")
             frame.pack(pady=5, fill=tk.X)
 
-            # Label produk
-            tk.Label(
-                frame,
-                text=f"{item['nama']} - Rp {item['harga']:,}",
-                bg="#282c66",
-                fg="#ccf73b",
-                font=("Segoe UI Semibold", 14)
-            ).pack(side=tk.LEFT, padx=10)
+            tk.Label(frame,text=f"{item['nama']} - Rp {item['harga']:,}",bg="#282c66",fg="#ccf73b",font=("Segoe UI Semibold", 14)).pack(side=tk.LEFT, padx=10)
 
-            # Tombol hapus
-            tk.Button(
-                frame,
-                text="Hapus",
-                bg="#ccf73b",
-                fg="#323774",
-            command=lambda i=item: self.hapus_item_dari_keranjang(i)
-            ).pack(side=tk.RIGHT, padx=10)
+            tk.Button(frame,text="Hapus",bg="#ccf73b",fg="#323774",command=lambda i=item: self.hapus_item_dari_keranjang(i)).pack(side=tk.RIGHT, padx=10)
 
         tk.Label(self.root, text=f"\nTotal Harga: Rp {self.total_harga:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 12)).pack(pady=10)
 
-        tk.Button(
-            self.root,
-            text="Checkout",
-            bg="#ccf73b", 
-            fg="#323774",
-            command=self.checkout,
-            padx=10,
-            pady=5
-        ).pack(pady=5)
-        
-        tk.Button(
-            self.root,
-            text="Tambah Pilihan Sepatu",
-            bg="#ccf73b", 
-            fg="#323774",
-            command=self.show_cari_sepatu_menu,
-            padx=10,
-            pady=5
-        ).pack(pady=5)
-        
-        tk.Button(
-            self.root,
-            text="Tambah Pilihan Produk",
-            bg="#ccf73b", 
-            fg="#323774",
-            command=self.show_tambah_barang,
-            padx=10,
-            pady=5
-        ).pack(pady=5)
-
-        tk.Button(
-            self.root,
-            text="Kembali ke Menu Utama",
-            bg="#ccf73b", 
-            fg="#323774",
-            command=self.show_main_menu,
-            padx=10,
-            pady=5
-        ).pack(pady=5)
+        tk.Button(self.root,text="Checkout",bg="#ccf73b", fg="#323774",command=self.checkout,padx=10,pady=5).pack(pady=5)
+        tk.Button(self.root,text="Tambah Pilihan Sepatu",bg="#ccf73b", fg="#323774",command=self.show_cari_sepatu_menu,padx=10,pady=5).pack(pady=5)
+        tk.Button(self.root,text="Tambah Pilihan Produk",bg="#ccf73b", fg="#323774",command=self.show_tambah_barang,padx=10,pady=5).pack(pady=5)
+        tk.Button(self.root,text="Kembali ke Menu Utama",bg="#ccf73b", fg="#323774",command=self.show_main_menu,padx=10,pady=5).pack(pady=5)
         
     def hapus_item_dari_keranjang(self, item):
         """Menghapus item tertentu dari keranjang."""
@@ -382,47 +223,19 @@ class TokoSepatuApp:
     def checkout(self):
         self.clear_screen()
         tk.Label(self.root, text="Checkout", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
-        tk.Label(
-            self.root,
-            text=f"Total Harga: Rp {self.total_harga:,}",
-            font=("Segoe UI Semibold", 12),
-            bg="#282c66", 
-            fg="#ccf73b",
-        ).pack(pady=10)
+        tk.Label(self.root,text=f"Total Harga: Rp {self.total_harga:,}",font=("Segoe UI Semibold", 12),bg="#282c66", fg="#ccf73b",).pack(pady=10)
         
-        tk.Label(
-            self.root,
-            text="Masukkan Alamat Pengiriman:",
-            font=("Segoe UI Semibold", 12),
-            bg="#282c66", 
-            fg="#ccf73b",
-        ).pack()
+        tk.Label(self.root,text="Masukkan Alamat Pengiriman:",font=("Segoe UI Semibold", 12),bg="#282c66", fg="#ccf73b",).pack()
         
         self.alamat_entry = tk.Entry(self.root, width=50)
         self.alamat_entry.pack(pady=5)
 
-        tk.Label(
-            self.root, 
-            text="Pilih Metode Pembayaran:", 
-            font=("Segoe UI Semibold", 12), 
-            bg="#282c66", 
-            fg="#ccf73b"
-        ).pack(pady=10)
+        tk.Label(self.root, text="Pilih Metode Pembayaran:", font=("Segoe UI Semibold", 12), bg="#282c66", fg="#ccf73b").pack(pady=10)
 
         self.metode_var = tk.StringVar(value="COD")
         metode_pembayaran = ["COD", "Virtual Account"]
         for metode in metode_pembayaran:
-            tk.Radiobutton(
-                self.root,
-                text=metode,
-                variable=self.metode_var,
-                value=metode,
-                font=("Segoe UI Semibold", 14),  
-                width=20,
-                bg="#ccf73b", 
-                fg="#323774",  
-                anchor="center"  
-            ).pack(pady=5)  
+            tk.Radiobutton(self.root,text=metode,variable=self.metode_var,value=metode,font=("Segoe UI Semibold", 14),width=20,bg="#ccf73b", fg="#323774",  anchor="center"  ).pack(pady=5)  
 
         tk.Button(self.root, text="Konfirmasi Pembayaran", bg="#ccf73b", fg="#323774", command=self.konfirmasi_pembayaran).pack(pady=10)
 
@@ -470,17 +283,7 @@ class TokoSepatuApp:
         self.bank_var = tk.StringVar(value="Mandiri")
         daftar_bank = ["Mandiri", "BNI", "BCA", "BRI"]
         for bank in daftar_bank:
-            tk.Radiobutton(
-                self.root,
-                    text=bank,
-                variable=self.bank_var,
-                value=bank,
-                font=("Segoe UI Semibold", 14),  
-                width=20,
-                bg="#ccf73b", 
-                fg="#323774",  
-                anchor="center" 
-            ).pack(pady=5)  
+            tk.Radiobutton(self.root,text=bank,variable=self.bank_var,value=bank,font=("Segoe UI Semibold", 14),width=20,bg="#ccf73b", fg="#323774",  anchor="center").pack(pady=5)  
 
         tk.Button(self.root, text="Lanjutkan", bg="#ccf73b", fg="#323774",command=self.show_va_rekening).pack(pady=10)
 
@@ -532,28 +335,6 @@ class TokoSepatuApp:
 
         tk.Button(self.root, text="Kembali", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
 
-
-    def login(self):
-        username = self.username_entry.get()
-        password = self.password_entry.get()
-
-        if username in self.akun and self.akun[username] == password:
-            self.current_user = username  # Tambahkan baris ini
-            self.show_main_menu()
-        else:
-            messagebox.showerror("Login Gagal", "Username atau password salah.")
-
-
-    def register(self):
-        username = self.new_username_entry.get()
-        password = self.new_password_entry.get()
-
-        if username in self.akun:
-            messagebox.showerror("Error", "Username sudah terdaftar.")
-        else:
-            self.akun[username] = password
-            messagebox.showinfo("Sukses", "Pendaftaran berhasil!")
-            self.show_login_screen()
 
     def clear_screen(self):
         for widget in self.root.winfo_children():
