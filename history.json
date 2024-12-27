@@ -453,6 +453,20 @@
             "metode_pembayaran": "COD",
             "tanggal": "2024-12-27",
             "alamat": "ft"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Puma Wide Runner",
+                    "harga": 1200000,
+                    "deskripsi": "Dukungan optimal untuk kecepatan",
+                    "ukuran": 42
+                }
+            ],
+            "total_harga": 1200000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "3"
         }
     ],
     "gunwonbin": [
