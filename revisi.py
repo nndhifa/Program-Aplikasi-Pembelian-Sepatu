@@ -293,6 +293,8 @@ class TokoSepatuApp:
                 font=("Segoe UI Semibold", 16),
                 bg="#ccf73b", 
                 fg="#323774",
+                anchor="center",
+                width=30,
                command=lambda s=sepatu: self.show_ukuran_menu(s)
         )
             button.pack (pady=5)
@@ -501,13 +503,13 @@ class TokoSepatuApp:
         self.save_history()
 
         self.keranjang.clear()
-        self.total_harga = 0
+        total_harga = self.total_harga
         
         if metode == "COD":
             messagebox.showinfo(
                 "Konfirmasi COD",
                     f"Terima kasih telah berbelanja.\n"
-            f"Harap siapkan uang tunai sebesar Rp {self.total_harga:,} saat paket sampai."
+            f"Harap siapkan uang tunai sebesar Rp {total_harga} saat paket sampai."
             )
             self.keranjang.clear()
             self.total_harga = 0

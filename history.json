@@ -139,6 +139,242 @@
             "metode_pembayaran": "COD",
             "tanggal": "2024-12-27",
             "alamat": "solo"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Hoka Smooth Transition",
+                    "harga": 1600000,
+                    "deskripsi": "Pijakan lembut untuk kenyamanan ekstra",
+                    "ukuran": 40
+                },
+                {
+                    "nama": "Headband",
+                    "harga": 45000
+                }
+            ],
+            "total_harga": 1200000,
+            "metode_pembayaran": "Virtual Account",
+            "tanggal": "2024-12-27",
+            "alamat": "soba"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Hoka Smooth Transition",
+                    "harga": 1600000,
+                    "deskripsi": "Pijakan lembut untuk kenyamanan ekstra",
+                    "ukuran": 40
+                },
+                {
+                    "nama": "Headband",
+                    "harga": 45000
+                }
+            ],
+            "total_harga": 1645000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "soba"
+        }
+    ],
+    "nadhifah": [
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 42
+                },
+                {
+                    "nama": "Kaos Kaki",
+                    "harga": 50000
+                }
+            ],
+            "total_harga": 1400000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 39
+                },
+                {
+                    "nama": "Botol Minum",
+                    "harga": 85000
+                }
+            ],
+            "total_harga": 1435000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 40
+                },
+                {
+                    "nama": "Lampu Lari Malam",
+                    "harga": 90000
+                }
+            ],
+            "total_harga": 1440000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "solo"
+        }
+    ],
+    "nada": [
+        {
+            "produk": [
+                {
+                    "nama": "Puma Glide Slim",
+                    "harga": 1350000,
+                    "deskripsi": "Nyaman untuk jarak menengah",
+                    "ukuran": 38
+                },
+                {
+                    "nama": "Jam Tangan Fitness",
+                    "harga": 2000000
+                }
+            ],
+            "total_harga": 3350000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "ft"
+        }
+    ],
+    "wonbin": [
+        {
+            "produk": [
+                {
+                    "nama": "Reebok Marathon Pro",
+                    "harga": 1750000,
+                    "deskripsi": "Performa tinggi untuk jarak jauh",
+                    "ukuran": 42
+                }
+            ],
+            "total_harga": 1750000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "sm"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Reebok Speed Shot",
+                    "harga": 1050000,
+                    "deskripsi": "Cocok untuk latihan interval",
+                    "ukuran": 40
+                }
+            ],
+            "total_harga": 1050000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "ft"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Under Armour Velocity",
+                    "harga": 1400000,
+                    "deskripsi": "Stabil untuk kecepatan tinggi",
+                    "ukuran": 42
+                },
+                {
+                    "nama": "Gelang Identitas Lari",
+                    "harga": 70000
+                }
+            ],
+            "total_harga": 1470000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "sm"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 39
+                },
+                {
+                    "nama": "Tas Pinggang",
+                    "harga": 120000
+                }
+            ],
+            "total_harga": 1470000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "ft"
+        }
+    ],
+    "akun": [
+        {
+            "produk": [
+                {
+                    "nama": "Nike Endurance Max",
+                    "harga": 2100000,
+                    "deskripsi": "Desain ringan dan tahan lama",
+                    "ukuran": 42
+                },
+                {
+                    "nama": "Lampu Lari Malam",
+                    "harga": 90000
+                }
+            ],
+            "total_harga": 1390000,
+            "metode_pembayaran": "Virtual Account",
+            "tanggal": "2024-12-27",
+            "alamat": "ft"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Nike Endurance Max",
+                    "harga": 2100000,
+                    "deskripsi": "Desain ringan dan tahan lama",
+                    "ukuran": 42
+                },
+                {
+                    "nama": "Lampu Lari Malam",
+                    "harga": 90000
+                }
+            ],
+            "total_harga": 2190000,
+            "metode_pembayaran": "Virtual Account",
+            "tanggal": "2024-12-27",
+            "alamat": "ft"
+        }
+    ],
+    "1": [
+        {
+            "produk": [
+                {
+                    "nama": "Adidas Dash Pro",
+                    "harga": 1350000,
+                    "deskripsi": "Responsif untuk lari cepat",
+                    "ukuran": 39
+                },
+                {
+                    "nama": "Jam Tangan Fitness",
+                    "harga": 2000000
+                }
+            ],
+            "total_harga": 3350000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "ft"
         }
     ]
 }
