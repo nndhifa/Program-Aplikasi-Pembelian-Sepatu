@@ -225,12 +225,11 @@ class TokoSepatuApp:
         
         
     def hapus_item_dari_keranjang(self, item):
-        """Menghapus item tertentu dari keranjang."""
         if item in self.keranjang:
             self.keranjang.remove(item)
             self.total_harga -= item['harga']
             messagebox.showinfo("Keranjang", f"{item['nama']} berhasil dihapus dari keranjang.")
-            self.show_keranjang()  # Refresh tampilan keranjang
+            self.show_keranjang()  
         else:
             messagebox.showerror("Error", "Item tidak ditemukan di keranjang.")
 
@@ -323,33 +322,51 @@ class TokoSepatuApp:
         self.total_harga = 0
         self.show_main_menu()
         
-        
-    def show_riwayat_pembelian(self):
-        self.clear_screen()
 
-    
-        if not self.current_user:  # Jika tidak ada pengguna yang login
+    def show_riwayat_pembelian(self):
+        self.clear_screen()  
+
+        if not self.current_user:  
             messagebox.showerror("Error", "Anda belum login.")
             self.show_login_screen()
             return
 
         tk.Label(self.root, text="Riwayat Pembelian", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 20, "bold")).pack(pady=10)
 
-        print("Riwayat untuk pengguna:", self.current_user)
-        print(self.history.get(self.current_user, "Tidak ada data"))
-    
         if self.current_user not in self.history or not self.history[self.current_user]:
             tk.Label(self.root, text="Tidak ada riwayat pembelian.", bg="#282c66", fg="#ccf73b", font=("Segoe UI Semibold", 14)).pack(pady=10)
-        else:
-            for transaksi in self.history[self.current_user]:
-                tk.Label(self.root, text=f"Tanggal: {transaksi['tanggal']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
-                tk.Label(self.root, text=f"Total Harga: Rp {transaksi['total_harga']:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
-                tk.Label(self.root, text=f"Metode Pembayaran: {transaksi['metode_pembayaran']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
-                tk.Label(self.root, text=f"Alamat: {transaksi['alamat']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
-                
-                tk.Label(self.root, text="Produk yang dibeli:", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=5)
-                for produk in transaksi.get("produk", []):  # Ambil key 'produk' dengan default []
-                    tk.Label(self.root, text=f"- {produk['nama']} (Rp {produk['harga']:,})", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+            tk.Button(self.root, text="Kembali", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
+            return
+
+        frame_canvas = tk.Frame(self.root)
+        frame_canvas.pack(fill="both", expand=True, padx=10, pady=10)
+
+        canvas = tk.Canvas(frame_canvas, bg="#282c66")
+        scrollbar = tk.Scrollbar(frame_canvas, orient="vertical", command=canvas.yview)
+        scrollable_frame = tk.Frame(canvas, bg="#282c66")
+
+        canvas.create_window((canvas.winfo_width() // 2, 0), window=scrollable_frame, anchor="n")
+        canvas.bind("<Configure>", lambda e: canvas.create_window((e.width // 2, 0), window=scrollable_frame, anchor="n"))
+
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        for transaksi in self.history[self.current_user]:
+            tk.Label(scrollable_frame, text=f"Tanggal: {transaksi['tanggal']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+            tk.Label(scrollable_frame, text=f"Total Harga: Rp {transaksi['total_harga']:,}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+            tk.Label(scrollable_frame, text=f"Metode Pembayaran: {transaksi['metode_pembayaran']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+            tk.Label(scrollable_frame, text=f"Alamat: {transaksi['alamat']}", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
+        
+            tk.Label(scrollable_frame, text="Produk yang dibeli:", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=5)
+            for produk in transaksi.get("produk", []):
+                tk.Label(scrollable_frame, text=f"- {produk['nama']} (Rp {produk['harga']:,})", bg="#282c66", fg="#ccf73b", font=("Segoe UI", 12)).pack(pady=2)
 
         tk.Button(self.root, text="Kembali", bg="#ccf73b", fg="#323774", command=self.show_main_menu).pack(pady=10)
 
