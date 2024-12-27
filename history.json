@@ -503,6 +503,24 @@
             "metode_pembayaran": "COD",
             "tanggal": "2024-12-27",
             "alamat": "a"
+        },
+        {
+            "produk": [
+                {
+                    "nama": "Puma Swift Edge",
+                    "harga": 1100000,
+                    "deskripsi": "Desain aerodinamis untuk kecepatan",
+                    "ukuran": 40
+                },
+                {
+                    "nama": "Pelindung Lutut",
+                    "harga": 100000
+                }
+            ],
+            "total_harga": 1200000,
+            "metode_pembayaran": "COD",
+            "tanggal": "2024-12-27",
+            "alamat": "a"
         }
     ],
     "dhifa": [
