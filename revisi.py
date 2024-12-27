@@ -506,7 +506,7 @@ class TokoSepatuApp:
             "produk": self.keranjang,
             "total_harga": self.total_harga,
             "metode_pembayaran": metode,
-            "tanggal": "2024-12-27",  # Ganti dengan tanggal dinamis jika diperlukan
+            "tanggal": "2024-12-27",
             "alamat": alamat
         }
 
