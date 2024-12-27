@@ -10,15 +10,15 @@ class TokoSepatuApp:
     def load_akun(self):
         """Memuat data akun dari file JSON."""
         try:
-            print("Path file akun.json:", os.path.abspath("akun.json"))
-            with open("akun.json", "r", encoding="utf-8") as file:
+            print("Path file akunfix.json:", os.path.abspath("akunfix.json"))
+            with open("akunfix.json", "r", encoding="utf-8") as file:
                 return json.load(file)
         except FileNotFoundError:
-            print("File akun.json tidak ditemukan.")
+            print("File akunfix.json tidak ditemukan.")
             return {}
         except json.JSONDecodeError:
-            print("Format file akun.json tidak valid.")
-            messagebox.showerror("Error", "Format file akun.json tidak valid.")
+            print("Format file akunfix.json tidak valid.")
+            messagebox.showerror("Error", "Format file akunfix.json tidak valid.")
             return {}
     
     
@@ -26,9 +26,9 @@ class TokoSepatuApp:
         """Menyimpan data akun ke file JSON."""
         try:
             base_dir = os.path.dirname(os.path.abspath(__file__))
-            file_path = os.path.join(base_dir, "akun.json")
+            file_path = os.path.join(base_dir, "akunfix.json")
             print(f"Menyimpan data akun ke: {file_path}")
-            with open("akun.json", "w", encoding="utf-8") as file:
+            with open("akunfix.json", "w", encoding="utf-8") as file:
                 json.dump(self.akun, file, indent=4)
             print("Data akun berhasil disimpan.")
         except Exception as e:
